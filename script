@@ -1,0 +1,79 @@
+#!/bin/bash
+multichain-cli aish1 createrawsendfrom "1RPi39qJyuYKGVNsL81aHBf1Wvmh1PgVM2rrn8" '{}' '[{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39",
+    "data":{"json":{
+  "address": {
+    "add_hno": "Marigold-125",
+    "add_street": "IAF main road",
+    "add_city": "Bangalore",
+    "add_pin": "560013",
+    "add_state": "Karnataka"
+  },
+        "meta":{"identity":"address", "verifier":"aadhar"}
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"number", "verifier":"aadhar"},
+        "number": 509127043618
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"dob", "verifier":"aadhar"},
+        "dob": "15-02-1998"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"name", "verifier":"aadhar"},
+        "name": "Rishav Patil"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"gender", "verifier":"aadhar"},
+        "gender": "Male"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"father_name", "verifier":"aadhar"},
+        "father_name": "Akhil Patil"
+      }}}]' send
+
+
+multichain-cli aish1 createrawsendfrom "1RPi39qJyuYKGVNsL81aHBf1Wvmh1PgVM2rrn8" '{}' '[{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39",
+    "data":{"json":{
+  "address": {
+    "add_hno": "Marigold-125",
+    "add_street": "IAF main road",
+    "add_city": "Bangalore",
+    "add_pin": "560013",
+    "add_state": "Karnataka"
+  },
+        "meta":{"identity":"address", "verifier":"passport"}
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"number", "verifier":"passport"},
+        "number": "M1320965"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"dob", "verifier":"passport"},
+        "dob": "15-02-1998"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"name", "verifier":"passport"},
+        "name": "Rishav Patil"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"gender", "verifier":"passport"},
+        "gender": "Male"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"country_code", "verifier":"passport"},
+        "country_code": "IND"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"mother_name", "verifier":"passport"},
+        "mother_name": "Ananya Patil"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"Type", "verifier":"passport"},
+        "name": "P"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"place_issue", "verifier":"passport"},
+        "place_issue": "Hyderabad"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"date", "verifier":"passport"},
+        "date": {"date_of_issue":"20-08-2014",
+              "date_of_expiry":"19-08-2024"}
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"pob", "verifier":"passport"},
+        "pob": {"pob_city":"Hyderabad",
+              "pob_state": "Telangana"
+            }
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+        "meta":{"identity":"nationality", "verifier":"passport"},
+        "nationality": "Indian"
+      }}},{"for":"test12","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{"json":{
+                "meta":{"identity":"verified_by", "verifier":"passport"},
+                "verified_by": "aadhar"
+      }}}]' send

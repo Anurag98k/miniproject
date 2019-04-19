@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/semantic.min.css">
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+<!--<script src="jquery-3.1.1.min.js"></script>-->
+<script src="Semantic-UI-CSS-master/semantic.min.js"></script>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script>
+    $( document ).ready(function() {
+        $('.ui.sidebar')
+            .sidebar('toggle')
+        ;
+        $('select.dropdown').dropdown();
+        $('.ui.dropdown')
+            .dropdown()
+        ;
+        $('#event_type')
+            .dropdown({
+                onChange: function(value, text, $selectedItem) {
+                    // custom action
+                    let event_views=["birth","id"];
+                    for (let i=0; i<event_views.length; i++){
+                        if(event_views[i]===value){
+                            $("#"+value).css("display","block")
+                        }
+                        else {
+                            $("#"+event_views[i]).css("display","none")
+                        }
+                    }
+                }
+            });
+        $('input[type="file"]').change(function(e){
+            const fileName = e.target.files[0].name;
+            // alert('The file "' + fileName +  '" has been selected.');
+            // console.log(e.target.files  )
+            document.getElementById("attach_file").innerHTML="<h5 class='ui header' style='margin-left: 20%; margin-top: -4.6%'>" +fileName+ " <br> size: "+event.target.files[0].size/1000 +" kb"+"</h5>";
+        });
+    });
+    sendForm=function () {
+        // alert($('#id_type').dropdown('get value'));
+        var formData = JSON.stringify($("#myForm").serializeArray());
+        formData=JSON.parse(formData);
+        console.log(formData);
+        $.ajax({
+            url: "http://3.86.46.74:3000/users/addcredentials",
+            type: "POST",
+            // dataType: "json",
+            crossDomain: true,
+            data: JSON.stringify(formData),
+            success: function (response) {
+                console.log(response)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {alert(errorThrown);}
+
+        })
+    };
+    // foo=function (e) {
+    //     document.getElementById('attach_file').innerHTML='ddd';
+    //     console.log(e);
+    // };
+
+</script>
+<body style="background-color: ghostwhite;">
+<div class="ui segment" style="margin-top: 6%;margin-left: 20%; margin-right: 20%">
+    <h3 class="ui header">Register Life Events Portal</h3>
+    <form class="ui form" method="post" action="http://localhost:3001/multisig/idf" id="myForm">
+
+        <div class="disabled field">
+            <label style="opacity: 1">Public Key</label>
+            <input type="text"  tabindex="-1" name="pubkey" value="038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39">
+        </div>
+        <div class="ui ignored info message">
+            Enter the relevant details of the event and submit for verification. Your entry will be added after verification is completed.
+        </div>
+        <span ><b>Event Type</b></span>
+        <div class="ui fluid search selection dropdown" id="event_type">
+            <input type="hidden" name="event_type" >
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Event</div>
+            <div class="menu">
+                <div class="item" data-value="birth">Birth</div>
+                <div class="item" data-value="id">ID Attainment</div>
+                <div class="item" data-value="a2">Education</div>
+                <div class="item" data-value="a3">Employment</div>
+                <div class="item" data-value="a4">Marriage</div>
+                <div class="item" data-value="a5">Death</div>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <br>
+
+        <div id="birth" class="field" style="display: none">
+            <h4 class="ui header">Enter Birth Event Details:</h4>
+            <div class="two fields">
+                <div class="field required dob_card">
+                    <label  style="font-size: inherit">Registration no</label>
+                    <input type="text" name="birth_reg_no" placeholder="129762" id="birth_reg_no">
+                </div>
+                <div class="field required dob_card">
+                    <label  style="font-size: inherit">Date of birth</label>
+                    <input type="text" name="birth_dob" placeholder="dd-mm-yyyy" id="birth_dob">
+                </div>
+            </div>
+            <div class="two fields">
+                <div class="field required dob_card">
+                    <label  style="font-size: inherit">Father's Name</label>
+                    <input type="text" name="birth_fn" placeholder="Ajay" id="birth_fn">
+                </div>
+                <div class="field required dob_card">
+                    <label  style="font-size: inherit">Mother's Name</label>
+                    <input type="text" name="birth_mn" placeholder="Sunita" id="birth_mn">
+                </div>
+            </div>
+            <div class="field required address_street_card">
+                <label style="font-size: inherit">Place of birth(With Hospital Name)</label>
+                <textarea rows="2" name="birth_area"></textarea>
+            </div>
+            <div>
+                <label for="file" class="ui icon button">
+                    <i class="file icon"></i>
+                    Attach Artifact</label>
+                <input type="file" id="file" style="display:none"  name="file">
+                <label id="attach_file"></label>
+            </div>
+        </div>
+        <div id="id" class="field" style="display: none">
+            <h4 class="ui header">Enter Government ID Details:</h4>
+            <label ><b>Event Type</b></label>
+                <div class="ui fluid search selection dropdown  " style="width: 50%" id="id_type">
+                    <input type="hidden" name="id">
+                    <i class="dropdown icon"></i>
+                    <div class="default text">Select Event</div>
+                    <div class="menu">
+                        <div class="item" data-value="Aadhar">Aadhar</div>
+                        <div class="item" data-value="Passport">Passport</div>
+                        <div class="item" data-value="Pan">Pan</div>
+                        <div class="item" data-value="Voter ID">Voter ID</div>
+                        <div class="item" data-value="Dl">Driver's License</div>
+                    </div>
+                </div>
+                <br>
+                <div class="field required dob_card" style="width: 50%">
+                    <label  style="font-size: inherit">Registration no</label>
+                    <input type="text" name="id_no" placeholder="Aadhar/Passport number" id="id_no">
+                </div>
+        </div>
+
+
+    </form>
+    <button class="ui button blue" id="sumbit_idf" onclick="sendForm()" style="margin-top: 3%">Submit</button>
+
+</div>
+</body>
+</html>

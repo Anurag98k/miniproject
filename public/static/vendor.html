@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head><title>1</title>
+    <link rel="stylesheet" href="/static/Semantic-UI-CSS-master/semantic.min.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="/static/Semantic-UI-CSS-master/semantic.min.js"></script>
+    <script>$(document).ready(function () {
+        $('.ui.dropdown').dropdown();
+
+
+    });
+    function processReq(bool) {
+        if(bool){
+            $('#IDFdetails').css("display", "block");
+        }
+        else {
+            $('#serviceReq').remove();
+            $('#IDFdetails').remove();
+
+        }
+    }
+    function sendIDF() {
+        let IDFfields= $('#IDFfields').dropdown('get value');
+        $('#IDFsendbutton').html("Sent");
+        $('#IDFsendbutton').addClass("disabled");
+
+        $.ajax({
+            url: "http://localhost:3001/idf/test?key="+IDFfields,
+            type: "GET",
+            // dataType: "json",
+            crossDomain: true,
+            success: function (response) {
+                console.log(response);
+            },
+            error: function(jqXHR, textStatus, errorThrown) {alert(errorThrown);}
+
+        })
+
+    }
+    </script>
+</head>
+<body>
+<style type="text/css">body {
+    background-color: #FFFFFF;
+}
+
+.ui.menu .item img.logo {
+    margin-right: 1.5em;
+}
+
+.main.container {
+    margin-top: 7em;
+}
+
+.wireframe {
+    margin-top: 2em;
+}
+
+.ui.footer.segment {
+    margin: 5em 0em 0em;
+    padding: 5em 0em;
+}</style>
+<div class="ui fixed inverted menu">
+    <div class="ui container"><a class="header item" href="#"><img class="logo" src="assets/images/logo.png"> Project
+        Name</a><a class="item" href="#">Home</a>
+        <div class="ui simple dropdown item">Dropdown<i class="dropdown icon"></i>
+            <div class="menu"><a class="item" href="#">Link Item</a><a class="item" href="#">Link Item</a>
+                <div class="divider"></div>
+                <div class="header">Header Item</div>
+                <div class="item"><i class="dropdown icon"></i> Sub Menu
+                    <div class="menu"><a class="item" href="#">Link Item</a><a class="item" href="#">Link Item</a></div>
+                </div>
+                <a class="item" href="#">Link Item</a></div>
+        </div>
+    </div>
+</div>
+<div class="ui main text container"><h1 class="ui header">Client requets come here</h1>
+    <p>Lorem ipsum faucibus sed suspendisse libero inceptos curabitur ultricies massa maecenas, enim elit arcu nec felis
+        litora mollis faucibus donec, ut malesuada tempor dolor quisque aenean bibendum vivamus molestie.
+
+        Vivamus massa eget pretium turpis aliquam netus viverra, volutpat metus id sem senectus arcu quis inceptos,
+        maecenas aliquam quis quisque in etiam suscipit vestibulum libero non ullamcorper molestie consectetur nisl
+        neque justo porttitor nullam viverra.
+
+        Vel adipiscing a vestibulum enim aptent curabitur vivamus hendrerit, faucibus class nisi pharetra consequat at
+        adipiscing dictum, nullam fusce suspendisse enim posuere accumsan sit leo justo curabitur aliquam non litora
+        cubilia mi, adipiscing metus morbi diam aliquet adipiscing, odio hendrerit dolor rhoncus justo suscipit
+        consequat vitae massa metus mauris sed mi ut potenti lacinia donec.
+
+        Cras gravida conubia tellus non phasellus maecenas mattis per semper condimentum dictum, libero tincidunt non
+        placerat metus eu taciti egestas libero praesent volutpat, velit quisque congue mollis habitant laoreet tempus
+        tellus inceptos fermentum amet feugiat morbi at ad aptent lacus curae sit proin, blandit magna accumsan sodales
+        scelerisque consequat varius elit.
+
+        Urna lacus elementum eu placerat pulvinar at aenean vel dui, sit donec metus porta class vehicula erat porta
+        nam, netus dolor ante morbi netus sem eu bibendum.</p>
+    <div>
+        <div class="ui fluid raised card" id="serviceReq">
+            <div class="content">
+                <div class="header">New Sim Card</div>
+                <div class="meta">Service Request</div>
+                <div class="description">
+                    <p><b>Public Key:</b> 038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39<br></p>
+                    <p>The above user has requested for a new sim card</p>
+                </div>
+            </div>
+            <div class="extra content">
+                <div class="ui two buttons">
+                    <div class="ui basic green button" onclick="processReq(1)">Approve</div>
+                    <div class="ui basic red button" onclick="processReq(0)">Decline</div>
+                </div>
+            </div>
+        </div>
+        <div id="IDFdetails" style="display: none; margin-top: 5%">
+            <hr>
+            <h3 class="ui header" align="center"> Create IDF</h3>
+            <div class="ui info message" align="centre">
+                Select the necessary authenticating fields for the user in Identity Form
+            </div>
+            <select class="ui fluid search dropdown" multiple="" id="IDFfields">
+                <option value="">IDF fields</option>
+                <option value="IDFname">Name</option>
+                <option value="IDFaddress">Address</option>
+                <option value="age">Age Proof</option>
+                <option value="IDFpob">Birth Proof</option>
+                <option value="pay">Pay slip</option>
+                <option value="marriage">Marriage certificate</option>
+                <option value="edu">Highest Education</option>
+                <option value="death">Death Details</option>
+            </select>
+            <button class="ui button" onclick="sendIDF()" id="IDFsendbutton" style="float: right; margin-top: 2%">Send Form</button>
+        </div>
+    </div>
+</div>
+<div class="ui inverted vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        <div class="ui horizontal inverted small divided link list"><a class="item" href="#">Site Map</a><a class="item"
+                                                                                                            href="#">Contact
+            Us</a><a class="item" href="#">Terms and Conditions</a><a class="item" href="#">Privacy Policy</a></div>
+    </div>
+</div>
+</body>
+</html>
