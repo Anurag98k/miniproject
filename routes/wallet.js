@@ -70,13 +70,11 @@ router.get('/multichain/init', (req,res,next) => {
 
 // multichaind start
 router.get('/multichain/start', (req,res,next) => {
-  var cmd = 'START /B multichaind aish1 -daemon > multichain_start.txt';
+  var cmd = 'START /B multichaind aish1 -daemon';
   exec(cmd, (err, stdout, stderr) => {
     if (err) {
       // node couldn't execute the command
       console.log(err);
-      res.send({result:'failed'});
-      res.end()
       return;
     }
     console.log(`stdout: ${stdout}`);
@@ -128,12 +126,12 @@ router.post('/multichain/restore', (req,res,next) => {
        });
       console.log('Got Wallet');
        var cmd_move_wallet;
-       if(os.platform() == 'win32'){cmd_move_wallet = 'MOVE /Y '+path.join(__dirname,'wallet.dat')+' '+path.join(os.homedir(),'AppData','Roaming','Multichain','aish1','wallet.dat')}
+       if(os.platform() == 'win32'){cmd_move_wallet = 'MOVE /Y "'+path.join(__dirname,'wallet.dat')+'" "'+path.join(os.homedir(),'AppData','Roaming','Multichain','aish1','wallet.dat')+'"'}
        if(os.platform() == 'linux'){cmd_move_wallet = 'cp '+path.join(__dirname,'wallet.dat')+' '+path.join(os.homedir(),'.multichain','aish1','wallet.dat')}
        exec(cmd_move_wallet, (err, stdout, stderr) => {
          if (err) console.log(err);
          var cmd_delete_wallet;
-         if(os.platform() == 'win32'){cmd_delete_wallet = 'del '+path.join(__dirname,'wallet.dat');}
+         if(os.platform() == 'win32'){cmd_delete_wallet = 'del "'+path.join(__dirname,'wallet.dat')+'"';}
          if(os.platform() == 'linux'){cmd_delete_wallet = 'rm '+path.join(__dirname,'wallet.dat');}
          exec(cmd_delete_wallet, (err,stdout,stderr) => {
            if(err) console.log(err);

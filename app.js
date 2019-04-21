@@ -270,7 +270,7 @@ app.set('port', process.env.PORT || 3001);
 
 var server = app.listen(app.get('port'), function () {
     debug('Express server listening on port ' + server.address().port);
-    open('http://127.0.0.1:'+server.address().port+'/');
+    open('http://localhost:'+server.address().port+'/');
 });
 
 

@@ -2,8 +2,8 @@ Retrieving blockchain parameters from the seed node 3.83.141.28:4769 ...
 Blockchain successfully initialized.
 
 Please ask blockchain admin or user having activate permission to let you connect and/or transact:
-multichain-cli aish1 grant 116tEHyoCYJHaND9mJ11mDF5GJFCx8xjnrAmGJ connect
-multichain-cli aish1 grant 116tEHyoCYJHaND9mJ11mDF5GJFCx8xjnrAmGJ connect,send,receive
+multichain-cli aish1 grant 1E39js9nukmvx9v1VRptgG4aJwQth585jdZ2Pf connect
+multichain-cli aish1 grant 1E39js9nukmvx9v1VRptgG4aJwQth585jdZ2Pf connect,send,receive
 
 
 MultiChain 2.0 beta 2 Daemon (latest protocol 20007)
