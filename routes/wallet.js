@@ -3,26 +3,26 @@ var express = require('express');
 var router = express.Router();
 const http = require('http');
 const url = require('url');
-const open = require('open');
+// const open = require('open');
 const path = require('path');
 const fs = require('fs');
-const bcrypt = require('bcrypt');
+// const bcrypt = require('bcrypt');
 const bodyparser = require('body-parser');
-const session = require('express-session');
-const multer = require('multer');
+// const session = require('express-session');
+// const multer = require('multer');
 const request = require('request');
 const os = require('os');
 
 
 
 //Variables
-const rpcVar = {}
+const rpcVar = {};
 var walletServer = 'http://ec2-3-83-141-28.compute-1.amazonaws.com:3001'
-const ipNear = '3.83.141.28::4769'
+const ipNear = '3.83.141.28:4769'
 
 
 function GetRPC() {
-  var rpcPath
+  var rpcPath;
 
   if(os.platform() == 'win32'){rpcPath = path.join(os.homedir(),'AppData','Roaming','Multichain','aish1','multichain.conf');}
   if(os.platform() == 'linux'){rpcPath = path.join(os.homedir(),'.multichain','aish1','multichain.conf');}
@@ -30,13 +30,14 @@ function GetRPC() {
   var array = fs.readFileSync(rpcPath).toString().split("\n");
   for(i in array) {
       tp = array[i].split('=');
-      rpcVar.tp[0] = tp[1];
+      console.log(tp[0]);
+    rpcVar[tp[0]] = tp[1];
   }
 
 }
 
 
-GetRPC();
+//GetRPC();
 let multichain = require("multichain-node")({
   port: 4768,
   host: '127.0.0.1',
@@ -48,11 +49,12 @@ let multichain = require("multichain-node")({
 
 // Init the Multichain, with IP address call
 router.get('/multichain/init', (req,res,next) => {
-    var cmd = 'multichaind aish1@'+ipNear+' -daemon'
+    var cmd = 'multichaind aish1@'+ipNear+' -daemon > multichain_init.txt';
     exec(cmd, (err, stdout, stderr) => {
       if (err) {
         // node couldn't execute the command
         console.log("exec_error");
+        console.log(err);
         res.send({result:'failed'});
         res.end()
         return;
@@ -68,11 +70,11 @@ router.get('/multichain/init', (req,res,next) => {
 
 // multichaind start
 router.get('/multichain/start', (req,res,next) => {
-  var cmd = 'multichaind aish1 -daemon';
+  var cmd = 'START /B multichaind aish1 -daemon > multichain_start.txt';
   exec(cmd, (err, stdout, stderr) => {
     if (err) {
       // node couldn't execute the command
-      console.log("exec_error");
+      console.log(err);
       res.send({result:'failed'});
       res.end()
       return;
@@ -80,10 +82,10 @@ router.get('/multichain/start', (req,res,next) => {
     console.log(`stdout: ${stdout}`);
     console.log(`stderr: ${stderr}`);
     console.log('Done');
-    res.send({result:'done'});
-    res.end();
-  });
 
+  });
+  res.send({result:'done'});
+  res.end();
 });
 
 //multichain stop
@@ -118,19 +120,25 @@ router.post('/multichain/restore', (req,res,next) => {
       json:{token:authToken}
   };
   request.post(requestSettings, function (error, response, body) {
+    console.log('Got response from wallet');
     if (!error && response.statusCode == 200){
+      //console.log(body)
       fs.writeFileSync(path.join(__dirname,"wallet.dat"), body, "binary", function(err, data) {
          if (err) console.log(err);
        });
+      console.log('Got Wallet');
        var cmd_move_wallet;
        if(os.platform() == 'win32'){cmd_move_wallet = 'MOVE /Y '+path.join(__dirname,'wallet.dat')+' '+path.join(os.homedir(),'AppData','Roaming','Multichain','aish1','wallet.dat')}
        if(os.platform() == 'linux'){cmd_move_wallet = 'cp '+path.join(__dirname,'wallet.dat')+' '+path.join(os.homedir(),'.multichain','aish1','wallet.dat')}
        exec(cmd_move_wallet, (err, stdout, stderr) => {
          if (err) console.log(err);
+         var cmd_delete_wallet;
          if(os.platform() == 'win32'){cmd_delete_wallet = 'del '+path.join(__dirname,'wallet.dat');}
          if(os.platform() == 'linux'){cmd_delete_wallet = 'rm '+path.join(__dirname,'wallet.dat');}
          exec(cmd_delete_wallet, (err,stdout,stderr) => {
-           res.write({status:'done',next:'wallet/multichain/start'});
+           if(err) console.log(err);
+           console.log('DONE');
+           res.send({status:'done',next:'wallet/multichain/start'});
            res.end();
          });
        });
@@ -144,7 +152,7 @@ router.post('/multichain/restore', (req,res,next) => {
 router.post('/multichain/backup', (req,res,next) => {
   var authToken = req.body.token;
   console.log('Entered Backup Node');
-  var cmd_stop = 'multichain-cli aish1 stop'
+  var cmd_stop = 'multichain-cli aish1 stop';
   exec(cmd_stop, (err, stdout, stderr) => {
     if (err) {
       // node couldn't execute the command
@@ -176,7 +184,8 @@ router.post('/multichain/backup', (req,res,next) => {
             console.log('Successful wallet backup');
             //Step 3 -start multichain server again.
 
-            cmd_start = 'multichaind aish1 -daemon';
+            let cmd_start = 'START /B multichaind aish1 -daemon > multichain_start.txt';
+            console.log('HERE');
             exec(cmd_start, (err, stdout, stderr) => {
               if (err) {
                 // node couldn't execute the command
@@ -186,9 +195,10 @@ router.post('/multichain/backup', (req,res,next) => {
               console.log(`stdout: ${stdout}`);
               console.log(`stderr: ${stderr}`);
               console.log('Done');
-              res.send({result:`${stdout}`});
-              res.end();
+
             });
+            res.send({result:'done'});
+            res.end();
           }
           else{
             //start multichain server

@@ -1,192 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="9c4feb6f-0041-4669-b03a-ecd05c459d31" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/.versions" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/accordion.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/accordion.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/accordion.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/accordion.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/ad.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/ad.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/api.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/api.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/breadcrumb.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/breadcrumb.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/button.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/button.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/card.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/card.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/checkbox.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/checkbox.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/checkbox.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/checkbox.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/colorize.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/colorize.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/comment.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/comment.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/container.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/container.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/dimmer.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/dimmer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/dimmer.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/dimmer.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/divider.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/divider.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/dropdown.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/dropdown.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/dropdown.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/dropdown.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/embed.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/embed.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/embed.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/embed.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/feed.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/feed.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/flag.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/flag.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/form.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/form.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/form.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/form.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/grid.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/grid.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/header.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/header.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/icon.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/icon.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/image.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/image.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/input.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/input.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/item.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/item.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/label.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/label.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/list.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/list.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/loader.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/loader.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/menu.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/menu.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/message.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/message.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/modal.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/modal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/modal.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/modal.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/nag.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/nag.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/nag.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/nag.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/placeholder.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/placeholder.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/popup.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/popup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/popup.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/popup.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/progress.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/progress.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/progress.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/progress.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/rail.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/rail.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/rating.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/rating.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/rating.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/rating.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/reset.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/reset.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/reveal.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/reveal.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/search.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/search.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/search.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/search.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/segment.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/segment.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/shape.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/shape.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/shape.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/shape.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/sidebar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/sidebar.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/sidebar.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/sidebar.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/site.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/site.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/site.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/site.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/state.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/state.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/statistic.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/statistic.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/step.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/step.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/sticky.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/sticky.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/sticky.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/sticky.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/tab.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/tab.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/tab.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/tab.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/table.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/table.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/transition.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/transition.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/transition.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/transition.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/video.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/video.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/video.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/video.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/visibility.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/visibility.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/visit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/components/visit.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/package.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/semantic.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/semantic.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/semantic.min.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/semantic.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/brand-icons.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/brand-icons.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/brand-icons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/brand-icons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/brand-icons.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/icons.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/icons.otf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/icons.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/icons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/icons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/icons.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/outline-icons.eot" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/outline-icons.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/outline-icons.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/outline-icons.woff" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/fonts/outline-icons.woff2" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/Semantic-UI-CSS-master/themes/default/assets/images/flags.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/identityForm.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/jquery-3.1.1.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/main.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/test.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/static/vendor.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/routes/idf.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/views/test.pug" afterDir="false" />
+    <list default="true" id="110b5566-5234-4f5d-9942-d2cd5d09bc8f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/static/homepage.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/static/view.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Blockchain.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Blockchain.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/bin_www.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/watcherTasks.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/users.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/multisig.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/identityForm.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/identityForm.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/main.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/main.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/test.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/test.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/static/vendor.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/static/vendor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/wallet.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/wallet.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/layout.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/layout.pug" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/test.pug" beforeDir="false" afterPath="$PROJECT_DIR$/views/test.pug" afterDir="false" />
     </list>
+    <ignored path="$PROJECT_DIR$/node_modules/" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -199,76 +31,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/idf.js">
+        <entry file="file://$PROJECT_DIR$/routes/wallet.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="552">
-              <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="376">
-              <caret line="266" column="21" lean-forward="true" selection-start-line="266" selection-start-column="21" selection-end-line="266" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="207">
-              <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/error.pug">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/test.pug">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1449">
-              <caret line="63" column="24" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/static/vendor.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2875">
-              <caret line="125" column="37" selection-start-line="125" selection-start-column="37" selection-end-line="125" selection-end-column="37" />
-              <folding>
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/static/main.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1380">
-              <caret line="60" column="10" selection-start-line="49" selection-start-column="7" selection-end-line="60" selection-end-column="10" />
-              <folding>
-                <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#input#0;n#div#3;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#4;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#4;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#4;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#1;n#div#4;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
+            <state relative-caret-position="3197">
+              <caret line="139" column="31" selection-start-line="139" selection-start-column="31" selection-end-line="139" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -276,114 +42,76 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/static/identityForm.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8188">
-              <caret line="356" column="54" selection-start-line="356" selection-start-column="50" selection-end-line="356" selection-end-column="54" />
+            <state relative-caret-position="5451">
+              <caret line="281" column="18" selection-start-line="281" selection-start-column="18" selection-end-line="281" selection-end-column="18" />
               <folding>
-                <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#1;n#div#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#3;n#div#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#4;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/public/static/test.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1235">
-              <caret line="439" column="17" selection-start-line="439" selection-start-column="17" selection-end-line="439" selection-end-column="17" />
-              <folding>
-                <element signature="n#script#2;n#html#0;n#!!top" />
-                <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-                <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#3;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#4;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#5;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#6;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#7;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#8;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#9;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#10;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#label#0;n#div#3;n#div#0;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#button#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#1;n#html#0;n#!!top" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/layout.pug">
+        <entry file="file://$PROJECT_DIR$/public/static/test.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="460">
-              <caret line="20" column="17" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="17" />
+            <state relative-caret-position="222">
+              <caret line="506" column="26" lean-forward="true" selection-start-line="503" selection-start-column="20" selection-end-line="506" selection-end-column="26" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/static/main.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="241" column="71" lean-forward="true" selection-start-line="241" selection-start-column="71" selection-end-line="241" selection-end-column="71" />
+              <folding>
+                <element signature="n#style#0;n#h5#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#div#3;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#3;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#4;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#div#4;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
+                <element signature="n#style#0;n#div#0;n#div#4;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#4;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#div#1;n#div#4;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#6;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/static/view.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="171">
+              <caret line="206" column="2" selection-start-line="206" selection-start-column="2" selection-end-line="208" selection-end-column="66" />
+              <folding>
+                <element signature="n#template#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/static/homepage.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="851">
+              <caret line="81" column="62" selection-start-line="81" selection-start-column="62" selection-end-line="81" selection-end-column="62" />
+              <folding>
+                <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Pug File" />
-        <option value="JavaScript File" />
-        <option value="HTML File" />
-      </list>
-    </option>
-  </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ui</find>
-      <find>drop</find>
-      <find>pos</find>
-      <find>area</find>
-      <find>buttom</find>
-      <find>mess</find>
-      <find>su</find>
-      <find>id_type</find>
-      <find>file</find>
-      <find>attach_file</find>
-      <find>dob</find>
-      <find>send</find>
-      <find>users</find>
-      <find>static</find>
-      <find>sendReq</find>
-      <find>sen</find>
-      <find>process</find>
-      <find>IDFdetails</find>
-      <find>processReq</find>
-      <find>serviceReq</find>
-      <find>full</find>
-      <find>address_card_flip</find>
-      <find>name</find>
-      <find>IDFfields</find>
-      <find>IDFaddress</find>
-      <find>IDF</find>
-      <find>test15</find>
-      <find>test16</find>
-      <find>test17</find>
-      <find>class=&quot;IDF</find>
+      <find>emp</find>
     </findStrings>
-    <dirStrings>
-      <dir>C:\Users\akutuluru\WebstormProjects\Blockchain\views</dir>
-    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -391,19 +119,12 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/public/static/jquery-3.1.1.min.js" />
-        <option value="$PROJECT_DIR$/script" />
-        <option value="$PROJECT_DIR$/public/static/main.html" />
-        <option value="$PROJECT_DIR$/routes/multisig.js" />
-        <option value="$PROJECT_DIR$/routes/test.js" />
-        <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/routes/wallet.js" />
         <option value="$PROJECT_DIR$/public/static/identityForm.html" />
-        <option value="$PROJECT_DIR$/routes/idf.js" />
-        <option value="$PROJECT_DIR$/public/static/vendor.html" />
-        <option value="$PROJECT_DIR$/views/layout.pug" />
-        <option value="$PROJECT_DIR$/views/test.pug" />
-        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/public/static/view.html" />
+        <option value="$PROJECT_DIR$/public/static/homepage.html" />
         <option value="$PROJECT_DIR$/public/static/test.html" />
+        <option value="$PROJECT_DIR$/public/static/main.html" />
       </list>
     </option>
   </component>
@@ -419,7 +140,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -427,29 +147,37 @@
               <item name="Blockchain" type="b2602c69:ProjectViewProjectNode" />
               <item name="Blockchain" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Blockchain" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Blockchain" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Blockchain" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Blockchain" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="static" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Blockchain" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Blockchain" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="full.screen.before.presentation.mode" value="false" />
-    <property name="javascript.nodejs.core.library.configured.version" value="8.15.0" />
-    <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="watcher.settings" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\akutuluru\WebstormProjects\Blockchain\public\static" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\akutuluru\WebstormProjects\Blockchain\public\stylesheets" />
+      <recent name="C:\Users\akutuluru\WebstormProjects\Blockchain\public\static" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -464,477 +192,120 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JavaScript Debug.identityForm.html">
-    <configuration name="identityForm.html" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/Blockchain/public/static/identityForm.html" useBuiltInWebServerPort="true">
-      <method v="2" />
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JavaScript Debug.identityForm.html" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9c4feb6f-0041-4669-b03a-ecd05c459d31" name="Default Changelist" comment="" />
-      <created>1551458094858</created>
+      <changelist id="110b5566-5234-4f5d-9942-d2cd5d09bc8f" name="Default Changelist" comment="" />
+      <created>1555741883959</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1551458094858</updated>
-      <workItem from="1551458104266" duration="1755000" />
-      <workItem from="1551459883513" duration="1240000" />
-      <workItem from="1551720837614" duration="1819000" />
-      <workItem from="1551722805805" duration="1972000" />
-      <workItem from="1551724804942" duration="1691000" />
-      <workItem from="1551768033259" duration="1827000" />
-      <workItem from="1551769885448" duration="1790000" />
-      <workItem from="1551771702214" duration="777000" />
-      <workItem from="1551777859570" duration="1830000" />
-      <workItem from="1551780389663" duration="1447000" />
-      <workItem from="1551802428765" duration="2117000" />
-      <workItem from="1551804637574" duration="1693000" />
-      <workItem from="1551806450466" duration="1465000" />
-      <workItem from="1551808365179" duration="1820000" />
-      <workItem from="1551810540525" duration="1761000" />
-      <workItem from="1551812405467" duration="1123000" />
-      <workItem from="1551865984997" duration="1787000" />
-      <workItem from="1551870651654" duration="969000" />
-      <workItem from="1551874738029" duration="1795000" />
-      <workItem from="1551876655141" duration="1638000" />
-      <workItem from="1551878473671" duration="940000" />
-      <workItem from="1551893970104" duration="1408000" />
-      <workItem from="1551895941774" duration="924000" />
-      <workItem from="1551899718346" duration="1054000" />
-      <workItem from="1551939149346" duration="1799000" />
-      <workItem from="1551941037293" duration="810000" />
-      <workItem from="1551956802384" duration="984000" />
-      <workItem from="1551962439181" duration="621000" />
-      <workItem from="1552132485686" duration="1078000" />
-      <workItem from="1552135475836" duration="1828000" />
-      <workItem from="1552137333742" duration="1784000" />
-      <workItem from="1552139151063" duration="1972000" />
-      <workItem from="1552141252919" duration="1766000" />
-      <workItem from="1552143148758" duration="1790000" />
-      <workItem from="1552144968276" duration="987000" />
-      <workItem from="1552147420573" duration="1403000" />
-      <workItem from="1552150108171" duration="1794000" />
-      <workItem from="1552151927653" duration="1650000" />
-      <workItem from="1552153760855" duration="885000" />
-      <workItem from="1552156351703" duration="875000" />
-      <workItem from="1552159891199" duration="2183000" />
-      <workItem from="1552193321009" duration="1391000" />
-      <workItem from="1552198431692" duration="1081000" />
-      <workItem from="1552200331650" duration="1588000" />
-      <workItem from="1552202827206" duration="1307000" />
-      <workItem from="1552209486300" duration="1169000" />
-      <workItem from="1552212754099" duration="599000" />
-      <workItem from="1552214810241" duration="1848000" />
-      <workItem from="1552216766898" duration="1786000" />
-      <workItem from="1552219671348" duration="346000" />
-      <workItem from="1552296422666" duration="1371000" />
-      <workItem from="1552323067538" duration="1358000" />
-      <workItem from="1552324890991" duration="879000" />
-      <workItem from="1552326750811" duration="2020000" />
-      <workItem from="1552328804229" duration="822000" />
-      <workItem from="1552331377135" duration="1781000" />
-      <workItem from="1552333187468" duration="1812000" />
-      <workItem from="1552335603533" duration="1843000" />
-      <workItem from="1552405663441" duration="1315000" />
-      <workItem from="1552410221742" duration="2925000" />
-      <workItem from="1552415696008" duration="666000" />
-      <workItem from="1552419582593" duration="1812000" />
-      <workItem from="1552421422486" duration="1791000" />
-      <workItem from="1552423250456" duration="1786000" />
-      <workItem from="1552425062989" duration="944000" />
-      <workItem from="1552455484135" duration="51000" />
-      <workItem from="1552568109452" duration="1549000" />
-      <workItem from="1552569911799" duration="1789000" />
-      <workItem from="1552571727304" duration="997000" />
-      <workItem from="1552581788898" duration="1283000" />
-      <workItem from="1552623518131" duration="599000" />
-      <workItem from="1552629833851" duration="2053000" />
-      <workItem from="1552631919867" duration="1951000" />
-      <workItem from="1552633960573" duration="1952000" />
-      <workItem from="1552641909167" duration="1864000" />
-      <workItem from="1552643807756" duration="1624000" />
-      <workItem from="1552645760721" duration="1837000" />
-      <workItem from="1552647621067" duration="706000" />
-      <workItem from="1552663291333" duration="1268000" />
-      <workItem from="1552665103638" duration="1659000" />
-      <workItem from="1552668521872" duration="1821000" />
-      <workItem from="1552670406171" duration="1168000" />
-      <workItem from="1552672285256" duration="1205000" />
-      <workItem from="1552718644444" duration="649000" />
-      <workItem from="1552791005774" duration="1779000" />
-      <workItem from="1552792914179" duration="1086000" />
-      <workItem from="1552796589813" duration="1789000" />
-      <workItem from="1552798407180" duration="1730000" />
-      <workItem from="1552800644415" duration="1795000" />
-      <workItem from="1552802479260" duration="1688000" />
-      <workItem from="1552805077142" duration="1036000" />
-      <workItem from="1552808236509" duration="1364000" />
-      <workItem from="1552810050691" duration="1108000" />
-      <workItem from="1552814791580" duration="1515000" />
-      <workItem from="1552817058482" duration="1802000" />
-      <workItem from="1552820231461" duration="2404000" />
-      <workItem from="1552829598287" duration="1837000" />
-      <workItem from="1552832086312" duration="1787000" />
-      <workItem from="1552833897914" duration="1787000" />
-      <workItem from="1552835707453" duration="451000" />
-      <workItem from="1552845029086" duration="1787000" />
-      <workItem from="1552846865162" duration="1814000" />
-      <workItem from="1552848705752" duration="879000" />
-      <workItem from="1552887917893" duration="1787000" />
-      <workItem from="1552889731455" duration="1788000" />
-      <workItem from="1552891549172" duration="1986000" />
-      <workItem from="1552893838117" duration="1950000" />
-      <workItem from="1552895825843" duration="1382000" />
-      <workItem from="1552897644695" duration="1789000" />
-      <workItem from="1552899460298" duration="1885000" />
-      <workItem from="1552901370076" duration="1798000" />
-      <workItem from="1552903191561" duration="1340000" />
-      <workItem from="1552926908944" duration="1893000" />
-      <workItem from="1552928970430" duration="2169000" />
-      <workItem from="1552931176667" duration="1903000" />
-      <workItem from="1552933102737" duration="1566000" />
-      <workItem from="1552934917253" duration="1785000" />
-      <workItem from="1552936732340" duration="1786000" />
-      <workItem from="1552938545877" duration="1785000" />
-      <workItem from="1552940353932" duration="842000" />
-      <workItem from="1552968416737" duration="627000" />
-      <workItem from="1552976413185" duration="1264000" />
-      <workItem from="1553085205577" duration="1799000" />
-      <workItem from="1553087351252" duration="1992000" />
-      <workItem from="1553089374135" duration="1075000" />
-      <workItem from="1553091331942" duration="1366000" />
-      <workItem from="1553094447085" duration="1140000" />
-      <workItem from="1553106030360" duration="1619000" />
-      <workItem from="1553107860025" duration="1789000" />
-      <workItem from="1553109707801" duration="456000" />
-      <workItem from="1553147123187" duration="1417000" />
-      <workItem from="1553148952651" duration="1113000" />
-      <workItem from="1553154509117" duration="642000" />
-      <workItem from="1553162715782" duration="1816000" />
-      <workItem from="1553164612871" duration="717000" />
-      <workItem from="1553187288567" duration="946000" />
-      <workItem from="1553838892927" duration="122000" />
-      <workItem from="1554270638898" duration="572000" />
-      <workItem from="1554271240123" duration="1792000" />
-      <workItem from="1554273176850" duration="752000" />
-      <workItem from="1554275105266" duration="1409000" />
-      <workItem from="1554277082028" duration="1322000" />
-      <workItem from="1554281605102" duration="599000" />
-      <workItem from="1554283415925" duration="599000" />
-      <workItem from="1554285368046" duration="267000" />
-      <workItem from="1554535437206" duration="1621000" />
-      <workItem from="1554537198011" duration="1073000" />
-      <workItem from="1554541705671" duration="144000" />
-      <workItem from="1554564905345" duration="1267000" />
-      <workItem from="1554569668412" duration="1785000" />
-      <workItem from="1554571489012" duration="2352000" />
-      <workItem from="1554574216294" duration="656000" />
-      <workItem from="1554610871892" duration="1592000" />
-      <workItem from="1554612698572" duration="1465000" />
-      <workItem from="1554614566840" duration="1902000" />
-      <workItem from="1554616500615" duration="1780000" />
-      <workItem from="1554618706764" duration="1056000" />
-      <workItem from="1554718849942" duration="599000" />
-      <workItem from="1554740889037" duration="2075000" />
-      <workItem from="1554743138361" duration="1781000" />
-      <workItem from="1554744951698" duration="1802000" />
-      <workItem from="1554746786539" duration="1780000" />
-      <workItem from="1554748601552" duration="1845000" />
-      <workItem from="1554751000299" duration="599000" />
-      <workItem from="1554753802603" duration="1202000" />
-      <workItem from="1554799961384" duration="1929000" />
-      <workItem from="1554802388932" duration="1801000" />
-      <workItem from="1554804220012" duration="1803000" />
-      <workItem from="1554814180132" duration="1608000" />
-      <workItem from="1554816534823" duration="2023000" />
-      <workItem from="1554818723757" duration="993000" />
-      <workItem from="1554878401933" duration="2040000" />
-      <workItem from="1554880472779" duration="1916000" />
-      <workItem from="1554882418707" duration="67000" />
-      <workItem from="1554890401312" duration="619000" />
-      <workItem from="1554898348938" duration="1757000" />
-      <workItem from="1554954277712" duration="1825000" />
-      <workItem from="1554956147640" duration="1483000" />
-      <workItem from="1554958865646" duration="420000" />
-      <workItem from="1555045173181" duration="942000" />
-      <workItem from="1555052770359" duration="599000" />
-      <workItem from="1555057626087" duration="599000" />
-      <workItem from="1555232313797" duration="1390000" />
-      <workItem from="1555396301709" duration="1513000" />
-      <workItem from="1555476165343" duration="900000" />
-      <workItem from="1555481635321" duration="1750000" />
-      <workItem from="1555483604440" duration="1777000" />
-      <workItem from="1555485427569" duration="949000" />
-      <workItem from="1555489775770" duration="1680000" />
-      <workItem from="1555491770149" duration="1776000" />
-      <workItem from="1555493586072" duration="1806000" />
-      <workItem from="1555495667254" duration="1315000" />
-      <workItem from="1555502240008" duration="77000" />
-      <workItem from="1555509297563" duration="2071000" />
-      <workItem from="1555577805235" duration="1490000" />
-      <workItem from="1555584454261" duration="1811000" />
-      <workItem from="1555586316689" duration="1964000" />
-      <workItem from="1555589386780" duration="1790000" />
-      <workItem from="1555591219507" duration="1393000" />
-      <workItem from="1555598709480" duration="597000" />
-      <workItem from="1555600688355" duration="598000" />
-      <workItem from="1555607240495" duration="1776000" />
-      <workItem from="1555609050813" duration="1777000" />
-      <workItem from="1555611026339" duration="1070000" />
-      <workItem from="1555613125951" duration="1856000" />
-      <workItem from="1555615031211" duration="873000" />
-      <workItem from="1555644659567" duration="1015000" />
-      <workItem from="1555646703697" duration="1787000" />
-      <workItem from="1555648585653" duration="1189000" />
-      <workItem from="1555651082722" duration="1779000" />
-      <workItem from="1555652906697" duration="2373000" />
-      <workItem from="1555656920945" duration="1543000" />
-      <workItem from="1555659033616" duration="1256000" />
-      <workItem from="1555661354091" duration="1875000" />
-      <workItem from="1555663282145" duration="1657000" />
-      <workItem from="1555665108049" duration="1537000" />
-      <workItem from="1555669844982" duration="258000" />
-      <workItem from="1555671925095" duration="1513000" />
-      <workItem from="1555673737388" duration="2184000" />
-      <workItem from="1555678109484" duration="1156000" />
+      <updated>1555741883959</updated>
+      <workItem from="1555741887635" duration="1701000" />
+      <workItem from="1555743811076" duration="1807000" />
+      <workItem from="1555745640771" duration="1791000" />
+      <workItem from="1555747475829" duration="1132000" />
+      <workItem from="1555756248954" duration="1158000" />
+      <workItem from="1555759221877" duration="1799000" />
+      <workItem from="1555761752012" duration="1795000" />
+      <workItem from="1555763570843" duration="549000" />
+      <workItem from="1555784485721" duration="1779000" />
+      <workItem from="1555786290126" duration="2071000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="313121000" />
+    <option name="totallyTimeSpent" value="15582000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.21354167" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20982143" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32820514" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39910814" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32991454" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.408547" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.22222222" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
-    <layout-to-restore>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21354167" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info id="npm" order="2" side_tool="true" />
-      <window_info id="Favorites" order="3" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32820514" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39910814" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32991454" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.051282052" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/nodejs/8.15.0/core-modules/_http_outgoing.js">
+    <entry file="file://$PROJECT_DIR$/routes/wallet.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="616" column="9" selection-start-line="616" selection-start-column="9" selection-end-line="616" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/express/lib/router/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="314" column="12" selection-start-line="314" selection-start-column="12" selection-end-line="314" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/static/jquery-3.1.1.min.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/bin/www">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/script">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="20" column="28" selection-start-line="20" selection-start-column="28" selection-end-line="20" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$APPLICATION_CONFIG_DIR$/javascript/extLibs/http_ajax.googleapis.com_ajax_libs_jquery_3.3.1_jquery.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65366">
-          <caret line="2854" column="4" selection-start-line="2854" selection-start-column="4" selection-end-line="2854" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="313" column="15" selection-start-line="313" selection-start-column="15" selection-end-line="313" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/test.js" />
-    <entry file="file://$PROJECT_DIR$/routes/multisig.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="529">
-          <caret line="23" column="6" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/index.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="69">
-          <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="6" column="19" selection-start-line="6" selection-start-column="14" selection-end-line="6" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/idf.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="552">
-          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/test.pug">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1449">
-          <caret line="63" column="24" selection-start-line="63" selection-start-column="24" selection-end-line="63" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/static/vendor.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2875">
-          <caret line="125" column="37" selection-start-line="125" selection-start-column="37" selection-end-line="125" selection-end-column="37" />
-          <folding>
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#div#1;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/static/main.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1380">
-          <caret line="60" column="10" selection-start-line="49" selection-start-column="7" selection-end-line="60" selection-end-column="10" />
-          <folding>
-            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#3;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#4;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#4;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#4;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#1;n#div#4;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="3197">
+          <caret line="139" column="31" selection-start-line="139" selection-start-column="31" selection-end-line="139" selection-end-column="31" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/static/identityForm.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8188">
-          <caret line="356" column="54" selection-start-line="356" selection-start-column="50" selection-end-line="356" selection-end-column="54" />
+        <state relative-caret-position="5451">
+          <caret line="281" column="18" selection-start-line="281" selection-start-column="18" selection-end-line="281" selection-end-column="18" />
           <folding>
-            <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#span#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#1;n#div#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#3;n#div#1;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#4;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#1;n#html#0;n#!!top" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/layout.pug">
+    <entry file="file://$PROJECT_DIR$/public/static/homepage.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="20" column="17" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="17" />
+        <state relative-caret-position="851">
+          <caret line="81" column="62" selection-start-line="81" selection-start-column="62" selection-end-line="81" selection-end-column="62" />
+          <folding>
+            <element signature="n#style#0;n#head#0;n#html#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/error.pug">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
+    <entry file="file://$PROJECT_DIR$/public/static/view.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="9" column="21" lean-forward="true" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="376">
-          <caret line="266" column="21" lean-forward="true" selection-start-line="266" selection-start-column="21" selection-end-line="266" selection-end-column="21" />
+        <state relative-caret-position="171">
+          <caret line="206" column="2" selection-start-line="206" selection-start-column="2" selection-end-line="208" selection-end-column="66" />
+          <folding>
+            <element signature="n#template#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/static/test.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1235">
-          <caret line="439" column="17" selection-start-line="439" selection-start-column="17" selection-end-line="439" selection-end-column="17" />
+        <state relative-caret-position="222">
+          <caret line="506" column="26" lean-forward="true" selection-start-line="503" selection-start-column="20" selection-end-line="506" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/static/main.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="241" column="71" lean-forward="true" selection-start-line="241" selection-start-column="71" selection-end-line="241" selection-end-column="71" />
           <folding>
-            <element signature="n#script#2;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#h5#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#html#0;n#!!top" />
             <element signature="n#style#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-            <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#2;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#3;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#4;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#5;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#6;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#6;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#7;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#8;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#8;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#9;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#10;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#a#0;n#div#1;n#div#0;n#div#0;n#div#10;n#div#0;n#div#2;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#label#0;n#div#3;n#div#0;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#3;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#button#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#3;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#3;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#div#4;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" />
+            <element signature="n#style#0;n#div#0;n#div#4;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#4;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#4;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#label#0;n#div#1;n#div#0;n#div#6;n#form#0;n#div#0;n#div#1;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

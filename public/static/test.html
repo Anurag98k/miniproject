@@ -11,15 +11,15 @@
     .name_card_flip{
         display: none;
     }
-    .address_card_flip,.address_city_card_flip,.address_hno_card_flip,.address_street_card_flip,.address_state_card_flip,.address_pin_card_flip,.pob_city_card_flip,.pob_state_card_flip,.dob_card_flip {
+    .address_city_card_flip,.address_hno_card_flip,.address_street_card_flip,.address_state_card_flip,.address_pin_card_flip,.pob_city_card_flip,.pob_state_card_flip,.emp_city_card_flip, .emp_company_card_flip, .emp_join_card_flip, .emp_eid_card_flip,.marriage_city_card_flip,.marriage_date_card_flip,.marriage_pastor_card_flip,.marriage_spouse_name_card_flip{
         display: none;
     }
     .age_card_flip{
         display: none;
     }
-    #IDFaddress,#IDFname,#IDFpob{
-        display: none;
-    }
+    /*#IDFaddress,#IDFname,#IDFpob,#IDFempslip,#IDFmarriage{*/
+        /*display: none;*/
+    /*}*/
 </style>
 <script>
     let response_arrived = false;
@@ -27,88 +27,23 @@
         let fields='#{title}';
         fields=fields.split(',');
         for(let i in fields){
-            $("#"+i).css('display','block');
+            $("#"+fields[i]).css('display','block');
         }
         $('.ui.checkbox').checkbox();
         $('.ui.radio.checkbox').checkbox();
         $('select.dropdown').dropdown();
-        $(".name_card").hover(function(){
-            if(response_arrived) {
-                $(".name_card_flip").css("display", "block");
-            }
-        }, function(){
-            $(".name_card_flip").css("display", "none");
-        });
 
-        $(".address_hno_card").hover(function(){
-            if(response_arrived) {
-                $(".address_hno_card_flip").css("display", "block");
-            }
-        }, function(){
-            $(".address_hno_card_flip").css("display", "none");
-        });
+        let card_array=["name_card","address_city_card","address_hno_card","address_street_card","address_state_card","address_pin_card","pob_city_card","pob_state_card","emp_city_card", "emp_company_card", "emp_join_card", "emp_eid_card","marriage_city_card","marriage_date_card","marriage_pastor_card","marriage_spouse_name_card"];
+        for (let i in card_array){
+            $("."+card_array[i]).hover(function(){
+                if(response_arrived) {
+                    $("."+card_array[i]+"_flip").css("display", "block");
+                }
+            }, function(){
+                $("."+card_array[i]+"_flip").css("display", "none");
+            });
+        }
 
-        $(".address_street_card").hover(function(){
-            if(response_arrived) {
-                $(".address_street_card_flip").css("display", "block");
-            }
-        }, function(){
-            $(".address_street_card_flip").css("display", "none");
-        });
-
-        $(".address_city_card").hover(function(){
-            if(response_arrived) {
-                $(".address_city_card_flip").css("display", "block");
-            }
-        }, function(){
-            $(".address_city_card_flip").css("display", "none");
-        });
-
-        $(".address_pin_card").hover(function(){
-            if(response_arrived) {
-                $(".address_pin_card_flip").css("display", "block");
-            }
-        }, function(){
-            $(".address_pin_card_flip").css("display", "none");
-        });
-
-        $(".address_state_card").hover(function(){
-            if(response_arrived) {
-                $(".address_state_card_flip").css("display", "block");
-            }
-        }, function(){
-            $(".address_state_card_flip").css("display", "none");
-        });
-        $(".pob_state_card").hover(function(){
-            if(response_arrived) {
-                $(".pob_state_card_flip").css("display", "block");
-            }
-        }, function(){
-            $(".pob_state_card_flip").css("display", "none");
-        });
-        $(".pob_city_card").hover(function(){
-            if(response_arrived) {
-                $(".pob_city_card_flip").css("display", "block");
-            }
-        }, function(){
-            $(".pob_city_card_flip").css("display", "none");
-        });
-
-        $(".age_card").hover(function(){
-            if(response_arrived) {
-                $(".age_card_flip").css("display", "block");
-            }
-        }, function(){
-            $(".age_card_flip").css("display", "none");
-        });
-
-        $(".dob_card").hover(function(){
-            if(response_arrived) {
-                $(".dob_card_flip").css("display", "block");
-            }
-        }, function(){
-            $(".dob_card_flip").css("display", "none");
-        });
     });
     sendForm=function() {
         var formData = JSON.stringify($("#myForm").serializeArray());
@@ -163,56 +98,6 @@
             // data:JSON.stringify({pubkey:pubkey,address:"req",ageproof:"req",name:"req"}),
             // contentType: 'application/json',
             crossDomain: true,
-            // success:function(response, textStatus, jqXHR) {
-            //     response_arrived=true;
-            //     console.log(response);
-            //     $("#fill_form").css("display","none");
-            //     $("#sumbit_idf").css("display","block");
-            //     // data=JSON.parse(data);
-            //     if(response.name.data) {
-            //         $('#name')[0].value = response.name.data;
-            //
-            //         let verify_card = $('#name_verify').children();
-            //         // console.log(x[0].innerHTML)
-            //         verify_card[0].innerHTML = response.name.keys.filter(function (ele) {
-            //             if (ele !== "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" && ele !== "name") {
-            //                 return ele;
-            //             }
-            //         });
-            //
-            //         verify_card[1].innerHTML = response.name.data;
-            //         verify_card[2].innerHTML = "<b>Txid:<br></b>" + response.name.txid;
-            //     }
-            //     if(response.address.data) {
-            //         $('#address')[0].value = response.address.data;
-            //
-            //         let address_card = $('#address_verify').children();
-            //         address_card[0].innerHTML = response.address.keys.filter(function (ele) {
-            //             if (ele !== "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" && ele !== "address") {
-            //                 return ele;
-            //             }
-            //         });
-            //
-            //         address_card[1].innerHTML = response.address.data;
-            //         address_card[2].innerHTML = "<b>Txid:<br></b>" + response.address.txid;
-            //     }
-            //
-            //     if(response.ageproof.data) {
-            //         $('input[name=ageproof]').attr('checked', true);
-            //         let age_card=$('#age_verify').children();
-            //         // console.log(x[0].innerHTML)
-            //         age_card[0].innerHTML = response.ageproof.keys.filter(function (ele) {
-            //             if(ele!== "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" && ele!=="ageproof"){
-            //                 return ele;
-            //             }
-            //         });
-            //
-            //         age_card[1].innerHTML=response.ageproof.data;
-            //         age_card[2].innerHTML= "<b>Txid:<br></b>"+response.ageproof.txid;
-            //
-            //     }
-            //
-            // },
             success: function(response, textStatus, jqXHR){
                 response_arrived=true;
                 response_temp=response;
@@ -500,6 +385,221 @@
                 </div>
                 <hr>
             </div>
+
+
+            <div id="IDFempslip">
+
+                <label> <b>Employment and emp slip</b></label>
+                <div id="emp_form" style="margin: 5% 15% 5% 15%">
+                    <div class="ui ignored info message">
+                        Applicant's Employment and Salary details
+                    </div>
+                    <div class="field required emp_company_card">
+                        <label style="font-size: inherit">Company Name:</label>
+                        <input type="text" name="emp_company" placeholder="Cisco" id="emp_company">
+                    </div>
+                    <div class="emp_company_card_flip" >
+                        <div class="ui cards verify">
+                            <div class="card">
+                                <div class="content" id="emp_company_verify">
+                                    <div class="header" id="emp_company_from">Elliot Fu</div>
+                                    <div class="meta" id="emp_company_name">Friend</div>
+                                    <div class="description" id="emp_company_txid" style="word-break: break-all">
+                                        hello
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    Verified
+                                    <a>
+                                        <i class="check circle icon teal users icon large" style="float: right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field required emp_eid_card">
+                        <label style="font-size: inherit">Employee ID:</label>
+                        <input type="text" name="emp_eid" placeholder="10040236" id="emp_eid">
+                    </div>
+                    <div class="emp_eid_card_flip" >
+                        <div class="ui cards verify">
+                            <div class="card">
+                                <div class="content" id="emp_eid_verify">
+                                    <div class="header" id="emp_eid_from">Elliot Fu</div>
+                                    <div class="meta" id="emp_eid_name">Friend</div>
+                                    <div class="description" id="emp_eid_txid" style="word-break: break-all">
+                                        hello
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    Verified
+                                    <a>
+                                        <i class="check circle icon teal users icon large" style="float: right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field required emp_join_card">
+                        <label style="font-size: inherit">Join Date:</label>
+                        <input type="text" name="emp_join" placeholder="dd/mm/yyyy" id="emp_join">
+                    </div>
+                    <div class="emp_join_card_flip" >
+                        <div class="ui cards verify">
+                            <div class="card">
+                                <div class="content" id="emp_join_verify">
+                                    <div class="header" id="emp_join_from">Elliot Fu</div>
+                                    <div class="meta" id="emp_join_name">Friend</div>
+                                    <div class="description" id="emp_join_txid" style="word-break: break-all">
+                                        hello
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    Verified
+                                    <a>
+                                        <i class="check circle icon teal users icon large" style="float: right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field required emp_city_card">
+                        <label style="font-size: inherit">City of Employment:</label>
+                        <input type="text" name="emp_join" placeholder="Bangalore" id="emp_city">
+                    </div>
+                    <div class="emp_city_card_flip" >
+                        <div class="ui cards verify">
+                            <div class="card">
+                                <div class="content" id="emp_city_verify">
+                                    <div class="header" id="emp_city_from">Elliot Fu</div>
+                                    <div class="meta" id="emp_city_name">Friend</div>
+                                    <div class="description" id="emp_city_txid" style="word-break: break-all">
+                                        hello
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    Verified
+                                    <a>
+                                        <i class="check circle icon teal users icon large" style="float: right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+            </div>
+
+
+            <div id="IDFmarriage">
+
+                <label> <b>Matrimonial Details</b></label>
+                <div id="marriage_form" style="margin: 5% 15% 5% 15%">
+                    <div class="ui ignored info message">
+                        Applicant's self and spousal's Marriage Information
+                    </div>
+                    <div class="field required marriage_spouse_name_card">
+                        <label style="font-size: inherit">Spouse's Name:</label>
+                        <input type="text" name="marriage_spouse_name" placeholder="Anitha" id="marriage_spouse_name">
+                    </div>
+                    <div class="marriage_spouse_name_card_flip" >
+                        <div class="ui cards verify">
+                            <div class="card">
+                                <div class="content" id="marriage_spouse_name_verify">
+                                    <div class="header" id="marriage_spouse_name_from">Elliot Fu</div>
+                                    <div class="meta" id="marriage_spouse_name_name">Friend</div>
+                                    <div class="description" id="marriage_spouse_name_txid" style="word-break: break-all">
+                                        hello
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    Verified
+                                    <a>
+                                        <i class="check circle icon teal users icon large" style="float: right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field required marriage_pastor_card">
+                        <label style="font-size: inherit">Officiated By:</label>
+                        <input type="text" name="marriage_pastor" placeholder="Akhil" id="marriage_pastor">
+                    </div>
+                    <div class="marriage_pastor_card_flip" >
+                        <div class="ui cards verify">
+                            <div class="card">
+                                <div class="content" id="marriage_pastor_verify">
+                                    <div class="header" id="marriage_pastor_from">Elliot Fu</div>
+                                    <div class="meta" id="marriage_pastor_name">Friend</div>
+                                    <div class="description" id="marriage_pastor_txid" style="word-break: break-all">
+                                        hello
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    Verified
+                                    <a>
+                                        <i class="check circle icon teal users icon large" style="float: right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field required marriage_date_card">
+                        <label style="font-size: inherit">Marriage Date:</label>
+                        <input type="text" name="marriage_date" placeholder="dd/mm/yyyy" id="marriage_date">
+                    </div>
+                    <div class="marriage_date_card_flip" >
+                        <div class="ui cards verify">
+                            <div class="card">
+                                <div class="content" id="marriage_date_verify">
+                                    <div class="header" id="marriage_date_from">Elliot Fu</div>
+                                    <div class="meta" id="marriage_date_name">Friend</div>
+                                    <div class="description" id="marriage_date_txid" style="word-break: break-all">
+                                        hello
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    Verified
+                                    <a>
+                                        <i class="check circle icon teal users icon large" style="float: right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field required marriage_city_card">
+                        <label style="font-size: inherit">City of marriage:</label>
+                        <input type="text" name="marriage_city" placeholder="Bangalore" id="marriage_city">
+                    </div>
+                    <div class="marriage_city_card_flip" >
+                        <div class="ui cards verify">
+                            <div class="card">
+                                <div class="content" id="marriage_city_verify">
+                                    <div class="header" id="marriage_city_from">Elliot Fu</div>
+                                    <div class="meta" id="marriage_city_name">Friend</div>
+                                    <div class="description" id="marriage_city_txid" style="word-break: break-all">
+                                        hello
+                                    </div>
+                                </div>
+                                <div class="extra content">
+                                    Verified
+                                    <a>
+                                        <i class="check circle icon teal users icon large" style="float: right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+            </div>
+
 
             <!--</div>-->
 

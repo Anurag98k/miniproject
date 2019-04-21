@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Identity Site</title>
+    <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.1.1.min.js"
+            integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+            crossorigin="anonymous"></script>
+    <script src="Semantic-UI-CSS-master/semantic.min.js"></script>
+    <script>
+        $(document)
+            .ready(function () {
+
+
+                function generate_cards() {
+                    var event_array = [{
+                        event_type: "Birth",
+                        data: {
+                            name: "Rishav Patil",
+                            father_name: "Akhil Patil",
+                            mother_name: "Ananya Patil",
+                            dob: "15-02-1998",
+                            date_registration: "12-12-2019",
+                            gender: "Male",
+                            nationality: "Indian"
+                        }
+                    }, {
+                        event_type: "Birth",
+                        data: {
+                            name: "Rishav Patil",
+                            father_name: "Akhil Patil",
+                            mother_name: "Ananya Patil",
+                            dob: "15-02-1998",
+                            date_registration: "12-12-2019",
+                            gender: "Male",
+                            nationality: "Indian"
+                        }
+                    }, {
+                        event_type: "Birth",
+                        data: {
+                            name: "Rishav Patil",
+                            father_name: "Akhil Patil",
+                            mother_name: "Ananya Patil",
+                            dob: "15-02-1998",
+                            date_registration: "12-12-2019",
+                            gender: "Male",
+                            nationality: "Indian"
+                        }
+                    }, {
+                        event_type: "Birth",
+                        data: {
+                            name: "Rishav Patil",
+                            father_name: "Akhil Patil",
+                            mother_name: "Ananya Patil",
+                            dob: "15-02-1998",
+                            date_registration: "12-12-2019",
+                            gender: "Male",
+                            nationality: "Indian"
+                        }
+                    }, {
+                        event_type: "Birth",
+                        data: {
+                            name: "Rishav Patil",
+                            father_name: "Akhil Patil",
+                            mother_name: "Ananya Patil",
+                            dob: "15-02-1998",
+                            date_registration: "12-12-2019",
+                            gender: "Male",
+                            nationality: "Indian"
+                        }
+                    }, {
+                        event_type: "Birth",
+                        data: {
+                            name: "Rishav Patil",
+                            father_name: "Akhil Patil",
+                            mother_name: "Ananya Patil",
+                            dob: "15-02-1998",
+                            date_registration: "12-12-2019",
+                            gender: "Male",
+                            nationality: "Indian"
+                        }
+                    }, {
+                        event_type: "Birth",
+                        data: {
+                            name: "Rishav Patil",
+                            father_name: "Akhil Patil",
+                            mother_name: "Ananya Patil",
+                            dob: "15-02-1998",
+                            date_registration: "12-12-2019",
+                            gender: "Male",
+                            nationality: "Indian"
+                        }
+                    }, {
+                        event_type: "Birth",
+                        data: {
+                            name: "Rishav Patil",
+                            father_name: "Akhil Patil",
+                            mother_name: "Ananya Patil",
+                            dob: "15-02-1998",
+                            date_registration: "12-12-2019",
+                            gender: "Male",
+                            nationality: "Indian"
+                        }
+                    }];
+                    // let event_array='${event_array}';
+                    for (var i = 0; i < event_array.length; i++) {
+                        let gen_card = document.getElementsByTagName("template")[0];
+                        console.log(event_array[i]["event_type"]);
+                        var clon = gen_card.content.cloneNode(true);
+                        let event_type_elem = clon.querySelector(".event_type");
+                        event_type_elem.innerHTML = event_array[i]["event_type"];
+                        for (var key in event_array[i]["data"]) {
+                            let elem = clon.querySelector("." + key);
+                            elem.innerHTML = event_array[i]["data"][key]
+                        }
+                        $('#special_card').append(clon);
+                    }
+                    // var clon = gen_card.content.cloneNode(true);
+                    // console.log(clon.children)
+                }
+
+                generate_cards();
+                $('.special.cards .con').dimmer({
+                    on: 'hover'
+                });
+            });
+
+
+    </script>
+    <style type="text/css">
+        .masthead.segment {
+            min-height: 753px;
+            padding: 1em 0em;
+        }
+
+        .masthead .logo.item img {
+            margin-right: 1em;
+        }
+
+        .masthead .ui.menu .ui.button {
+            margin-left: 0.5em;
+        }
+
+        .masthead h1.ui.header {
+            margin-top: 3em;
+            margin-bottom: 0em;
+            font-size: 4em;
+            font-weight: normal;
+        }
+
+        .masthead h2 {
+            font-size: 1.7em;
+            font-weight: normal;
+        }
+
+        .card {
+            height: 250px;
+            width: 100px;
+        }
+
+        /*.ui .cards{*/
+        /*margin: 2.3em -26em;*/
+        /*width: 2000px;*/
+        /*}*/
+        .ui.cards > .card > .content > .header:not(.ui) {
+            margin-top: 3.78575em;
+        }
+
+        @media only screen and (max-width: 700px) {
+            .ui.fixed.menu {
+                display: none !important;
+            }
+
+            .secondary.pointing.menu .item,
+            .secondary.pointing.menu .menu {
+                display: none;
+            }
+
+            .secondary.pointing.menu .toc.item {
+                display: block;
+            }
+
+            .masthead.segment {
+                min-height: 350px;
+            }
+
+            .masthead h1.ui.header {
+                font-size: 2em;
+                margin-top: 1.5em;
+            }
+
+            .masthead h2 {
+                margin-top: 0.5em;
+                font-size: 1.5em;
+            }
+        }
+    </style>
+
+</head>
+<body>
+<div class="ui inverted vertical masthead center aligned segment">
+
+    <div class="ui container">
+        <div class="ui large secondary inverted pointing menu">
+            <a class="active item">Home</a>
+            <a href="identityForm.html" class="item">Get your services</a>
+            <a href="main.html" class="item">Log your events</a>
+            <a href="view.html" class="item">View your details</a>
+            <div class="right item">
+                <a class="ui inverted button">Log In</a>
+                <a class="ui inverted button">Sign Up</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui text container">
+        <div class="ui special cards" id="special_card">
+
+
+            <template id="Birth">
+                <div class="card">
+                    <div class="content con">
+                        <div class="ui dimmer">
+                            <div class="content">
+                                <div class="center">
+                                    <div class="ui left aligned divided list">
+                                        <div class="item ">
+                                            <div class="right floated content name">
+                                                #{birth_event["name"]}
+                                            </div>
+                                            <i class="user icon"></i>
+                                            <div class="content">
+                                                Name
+                                            </div>
+                                        </div>
+                                        <div class="item ">
+                                            <div class="right floated content dob">
+                                                #{birth_event["dob"]}
+                                            </div>
+                                            <i class="calendar alternate icon"></i>
+                                            <div class="content">
+                                                Date of Birth
+                                            </div>
+                                        </div>
+                                        <div class="item ">
+                                            <div class="right floated content mother_name">
+                                                #{birth_event["mother_name"]}
+                                            </div>
+                                            <i class="female icon"></i>
+                                            <div class="content ">
+                                                Mother'sName
+                                            </div>
+                                        </div>
+                                        <div class="item ">
+                                            <div class="right floated content father_name">
+                                                #{birth_event["father_name"]}
+                                            </div>
+                                            <i class="male icon"></i>
+                                            <div class="content">
+                                                Father's Name
+                                            </div>
+                                        </div>
+                                        <div class="item ">
+                                            <div class="right floated content nationality">
+                                                #{birth_event["nationality"]}
+                                            </div>
+                                            <i class="globe icon"></i>
+                                            <div class="content">
+                                                Nationality
+                                            </div>
+                                        </div>
+                                        <div class="item ">
+                                            <div class="right floated content gender">
+                                                #{birth_event["gender"]}
+                                            </div>
+                                            <i class="venus mars icon"></i>
+                                            <div class="content">
+                                                Gender
+                                            </div>
+                                        </div>
+                                        <div class="item ">
+                                            <div class="right floated content date_registration">
+                                                #{birth_event["date_registration"]}
+                                            </div>
+                                            <i class="calendar alternate icon"></i>
+                                            <div class="content">
+                                                Date of Registration
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a class="header event_type"></a>
+                        <div class="meta">
+                            <span class="date">Point here to know more</span>
+                        </div>
+                    </div>
+                </div>
+            </template>
+
+
+        </div>
+
+
+    </div>
+</div>
+</body>
+</html>
+
+

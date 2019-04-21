@@ -13,6 +13,8 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var multisigRouter = require('./routes/multisig');
 var idfRouter = require('./routes/idf');
+var walletRouter = require('./routes/wallet');
+
 
 var app = express();
 
@@ -57,6 +59,8 @@ app.use(express.static(path.join(__dirname, 'stylesheets')));
 app.use('/', indexRouter);
 app.use('/multisig', multisigRouter);
 app.use('/idf', idfRouter);
+app.use('/wallet', walletRouter);
+
 
 
 // catch 404 and forward to error handler
@@ -162,110 +166,110 @@ var ad;
  // multichain.publish({stream:"test", key:["038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","passport"],data:{"json":{"a":"anurag"}}},(err, rep)=>{
  //   console.log(err)
  // });
-multichain.createRawSendFrom({from:"1DkQGLaSibCC8jsryRGYGQmLg1S6S155dMfdaw",amounts:{},data:[{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39",
-    "data":{json:{
-  address: {
-      address_hno: "Marigold-125",
-      address_street: "IAF main road",
-      address_city: "Bangalore",
-      address_pin: "560013",
-      address_state: "Karnataka"
-  },
-        meta:{identity:"address", verifier:"aadhar", eventType:"ID"}
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"number", verifier:"aadhar", eventType:"ID"},
-        number: 509127043618
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"dob", verifier:"aadhar", eventType:"ID"},
-        dob: "15-02-1998"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"name", verifier:"aadhar", eventType:"ID"},
-        name: "Rishav Patil"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"gender", verifier:"aadhar", eventType:"ID"},
-        gender: "Male"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"father_name", verifier:"aadhar", eventType:"ID"},
-        father_name: "Akhil Patil"
-      }}}], action:"send"},(err,rep)=>{
-  console.log(err);
-});
-
-multichain.createRawSendFrom({from:"1DkQGLaSibCC8jsryRGYGQmLg1S6S155dMfdaw",amounts:{},data:[{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39",
-    "data":{json:{
-            address: {
-                address_hno: "Marigold-125",
-                address_street: "IAF main road",
-                address_city: "Bangalore",
-                address_pin: "560013",
-                address_state: "Karnataka"
-            },
-        meta:{identity:"address", verifier:"passport", verified_by:"aadhar", eventType:"ID"}
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"number", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        number: "M1320965"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"dob", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        dob: "15-02-1998"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"name", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        name: "Rishav Patil"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"gender", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        gender: "Male"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"country_code", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        country_code: "IND"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"mother_name", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        mother_name: "Ananya Patil"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"Type", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        type: "P"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"place_issue", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        place_issue: "Hyderabad"
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"date", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        date: {date_of_issue:"20-08-2014",
-              date_of_expiry:"19-08-2024"}
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"pob", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        pob: {pob_city:"Hyderabad",
-              pob_state: "Telangana"
-            }
-      }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-        meta:{identity:"nationality", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
-        nationality: "Indian"
-      }}}], action:"send"},(err,rep)=>{
-  console.log(err);
-});
-
-multichain.createRawSendFrom({from:"1DkQGLaSibCC8jsryRGYGQmLg1S6S155dMfdaw",amounts:{},data:[{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39",
-        "data":{json:{
-                father_name: "Ayush Agarwal",
-                meta:{identity:"father_name", verifier:"Department of Public Health", eventType:"Birth"}
-            }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-                meta:{identity:"mother_name", verifier:"Department of Public Health",  eventType:"Birth"},
-                mother_name: "Piyali Agarwal"
-            }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-                meta:{identity:"dob",verifier:"Department of Public Health",  eventType:"Birth"},
-                dob: "15-02-1998"
-            }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-                meta:{identity:"name", verifier:"Department of Public Health",  eventType:"Birth"},
-                name: "Rishav Patil"
-            }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-                meta:{identity:"gender",verifier:"Department of Public Health",  eventType:"Birth"},
-                gender: "Male"
-            }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-                meta:{identity:"nationality", verifier:"Department of Public Health",  eventType:"Birth"},
-                nationality: "Indian"
-            }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
-                meta:{identity:"date_registration", verifier:"Department of Public Health",  eventType:"Birth"},
-                date_registration: "12-12-1998"
-            }}}], action:"send"},(err,rep)=>{
-    console.log(err);
-});
+// multichain.createRawSendFrom({from:"1DkQGLaSibCC8jsryRGYGQmLg1S6S155dMfdaw",amounts:{},data:[{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39",
+//     "data":{json:{
+//   address: {
+//       address_hno: "Marigold-125",
+//       address_street: "IAF main road",
+//       address_city: "Bangalore",
+//       address_pin: "560013",
+//       address_state: "Karnataka"
+//   },
+//         meta:{identity:"address", verifier:"aadhar", eventType:"ID"}
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"number", verifier:"aadhar", eventType:"ID"},
+//         number: 509127043618
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"dob", verifier:"aadhar", eventType:"ID"},
+//         dob: "15-02-1998"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"name", verifier:"aadhar", eventType:"ID"},
+//         name: "Rishav Patil"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"gender", verifier:"aadhar", eventType:"ID"},
+//         gender: "Male"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"father_name", verifier:"aadhar", eventType:"ID"},
+//         father_name: "Akhil Patil"
+//       }}}], action:"send"},(err,rep)=>{
+//   console.log(err);
+// });
+//
+// multichain.createRawSendFrom({from:"1DkQGLaSibCC8jsryRGYGQmLg1S6S155dMfdaw",amounts:{},data:[{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39",
+//     "data":{json:{
+//             address: {
+//                 address_hno: "Marigold-125",
+//                 address_street: "IAF main road",
+//                 address_city: "Bangalore",
+//                 address_pin: "560013",
+//                 address_state: "Karnataka"
+//             },
+//         meta:{identity:"address", verifier:"passport", verified_by:"aadhar", eventType:"ID"}
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"number", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         number: "M1320965"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"dob", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         dob: "15-02-1998"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"name", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         name: "Rishav Patil"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"gender", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         gender: "Male"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"country_code", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         country_code: "IND"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"mother_name", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         mother_name: "Ananya Patil"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"type", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         type: "P"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"place_issue", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         place_issue: "Hyderabad"
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"date", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         date: {date_of_issue:"20-08-2014",
+//               date_of_expiry:"19-08-2024"}
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"pob", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         pob: {pob_city:"Hyderabad",
+//               pob_state: "Telangana"
+//             }
+//       }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//         meta:{identity:"nationality", verifier:"passport", verified_by:"aadhar", eventType:"ID"},
+//         nationality: "Indian"
+//       }}}], action:"send"},(err,rep)=>{
+//   console.log(err);
+// });
+//
+// multichain.createRawSendFrom({from:"1DkQGLaSibCC8jsryRGYGQmLg1S6S155dMfdaw",amounts:{},data:[{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39",
+//         "data":{json:{
+//                 father_name: "Ayush Agarwal",
+//                 meta:{identity:"father_name", verifier:"Department of Public Health", eventType:"Birth"}
+//             }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//                 meta:{identity:"mother_name", verifier:"Department of Public Health",  eventType:"Birth"},
+//                 mother_name: "Piyali Agarwal"
+//             }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//                 meta:{identity:"dob",verifier:"Department of Public Health",  eventType:"Birth"},
+//                 dob: "15-02-1998"
+//             }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//                 meta:{identity:"name", verifier:"Department of Public Health",  eventType:"Birth"},
+//                 name: "Rishav Patil"
+//             }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//                 meta:{identity:"gender",verifier:"Department of Public Health",  eventType:"Birth"},
+//                 gender: "Male"
+//             }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//                 meta:{identity:"nationality", verifier:"Department of Public Health",  eventType:"Birth"},
+//                 nationality: "Indian"
+//             }}},{"for":"test18","key":"038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39","data":{json:{
+//                 meta:{identity:"date_registration", verifier:"Department of Public Health",  eventType:"Birth"},
+//                 date_registration: "12-12-1998"
+//             }}}], action:"send"},(err,rep)=>{
+//     console.log(err);
+// });
 
 app.set('port', process.env.PORT || 3001);
 

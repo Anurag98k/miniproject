@@ -10,7 +10,7 @@ html
         display: none;
       }
 
-      .address_card_flip, .address_city_card_flip, .address_hno_card_flip, .address_street_card_flip, .address_state_card_flip, .address_pin_card_flip, .pob_city_card_flip, .pob_state_card_flip, .dob_card_flip {
+      .address_city_card_flip, .address_hno_card_flip, .address_street_card_flip, .address_state_card_flip, .address_pin_card_flip, .pob_city_card_flip, .pob_state_card_flip, .emp_city_card_flip, .emp_company_card_flip, .emp_join_card_flip, .emp_eid_card_flip {
         display: none;
       }
 
@@ -18,7 +18,7 @@ html
         display: none;
       }
 
-      #IDFaddress, #IDFname, #IDFpob {
+      #IDFaddress, #IDFname, #IDFpob, #IDFempslip {
         display: none;
       }
 
@@ -27,83 +27,23 @@ html
       $(document).ready(function () {
         let fields = '#{title}';
         fields = fields.split(',');
-        console.log(fields);
+        console.log(fields)
         for (let i in fields) {
-          $("#"+fields[i]).css('display', 'block');
+          $("#" + fields[i]).css('display', 'block');
         }
         $('.ui.checkbox').checkbox();
         $('.ui.radio.checkbox').checkbox();
         $('select.dropdown').dropdown();
-        $(".name_card").hover(function () {
-          if (response_arrived) {
-            $(".name_card_flip").css("display", "block");
-          }
-        }, function () {
-          $(".name_card_flip").css("display", "none");
-        });
-        $(".address_hno_card").hover(function () {
-          if (response_arrived) {
-            $(".address_hno_card_flip").css("display", "block");
-          }
-        }, function () {
-          $(".address_hno_card_flip").css("display", "none");
-        });
-        $(".address_street_card").hover(function () {
-          if (response_arrived) {
-            $(".address_street_card_flip").css("display", "block");
-          }
-        }, function () {
-          $(".address_street_card_flip").css("display", "none");
-        });
-        $(".address_city_card").hover(function () {
-          if (response_arrived) {
-            $(".address_city_card_flip").css("display", "block");
-          }
-        }, function () {
-          $(".address_city_card_flip").css("display", "none");
-        });
-        $(".address_pin_card").hover(function () {
-          if (response_arrived) {
-            $(".address_pin_card_flip").css("display", "block");
-          }
-        }, function () {
-          $(".address_pin_card_flip").css("display", "none");
-        });
-        $(".address_state_card").hover(function () {
-          if (response_arrived) {
-            $(".address_state_card_flip").css("display", "block");
-          }
-        }, function () {
-          $(".address_state_card_flip").css("display", "none");
-        });
-        $(".pob_state_card").hover(function () {
-          if (response_arrived) {
-            $(".pob_state_card_flip").css("display", "block");
-          }
-        }, function () {
-          $(".pob_state_card_flip").css("display", "none");
-        });
-        $(".pob_city_card").hover(function () {
-          if (response_arrived) {
-            $(".pob_city_card_flip").css("display", "block");
-          }
-        }, function () {
-          $(".pob_city_card_flip").css("display", "none");
-        });
-        $(".age_card").hover(function () {
-          if (response_arrived) {
-            $(".age_card_flip").css("display", "block");
-          }
-        }, function () {
-          $(".age_card_flip").css("display", "none");
-        });
-        $(".dob_card").hover(function () {
-          if (response_arrived) {
-            $(".dob_card_flip").css("display", "block");
-          }
-        }, function () {
-          $(".dob_card_flip").css("display", "none");
-        });
+        let card_array = ["name_card", "address_city_card", "address_hno_card", "address_street_card", "address_state_card", "address_pin_card", "pob_city_card", "pob_state_card", "emp_city_card", "emp_company_card", "emp_join_card", "emp_eid_card"];
+        for (let i in card_array) {
+          $("." + card_array[i]).hover(function () {
+            if (response_arrived) {
+              $("." + card_array[i] + "_flip").css("display", "block");
+            }
+          }, function () {
+            $("." + card_array[i] + "_flip").css("display", "none");
+          });
+        }
       });
       sendForm = function () {
         var formData = JSON.stringify($("#myForm").serializeArray());
@@ -151,9 +91,63 @@ html
       };
       fillAPI = function (pubkey) {
         $.ajax({
+          // url:"http://127.0.0.1:3001/idf/getDetails1?pubkey="+pubkey+"&address=req&ageproof=req&name=req",
           url: "http://127.0.0.1:3001/idf/getDetails1?pubkey=" + pubkey + "&address=req&pob=req&name=req;",
           type: "GET",
+          // dataType:"json",
+          // data:JSON.stringify({pubkey:pubkey,address:"req",ageproof:"req",name:"req"}),
+          // contentType: 'application/json',
           crossDomain: true,
+          // success:function(response, textStatus, jqXHR) {
+          //     response_arrived=true;
+          //     console.log(response);
+          //     $("#fill_form").css("display","none");
+          //     $("#sumbit_idf").css("display","block");
+          //     // data=JSON.parse(data);
+          //     if(response.name.data) {
+          //         $('#name')[0].value = response.name.data;
+          //
+          //         let verify_card = $('#name_verify').children();
+          //         // console.log(x[0].innerHTML)
+          //         verify_card[0].innerHTML = response.name.keys.filter(function (ele) {
+          //             if (ele !== "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" && ele !== "name") {
+          //                 return ele;
+          //             }
+          //         });
+          //
+          //         verify_card[1].innerHTML = response.name.data;
+          //         verify_card[2].innerHTML = "<b>Txid:<br></b>" + response.name.txid;
+          //     }
+          //     if(response.address.data) {
+          //         $('#address')[0].value = response.address.data;
+          //
+          //         let address_card = $('#address_verify').children();
+          //         address_card[0].innerHTML = response.address.keys.filter(function (ele) {
+          //             if (ele !== "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" && ele !== "address") {
+          //                 return ele;
+          //             }
+          //         });
+          //
+          //         address_card[1].innerHTML = response.address.data;
+          //         address_card[2].innerHTML = "<b>Txid:<br></b>" + response.address.txid;
+          //     }
+          //
+          //     if(response.ageproof.data) {
+          //         $('input[name=ageproof]').attr('checked', true);
+          //         let age_card=$('#age_verify').children();
+          //         // console.log(x[0].innerHTML)
+          //         age_card[0].innerHTML = response.ageproof.keys.filter(function (ele) {
+          //             if(ele!== "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" && ele!=="ageproof"){
+          //                 return ele;
+          //             }
+          //         });
+          //
+          //         age_card[1].innerHTML=response.ageproof.data;
+          //         age_card[2].innerHTML= "<b>Txid:<br></b>"+response.ageproof.txid;
+          //
+          //     }
+          //
+          // },
           success: function (response, textStatus, jqXHR) {
             response_arrived = true;
             response_temp = response;

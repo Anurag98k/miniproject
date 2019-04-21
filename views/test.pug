@@ -206,6 +206,73 @@ block content
                             label(style='font-size: inherit') District
                             input#pob_district(type='text', name='pob_district', placeholder='Mandya')
                     hr
+                #IDFempslip
+                    label
+                        b Employment and emp slip
+                    #emp_form(style='margin: 5% 15% 5% 15%')
+                        .ui.ignored.info.message
+                            | Applicant's Employment and Salary details
+                        .field.required.emp_company_card
+                            label(style='font-size: inherit') Company Name:
+                            input#emp_company(type='text', name='emp_company', placeholder='Cisco')
+                        .emp_company_card_flip
+                            .ui.cards.verify
+                                .card
+                                    #emp_company_verify.content
+                                        #emp_company_from.header Elliot Fu
+                                        #emp_company_name.meta Friend
+                                        #emp_company_txid.description(style='word-break: break-all')
+                                            | hello
+                                    .extra.content
+                                        | Verified
+                                        a
+                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
+                        .field.required.emp_eid_card
+                            label(style='font-size: inherit') Employee ID:
+                            input#emp_eid(type='text', name='emp_eid', placeholder='10040236')
+                        .emp_eid_card_flip
+                            .ui.cards.verify
+                                .card
+                                    #emp_eid_verify.content
+                                        #emp_eid_from.header Elliot Fu
+                                        #emp_eid_name.meta Friend
+                                        #emp_eid_txid.description(style='word-break: break-all')
+                                            | hello
+                                    .extra.content
+                                        | Verified
+                                        a
+                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
+                        .field.required.emp_join_card
+                            label(style='font-size: inherit') Join Date:
+                            input#emp_join(type='text', name='emp_join', placeholder='dd/mm/yyyy')
+                        .emp_join_card_flip
+                            .ui.cards.verify
+                                .card
+                                    #emp_join_verify.content
+                                        #emp_join_from.header Elliot Fu
+                                        #emp_join_name.meta Friend
+                                        #emp_join_txid.description(style='word-break: break-all')
+                                            | hello
+                                    .extra.content
+                                        | Verified
+                                        a
+                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
+                        .field.required.emp_city_card
+                            label(style='font-size: inherit') City of Employment:
+                            input#emp_city(type='text', name='emp_join', placeholder='Bangalore')
+                        .emp_city_card_flip
+                            .ui.cards.verify
+                                .card
+                                    #emp_city_verify.content
+                                        #emp_city_from.header Elliot Fu
+                                        #emp_city_name.meta Friend
+                                        #emp_city_txid.description(style='word-break: break-all')
+                                            | hello
+                                    .extra.content
+                                        | Verified
+                                        a
+                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
+                    hr
                 // </div>
                 br
                 br

@@ -1,0 +1,11 @@
+Retrieving blockchain parameters from the seed node 3.83.141.28:4769 ...
+Other nodes can connect to this node using:
+multichaind aish1@169.254.171.0:4769
+
+This host has multiple IP addresses, so from some networks:
+multichaind aish1@192.168.43.46:4769
+
+Listening for API requests on port 4768 (local only - see rpcallowip setting)
+
+Node ready.
+
