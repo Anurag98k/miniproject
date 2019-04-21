@@ -212,6 +212,23 @@ router.post('/multichain/backup', (req,res,next) => {
 
 
 
+//Check if multichain already has a user
+router.get('/multichain/exists', (req,res,next) => {
+  var multichain_dir;
+  if(os.platform() == 'win32'){multichain_dir = path.join(os.homedir(),'AppData','Roaming','Multichain','aish1');}
+  else{
+    multichain_dir = path.join(os.homedir(),'.multichain','aish1');
+  }
+  if(fs.existsSync(multichain_dir)){
+    res.send({status:'done',exists:true});
+  }
+  else{
+    res.send({status:'done',exists:false});
+  }
+  res.end();
+
+});
+
 
 
 
