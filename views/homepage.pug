@@ -107,11 +107,11 @@ html
       $.get("http://localhost:3001/wallet/multichain/exists", function(data){
       if(data.status == 'done'){
       if(data.exists == false ){
-      $.get("http://localhost:3001/wallet/multichain/init",fucntion(data){
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
       if(data.result == 'failed' || data.result == 'done' ){
-      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},fucntion(data){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},function(data){
       if(data.status == 'done'){
-      $.get("http://localhost:3001/wallet/multichain/start",fucntion(data){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
       $('.ui.dimmer#login_dimmer').removeClass('active');
       window.location.reload(true);
       });
@@ -125,7 +125,7 @@ html
       $.get("http:localhost:3001/wallet/multichain/stop", function(data){
       $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')}, function(data){
       if(data.status == 'done'){
-      $.get("http://localhost:3001/wallet/multichain/start",fucntion(data){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
       $('.ui.dimmer#login_dimmer').removeClass('active');
       window.location.reload(true);
       });
