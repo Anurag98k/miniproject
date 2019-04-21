@@ -2,30 +2,13 @@
 <html>
 <head>
   <title>Identity Site</title>
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/semantic.min.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/reset.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/site.css">
-
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/container.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/grid.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/header.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/image.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/menu.css">
-
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/divider.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/dropdown.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/segment.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/button.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/list.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/icon.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/sidebar.css">
-  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/components/transition.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
   <script
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
-<script src="Semantic-UI-CSS-master/semantic.min.js"></script>
-<style type="text/css">
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  <style type="text/css">
 .masthead.segment {
       min-height: 753px;
       padding: 1em 0em;
@@ -70,6 +53,117 @@
       }
     }
   </style>
+  <script>
+  $(document).ready(function() {
+      //Side bar Log=In check
+      if (localStorage.getItem('username')){
+        $('#right-menu').empty();
+        $('#right-menu').append("<div class='ui inverted button'> Welcome, "+localStorage.getItem('username')+'</div>');
+        $('#right-menu').append("<div class='ui inverted button' id='signOut'>Sign Out</div>");
+      }
+      else{
+        console.log("not logged in");
+      }
+
+      $('#logIn').on('click',function(){
+        $('.ui.modal#login_modal')
+        .modal({
+            blurring: true
+          })
+        .modal({
+          onHidden:function() {
+            $('.ui.message#login_message').addClass('hidden');
+            $('.ui.message#login_message_2').addClass('hidden');
+            $('#login_form').trigger('reset');
+            return false;
+          }
+        })
+        .modal('show');
+      });
+
+      $('#signOut').on('click',function(){
+        localStorage.clear();
+        window.location.reload(true);
+      });
+
+      //onHidden
+
+
+      //For Login modal
+      var username;
+      var password;
+      $("#login_submit").click(function() {
+        $('.ui.dimmer#login_dimmer').addClass('active');
+        $('.ui.message#login_message').addClass('hidden');
+        $('.ui.message#login_message_2').addClass('hidden');
+        if( $('#login_form').form("is valid") ){
+          username = $("#username").val();
+          password = $("#password").val();
+          //check if username exists first before sending password data.
+          $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username,password:password},function (data) {
+            if (data.status == 'done'){
+              localStorage.token = data.token;
+              localStorage.username = username;
+              //Call /wallet/multichain/exists
+              //If false:
+              //Call /wallet/multichain/init
+              //Call /wallet/multichain/restore
+              //Start
+              //If true
+              //Call /wallet/multichain/stop
+              //Call /wallet/multichain/restore
+              //Start
+              $.get("http://localhost:3001/wallet/multichain/exists", function(data){
+                if(data.status == 'done'){
+                  if(data.exists == false ){
+                    $.get("http://localhost:3001/wallet/multichain/init",fucntion(data){
+                      if(data.result == 'failed' || data.result == 'done' ){
+                        $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},fucntion(data){
+                          if(data.status == 'done'){
+                            $.get("http://localhost:3001/wallet/multichain/start",fucntion(data){
+                              $('.ui.dimmer#login_dimmer').removeClass('active');
+                              window.location.reload(true);
+                            });
+                          }
+                        });
+                      }
+                    });
+
+                  }
+                  else{
+                    //data.exists == false
+                    $.get("http:localhost:3001/wallet/multichain/stop", function(data){
+                      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')}, function(data){
+                        if(data.status == 'done'){
+                          $.get("http://localhost:3001/wallet/multichain/start",fucntion(data){
+                            $('.ui.dimmer#login_dimmer').removeClass('active');
+                            window.location.reload(true);
+                          });
+                        }
+                      });
+                    });
+                  }
+                }
+              });
+            }
+            else{
+              //FAILED
+              if(data.status == 'failed'){
+                $('.ui.dimmer#login_dimmer').removeClass('active');
+                $('.ui.message#login_message').removeClass('hidden');
+              }
+
+            }
+          })
+
+        }
+        else {
+          $('.ui.message#login_message_2').removeClass('hidden');
+        }
+      });
+
+    });
+  </script>
 </head>
 <body>
   <div class="ui inverted vertical masthead center aligned segment">
@@ -77,12 +171,12 @@
     <div class="ui container">
       <div class="ui large secondary inverted pointing menu">
         <a class="active item">Home</a>
-        <a href="identityForm.html" class="item">Get your services</a>
-        <a href="main.html" class="item">Log your events</a>
-        <a href="view.html" class="item">View your details</a>
-        <div class="right item">
-          <a class="ui inverted button">Log In</a>
-          <a class="ui inverted button">Sign Up</a>
+        <a class="item">Get your services</a>
+        <a class="item">Log your events</a>
+        <a href = "view.html" class="item">View your details</a>
+        <div class="right item" id="right-menu">
+          <a class="ui inverted button" id="logIn">Log In</a>
+          <a class="ui inverted button" id="signUp">Sign Up</a>
         </div>
       </div>
     </div>
@@ -95,7 +189,43 @@
     </div>
 
   </div>
+
+  <div class="ui tiny modal" id="login_modal">
+        <div class="ui dimmer" id="login_dimmer">
+          <div class="ui indeterminate medium text loader">Validating</div>
+        </div>
+      <div class="ui negative message hidden" id="login_message" style="margin-left:2%;margin-right:2%;margin-top:2%;">
+        <div class="header">
+          Incorrect Details! Please Try again..
+        </div>
+      </div>
+      <div class="ui warning message hidden" id="login_message_2" style="margin-left:2%;margin-right:2%;margin-top:2%;">
+        <div class="header">
+          Please Enter ALL fields before submitting
+        </div>
+      </div>
+      <div class="ui segment" id="login" style="margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;">
+        <h2 class="ui center aligned icon header">
+          <i class="circular key icon"></i>
+          LogIn
+        </h2>
+        <form class="ui form" id="login_form">
+          <div class="field required">
+            <label>Username</label>
+            <input type="text" name="username" id="username" value="" placeholder="Username" required>
+          </div>
+          <div class="field required">
+            <label>Password</label>
+            <input type="password" name="password" id="password" value="" placeholder="Password" required>
+          </div>
+          <input class="ui submit button" type="button" id="login_submit" value="submit">
+          <div class="ui error message">
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+
 </body>
 </html>
-
-
