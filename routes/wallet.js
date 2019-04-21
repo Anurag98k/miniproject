@@ -221,11 +221,13 @@ router.get('/multichain/exists', (req,res,next) => {
   }
   if(fs.existsSync(multichain_dir)){
     res.send({status:'done',exists:true});
+    res.end();
   }
   else{
     res.send({status:'done',exists:false});
+    res.end();
   }
-  res.end();
+
 
 });
 
