@@ -1,0 +1,189 @@
+doctype html
+html
+  head
+    title Identity Site
+    link(rel='stylesheet', type='text/css', href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css')
+    script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
+    script(src='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js')
+    style(type='text/css').
+      .masthead.segment {
+      min-height: 753px;
+      padding: 1em 0em;
+      }
+      .masthead .logo.item img {
+      margin-right: 1em;
+      }
+      .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+      }
+      .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+      }
+      .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+      }
+      @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+      display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+      display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+      display: block;
+      }
+      .masthead.segment {
+      min-height: 350px;
+      }
+      .masthead h1.ui.header {
+      font-size: 2em;
+      margin-top: 1.5em;
+      }
+      .masthead h2 {
+      margin-top: 0.5em;
+      font-size: 1.5em;
+      }
+      }
+    script.
+      $(document).ready(function() {
+      //Side bar Log=In check
+      if (localStorage.getItem('username')){
+      $('#right-menu').empty();
+      $('#right-menu').append("<div class='ui inverted button'> Welcome, "+localStorage.getItem('username')+'</div>');
+      $('#right-menu').append("<div class='ui inverted button' id='signOut'>Sign Out</div>");
+      }
+      else{
+      console.log("not logged in");
+      }
+      $('#logIn').on('click',function(){
+      $('.ui.modal#login_modal')
+      .modal({
+      blurring: true
+      })
+      .modal({
+      onHidden:function() {
+      $('.ui.message#login_message').addClass('hidden');
+      $('.ui.message#login_message_2').addClass('hidden');
+      $('#login_form').trigger('reset');
+      return false;
+      }
+      })
+      .modal('show');
+      });
+      $('#signOut').on('click',function(){
+      localStorage.clear();
+      window.location.reload(true);
+      });
+      //onHidden
+      //For Login modal
+      var username;
+      var password;
+      $("#login_submit").click(function() {
+      $('.ui.dimmer#login_dimmer').addClass('active');
+      $('.ui.message#login_message').addClass('hidden');
+      $('.ui.message#login_message_2').addClass('hidden');
+      if( $('#login_form').form("is valid") ){
+      username = $("#username").val();
+      password = $("#password").val();
+      //check if username exists first before sending password data.
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username,password:password},function (data) {
+      if (data.status == 'done'){
+      localStorage.token = data.token;
+      localStorage.username = username;
+      //Call /wallet/multichain/exists
+      //If false:
+      //Call /wallet/multichain/init
+      //Call /wallet/multichain/restore
+      //Start
+      //If true
+      //Call /wallet/multichain/stop
+      //Call /wallet/multichain/restore
+      //Start
+      $.get("http://localhost:3001/wallet/multichain/exists", function(data){
+      if(data.status == 'done'){
+      if(data.exists == false ){
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
+      if(data.result == 'failed' || data.result == 'done' ){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},function(data){
+      if(data.status == 'done'){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      window.location.reload(true);
+      });
+      }
+      });
+      }
+      });
+      }
+      else{
+      //data.exists == false
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')}, function(data){
+      if(data.status == 'done'){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      window.location.reload(true);
+      });
+      }
+      });
+      });
+      }
+      }
+      });
+      }
+      else{
+      //FAILED
+      if(data.status == 'failed'){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      $('.ui.message#login_message').removeClass('hidden');
+      }
+      }
+      })
+      }
+      else {
+      $('.ui.message#login_message_2').removeClass('hidden');
+      }
+      });
+      });
+  body
+    .ui.inverted.vertical.masthead.center.aligned.segment
+      .ui.container
+        .ui.large.secondary.inverted.pointing.menu
+          a.active.item Home
+          a.item Get your services
+          a.item Log your events
+          a.item(href='#') View your details
+          #right-menu.right.item
+            a#logIn.ui.inverted.button Log In
+            a#signUp.ui.inverted.button Sign Up
+      .ui.text.container
+        h1.ui.inverted.header
+          | Idempotent
+        h2 A secure repository for all your identity-based events
+    #login_modal.ui.tiny.modal
+      #login_dimmer.ui.dimmer
+        .ui.indeterminate.medium.text.loader Validating
+      #login_message.ui.negative.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Incorrect Details! Please Try again..
+      #login_message_2.ui.warning.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Please Enter ALL fields before submitting
+      #login.ui.segment(style='margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;')
+        h2.ui.center.aligned.icon.header
+          i.circular.key.icon
+          |           LogIn
+        form#login_form.ui.form
+          .field.required
+            label Username
+            input#username(type='text', name='username', value='', placeholder='Username', required='')
+          .field.required
+            label Password
+            input#password(type='password', name='password', value='', placeholder='Password', required='')
+          input#login_submit.ui.submit.button(type='button', value='submit')
+          .ui.error.message

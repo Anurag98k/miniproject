@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var http = require('http');
 var cors = require('cors');
+const open = require('open');
 
 
 var indexRouter = require('./routes/index');
@@ -15,14 +16,8 @@ var walletRouter = require('./routes/wallet');
 
 
 var app = express();
+app.options('*', cors());
 
-app.use(cors({
-    'allowedHeaders': ['sessionId', 'Content-Type'],
-    'exposedHeaders': ['sessionId'],
-    'origin': '*',
-    'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    'preflightContinue': false
-}));
 
 //
 // app.use(function (req, res, next) {
@@ -714,7 +709,7 @@ multichain.createRawSendFrom({
         }], action: "send"
     }, (err, rep) => {
         console.log(err);
-});
+    });
 
 
         multichain.createRawSendFrom({
@@ -789,8 +784,10 @@ multichain.createRawSendFrom({
 
         app.set('port', process.env.PORT || 3001);
 
+
         var server = app.listen(app.get('port'), function () {
             debug('Express server listening on port ' + server.address().port);
+            open('http://localhost:'+server.address().port+'/');
         });
 
 
