@@ -1,5 +1,65 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  //- h1= title
+  //- p Welcome to #{title}
+  //- script.
+    //- swal("Successful!", "You have been verified!", "success")
+  style(type='text/css').
+    .masthead.segment {
+    min-height: 100%;
+    padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+    margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+    margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+    margin-top: 3em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
+    }
+    .masthead h2 {
+    font-size: 1.7em;
+    font-weight: normal;
+    }
+    @media only screen and (max-width: 700px) {
+    .ui.fixed.menu {
+    display: none !important;
+    }
+    .secondary.pointing.menu .item,
+    .secondary.pointing.menu .menu {
+    display: none;
+    }
+    .secondary.pointing.menu .toc.item {
+    display: block;
+    }
+    .masthead.segment {
+    min-height: 350px;
+    }
+    .masthead h1.ui.header {
+    font-size: 2em;
+    margin-top: 1.5em;
+    }
+    .masthead h2 {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+    }
+    }  
+  .ui.inverted.vertical.masthead.center.aligned.segment
+    .ui.container
+      .ui.large.secondary.inverted.pointing.menu
+        a.active.item(href='http://localhost:3000/') Home
+        a.item Get your services
+        a.item Log your events
+        a.item(href='http://localhost:3000/view') View your details
+        .right.item
+          a.ui.inverted.button Log In
+          a.ui.inverted.button Sign Up
+    .ui.text.container
+      h1.ui.inverted.header
+        | Idempotent
+      h2 A secure repository for all your identity-based events
