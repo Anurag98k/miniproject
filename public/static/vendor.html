@@ -17,6 +17,8 @@
         else {
             $('#serviceReq').remove();
             $('#IDFdetails').remove();
+            $('#request_card').remove();
+
 
         }
     }
@@ -40,106 +42,127 @@
     }
     </script>
 </head>
+<style type="text/css">
+    /*.masthead.segment {
+      min-height: 753px;
+      padding: 1em 0em;
+    }*/
+    .masthead.segment {
+        min-height: 100%;
+        padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+        margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+        margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+        margin-top: 3em;
+        margin-bottom: 0em;
+        font-size: 4em;
+        font-weight: normal;
+    }
+    .masthead h2 {
+        font-size: 1.7em;
+        font-weight: normal;
+    }
+    .card {
+        height: 250px;
+        width: 100px;
+    }
+    /*.ui .cards{
+      margin: 2.3em -26em;
+      width: 2000px;
+    }*/
+    .ui .cards{
+        margin: 5% -37%;
+        width: 200%;
+    }
+    .ui.cards>.card>.content>.header:not(.ui) {
+        margin-top: 3.78575em;
+    }
+
+    @media only screen and (max-width: 700px) {
+        .ui.fixed.menu {
+            display: none !important;
+        }
+        .secondary.pointing.menu .item,
+        .secondary.pointing.menu .menu {
+            display: none;
+        }
+        .secondary.pointing.menu .toc.item {
+            display: block;
+        }
+        .masthead.segment {
+            min-height: 350px;
+        }
+        .masthead h1.ui.header {
+            font-size: 2em;
+            margin-top: 1.5em;
+        }
+        .masthead h2 {
+            margin-top: 0.5em;
+            font-size: 1.5em;
+        }
+    }
+</style>
 <body>
-<style type="text/css">body {
-    background-color: #FFFFFF;
-}
+    <div class="ui inverted vertical masthead center aligned segment">
 
-.ui.menu .item img.logo {
-    margin-right: 1.5em;
-}
-
-.main.container {
-    margin-top: 7em;
-}
-
-.wireframe {
-    margin-top: 2em;
-}
-
-.ui.footer.segment {
-    margin: 5em 0em 0em;
-    padding: 5em 0em;
-}</style>
-<div class="ui fixed inverted menu">
-    <div class="ui container"><a class="header item" href="#"><img class="logo" src="assets/images/logo.png"> Project
-        Name</a><a class="item" href="#">Home</a>
-        <div class="ui simple dropdown item">Dropdown<i class="dropdown icon"></i>
-            <div class="menu"><a class="item" href="#">Link Item</a><a class="item" href="#">Link Item</a>
-                <div class="divider"></div>
-                <div class="header">Header Item</div>
-                <div class="item"><i class="dropdown icon"></i> Sub Menu
-                    <div class="menu"><a class="item" href="#">Link Item</a><a class="item" href="#">Link Item</a></div>
-                </div>
-                <a class="item" href="#">Link Item</a></div>
-        </div>
-    </div>
-</div>
-<div class="ui main text container"><h1 class="ui header">Client requets come here</h1>
-    <p>Lorem ipsum faucibus sed suspendisse libero inceptos curabitur ultricies massa maecenas, enim elit arcu nec felis
-        litora mollis faucibus donec, ut malesuada tempor dolor quisque aenean bibendum vivamus molestie.
-
-        Vivamus massa eget pretium turpis aliquam netus viverra, volutpat metus id sem senectus arcu quis inceptos,
-        maecenas aliquam quis quisque in etiam suscipit vestibulum libero non ullamcorper molestie consectetur nisl
-        neque justo porttitor nullam viverra.
-
-        Vel adipiscing a vestibulum enim aptent curabitur vivamus hendrerit, faucibus class nisi pharetra consequat at
-        adipiscing dictum, nullam fusce suspendisse enim posuere accumsan sit leo justo curabitur aliquam non litora
-        cubilia mi, adipiscing metus morbi diam aliquet adipiscing, odio hendrerit dolor rhoncus justo suscipit
-        consequat vitae massa metus mauris sed mi ut potenti lacinia donec.
-
-        Cras gravida conubia tellus non phasellus maecenas mattis per semper condimentum dictum, libero tincidunt non
-        placerat metus eu taciti egestas libero praesent volutpat, velit quisque congue mollis habitant laoreet tempus
-        tellus inceptos fermentum amet feugiat morbi at ad aptent lacus curae sit proin, blandit magna accumsan sodales
-        scelerisque consequat varius elit.
-
-        Urna lacus elementum eu placerat pulvinar at aenean vel dui, sit donec metus porta class vehicula erat porta
-        nam, netus dolor ante morbi netus sem eu bibendum.</p>
-    <div>
-        <div class="ui fluid raised card" id="serviceReq">
-            <div class="content">
-                <div class="header">New Sim Card</div>
-                <div class="meta">Service Request</div>
-                <div class="description">
-                    <p><b>Public Key:</b> 038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39<br></p>
-                    <p>The above user has requested for a new sim card</p>
-                </div>
-            </div>
-            <div class="extra content">
-                <div class="ui two buttons">
-                    <div class="ui basic green button" onclick="processReq(1)">Approve</div>
-                    <div class="ui basic red button" onclick="processReq(0)">Decline</div>
+        <div class="ui container">
+            <div class="ui large secondary inverted pointing menu">
+                <a class="active item">Home</a>
+                <a href="test.html" class="item">Get your services</a>
+                <a href="main.html" class="item">Log your events</a>
+                <a href="view.html" class="item">View your details</a>
+                <div class="right item">
+                    <a class="ui inverted button">Log In</a>
+                    <a class="ui inverted button">Sign Up</a>
                 </div>
             </div>
         </div>
-        <div id="IDFdetails" style="display: none; margin-top: 5%">
-            <hr>
-            <h3 class="ui header" align="center"> Create IDF</h3>
-            <div class="ui info message" align="centre">
-                Select the necessary authenticating fields for the user in Identity Form
+        <div class="ui text container">
+            <div class="ui special cards" id="special_card">
+                <div style="background-color: white; margin-top: 5%" class="ui segment" id="request_card" >
+                    <div class="ui fluid raised card" id="serviceReq" style="height: 180px">
+                        <div class="content">
+                            <div class="header">New Sim Card</div>
+                            <div class="meta">Service Request</div>
+                            <div class="description">
+                                <p><b>Public Key:</b> 038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39<br></p>
+                                <p>The above user has requested for a new sim card</p>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <div class="ui two buttons">
+                                <div class="ui basic green button" onclick="processReq(1)">Approve</div>
+                                <div class="ui basic red button" onclick="processReq(0)">Decline</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="IDFdetails" style="display: none; margin-top: 5%">
+                        <hr>
+                        <h3 class="ui header" align="center"> Create IDF</h3>
+                        <div class="ui info message" align="centre">
+                            Select the necessary authenticating fields for the user in Identity Form
+                        </div>
+                        <select class="ui fluid search dropdown" multiple="" id="IDFfields">
+                            <option value="">IDF fields</option>
+                            <option value="IDFname">Name</option>
+                            <option value="IDFaddress">Address</option>
+                            <option value="age">Age Proof</option>
+                            <option value="IDFpob">Birth Proof</option>
+                            <option value="IDFempslip">Employment Statement</option>
+                            <option value="IDFmarriage">Marriage certificate</option>
+                            <option value="edu">Highest Education</option>
+                            <option value="death">Death Details</option>
+                        </select>
+                        <button class="ui button" onclick="sendIDF()" id="IDFsendbutton" style="float: right; margin-top: 2%">Send Form</button>
+                    </div>
+                </div>
             </div>
-            <select class="ui fluid search dropdown" multiple="" id="IDFfields">
-                <option value="">IDF fields</option>
-                <option value="IDFname">Name</option>
-                <option value="IDFaddress">Address</option>
-                <option value="age">Age Proof</option>
-                <option value="IDFpob">Birth Proof</option>
-                <option value="IDFempslip">Employment Statement</option>
-                <option value="marriage">Marriage certificate</option>
-                <option value="edu">Highest Education</option>
-                <option value="death">Death Details</option>
-            </select>
-            <button class="ui button" onclick="sendIDF()" id="IDFsendbutton" style="float: right; margin-top: 2%">Send Form</button>
         </div>
     </div>
-</div>
-<div class="ui inverted vertical footer segment">
-    <div class="ui center aligned container">
-        <div class="ui inverted section divider"></div>
-        <div class="ui horizontal inverted small divided link list"><a class="item" href="#">Site Map</a><a class="item"
-                                                                                                            href="#">Contact
-            Us</a><a class="item" href="#">Terms and Conditions</a><a class="item" href="#">Privacy Policy</a></div>
-    </div>
-</div>
 </body>
 </html>

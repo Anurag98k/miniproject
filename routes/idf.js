@@ -16,7 +16,7 @@ router.get ('/test', function (req,res,next) {
     // }
     // console.log(req.url)
     if(formFields===undefined && req.url==='/test'){
-        res.render('index', {title: 'Express'});
+        res.render('test', {title: ''});
     }
     else {
         if(formFields!==undefined) {

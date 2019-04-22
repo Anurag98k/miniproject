@@ -10,7 +10,7 @@ html
         display: none;
       }
 
-      .address_city_card_flip, .address_hno_card_flip, .address_street_card_flip, .address_state_card_flip, .address_pin_card_flip, .pob_city_card_flip, .pob_state_card_flip, .emp_city_card_flip, .emp_company_card_flip, .emp_join_card_flip, .emp_eid_card_flip {
+      .address_city_card_flip, .address_hno_card_flip, .address_street_card_flip, .address_state_card_flip, .address_pin_card_flip, .pob_city_card_flip, .pob_state_card_flip, .emp_city_card_flip, .emp_company_card_flip, .emp_join_card_flip, .emp_eid_card_flip, .marriage_city_card_flip, .marriage_date_card_flip, .marriage_pastor_card_flip, .marriage_spouse_name_card_flip {
         display: none;
       }
 
@@ -18,23 +18,97 @@ html
         display: none;
       }
 
-      #IDFaddress, #IDFname, #IDFpob, #IDFempslip {
+      #IDFaddress, #IDFname, #IDFpob, #IDFempslip, #IDFmarriage {
         display: none;
+      }
+
+      #fill_form{
+      display: none;
+      }
+    style(type='text/css').
+      .masthead.segment {
+        min-height: 753px;
+        padding: 1em 0em;
+      }
+
+      .masthead .logo.item img {
+        margin-right: 1em;
+      }
+
+      .masthead .ui.menu .ui.button {
+        margin-left: 0.5em;
+      }
+
+      .masthead h1.ui.header {
+        margin-top: 3em;
+        margin-bottom: 0em;
+        font-size: 4em;
+        font-weight: normal;
+      }
+
+      .masthead h2 {
+        font-size: 1.7em;
+        font-weight: normal;
+      }
+
+      .card {
+        height: 250px;
+        width: 100px;
+      }
+
+      /*.ui .cards{*/
+      /*margin: 2.3em -26em;*/
+      /*width: 2000px;*/
+      /*}*/
+      .ui.cards > .card > .content > .header:not(.ui) {
+        margin-top: 3.78575em;
+      }
+
+      @media only screen and (max-width: 700px) {
+        .ui.fixed.menu {
+          display: none !important;
+        }
+
+        .secondary.pointing.menu .item,
+        .secondary.pointing.menu .menu {
+          display: none;
+        }
+
+        .secondary.pointing.menu .toc.item {
+          display: block;
+        }
+
+        .masthead.segment {
+          min-height: 350px;
+        }
+
+        .masthead h1.ui.header {
+          font-size: 2em;
+          margin-top: 1.5em;
+        }
+
+        .masthead h2 {
+          margin-top: 0.5em;
+          font-size: 1.5em;
+        }
       }
 
     script.
       let response_arrived = false;
       $(document).ready(function () {
         let fields = '#{title}';
-        fields = fields.split(',');
-        console.log(fields)
-        for (let i in fields) {
-          $("#" + fields[i]).css('display', 'block');
+        if(fields!="") {
+          $('#fill_form').css('display', 'block')
+          fields = fields.split(',');
+          console.log(fields)
+          for (let i in fields) {
+            $("#" + fields[i]).css('display', 'block');
+          }
         }
         $('.ui.checkbox').checkbox();
         $('.ui.radio.checkbox').checkbox();
         $('select.dropdown').dropdown();
-        let card_array = ["name_card", "address_city_card", "address_hno_card", "address_street_card", "address_state_card", "address_pin_card", "pob_city_card", "pob_state_card", "emp_city_card", "emp_company_card", "emp_join_card", "emp_eid_card"];
+        let card_array = ["name_card", "address_city_card", "address_hno_card", "address_street_card", "address_state_card", "address_pin_card", "pob_city_card", "pob_state_card", "emp_city_card", "emp_company_card", "emp_join_card", "emp_eid_card", "marriage_city_card", "marriage_date_card", "marriage_pastor_card", "marriage_spouse_name_card"];
         for (let i in card_array) {
           $("." + card_array[i]).hover(function () {
             if (response_arrived) {
@@ -94,60 +168,7 @@ html
           // url:"http://127.0.0.1:3001/idf/getDetails1?pubkey="+pubkey+"&address=req&ageproof=req&name=req",
           url: "http://127.0.0.1:3001/idf/getDetails1?pubkey=" + pubkey + "&address=req&pob=req&name=req;",
           type: "GET",
-          // dataType:"json",
-          // data:JSON.stringify({pubkey:pubkey,address:"req",ageproof:"req",name:"req"}),
-          // contentType: 'application/json',
           crossDomain: true,
-          // success:function(response, textStatus, jqXHR) {
-          //     response_arrived=true;
-          //     console.log(response);
-          //     $("#fill_form").css("display","none");
-          //     $("#sumbit_idf").css("display","block");
-          //     // data=JSON.parse(data);
-          //     if(response.name.data) {
-          //         $('#name')[0].value = response.name.data;
-          //
-          //         let verify_card = $('#name_verify').children();
-          //         // console.log(x[0].innerHTML)
-          //         verify_card[0].innerHTML = response.name.keys.filter(function (ele) {
-          //             if (ele !== "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" && ele !== "name") {
-          //                 return ele;
-          //             }
-          //         });
-          //
-          //         verify_card[1].innerHTML = response.name.data;
-          //         verify_card[2].innerHTML = "<b>Txid:<br></b>" + response.name.txid;
-          //     }
-          //     if(response.address.data) {
-          //         $('#address')[0].value = response.address.data;
-          //
-          //         let address_card = $('#address_verify').children();
-          //         address_card[0].innerHTML = response.address.keys.filter(function (ele) {
-          //             if (ele !== "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" && ele !== "address") {
-          //                 return ele;
-          //             }
-          //         });
-          //
-          //         address_card[1].innerHTML = response.address.data;
-          //         address_card[2].innerHTML = "<b>Txid:<br></b>" + response.address.txid;
-          //     }
-          //
-          //     if(response.ageproof.data) {
-          //         $('input[name=ageproof]').attr('checked', true);
-          //         let age_card=$('#age_verify').children();
-          //         // console.log(x[0].innerHTML)
-          //         age_card[0].innerHTML = response.ageproof.keys.filter(function (ele) {
-          //             if(ele!== "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" && ele!=="ageproof"){
-          //                 return ele;
-          //             }
-          //         });
-          //
-          //         age_card[1].innerHTML=response.ageproof.data;
-          //         age_card[2].innerHTML= "<b>Txid:<br></b>"+response.ageproof.txid;
-          //
-          //     }
-          //
-          // },
           success: function (response, textStatus, jqXHR) {
             response_arrived = true;
             response_temp = response;

@@ -1,291 +1,307 @@
 extends layout
 
 block content
-    style(type='text/css').
-        body {
-            background-color: #FFFFFF;
-        }
-        .ui.menu .item img.logo {
-            margin-right: 1.5em;
-        }
-        .main.container {
-            margin-top: 7em;
-        }
-        .wireframe {
-            margin-top: 2em;
-        }
-        .ui.footer.segment {
-            margin: 5em 0em 0em;
-            padding: 5em 0em;
-        }
-    .ui.fixed.inverted.menu
+    .ui.inverted.vertical.masthead.center.aligned.segment
         .ui.container
-            a.header.item(href='#')
-                img.logo(src='assets/images/logo.png')
-                |         Project Name
-            a.item(href='#') Home
-            .ui.simple.dropdown.item
-                | Dropdown
-                i.dropdown.icon
-                .menu
-                    a.item(href='#') Link Item
-                    a.item(href='#') Link Item
-                    .divider
-                    .header Header Item
-                    .item
-                        i.dropdown.icon
-                        |             Sub Menu
-                        .menu
-                            a.item(href='#') Link Item
-                            a.item(href='#') Link Item
-                    a.item(href='#') Link Item
-    .ui.main.text.container
-        h1.ui.header Client requets come here
-        p
-        p
-            | Lorem ipsum faucibus sed suspendisse libero inceptos curabitur ultricies massa maecenas, enim elit arcu nec felis litora mollis faucibus donec, ut malesuada tempor dolor quisque aenean bibendum vivamus molestie.
-            |
-            | Vivamus massa eget pretium turpis aliquam netus viverra, volutpat metus id sem senectus arcu quis inceptos, maecenas aliquam quis quisque in etiam suscipit vestibulum libero non ullamcorper molestie consectetur nisl neque justo porttitor nullam viverra.
-            |
-            | Vel adipiscing a vestibulum enim aptent curabitur vivamus hendrerit, faucibus class nisi pharetra consequat at adipiscing dictum, nullam fusce suspendisse enim posuere accumsan sit leo justo curabitur aliquam non litora cubilia mi, adipiscing metus morbi diam aliquet adipiscing, odio hendrerit dolor rhoncus justo suscipit consequat vitae massa metus mauris sed mi ut potenti lacinia donec.
-            |
-            | Cras gravida conubia tellus non phasellus maecenas mattis per semper condimentum dictum, libero tincidunt non placerat metus eu taciti egestas libero praesent volutpat, velit quisque congue mollis habitant laoreet tempus tellus inceptos fermentum amet feugiat morbi at ad aptent lacus curae sit proin, blandit magna accumsan sodales scelerisque consequat varius elit.
-            |
-            | Urna lacus elementum eu placerat pulvinar at aenean vel dui, sit donec metus porta class vehicula erat porta nam, netus dolor ante morbi netus sem eu bibendum.
-
-        .ui.segment
-            .ui.blue.right.ribbon.label.large Voter ID Application
-            form#myForm.ui.form(method='post', action='http://localhost:3001/multisig/idf')
-                // <form class="ui form">
-                .disabled.field
-                    label(style='opacity: 1') Public Key
-                    input(type='text', tabindex='-1', name='pubkey', value='038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')
-                hr
-                #IDFname
-                    span
-                        b Name
-                    .name_form(style='margin: 5% 15% 5% 15%')
-                        .ui.ignored.info.message
-                            | Applicant's Name details
-                        .field.required.name_card
-                            label(style='font-size: inherit') Full Name of Applicant
-                            input#name(type='text', name='name', placeholder='Full Name')
-                        .name_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #name_verify.content
-                                        #name_from.header Elliot Fu
-                                        #name_name.meta Friend
-                                        #name_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
+            .ui.large.secondary.inverted.pointing.menu
+                a.active.item Home
+                a.item(href='identityForm.html') Get your services
+                a.item(href='main.html') Log your events
+                a.item(href='view.html') View your details
+                .right.item
+                    a.ui.inverted.button Log In
+                    a.ui.inverted.button Sign Up
+        .ui.text.container(style='margin-top: 3%')
+            .ui.segment
+                // <div class="ui blue right ribbon label large">Voter ID Application</div>
+                form#myForm.ui.form(method='post', action='http://localhost:3001/multisig/idf')
+                    // <form class="ui form">
+                    .disabled.field
+                        label(style='opacity: 1') Public Key
+                        input(type='text', tabindex='-1', name='pubkey', value='038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')
                     hr
-                #IDFaddress
-                    label(style='font-size: inherit')
-                        b Permanent Address
-                    #address_form(style='margin: 5% 15% 5% 15%')
-                        .ui.ignored.info.message
-                            | Applicant's permanent address details
-                        .field.required.address_hno_card
-                            label(style='font-size: inherit') House No
-                            input#address_hno(type='text', name='address_hno', placeholder='Apartment No/Block Name')
-                        .address_hno_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #address_hno_verify.content
-                                        #address_hno_from.header Elliot Fu
-                                        #address_hno_name.meta Friend
-                                        #address_hno_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                        .field.required.address_street_card
-                            label(style='font-size: inherit') Street/Area/Locality
-                            input#address_street(type='text', name='address_street', placeholder='Street Name')
-                        .address_street_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #address_street_verify.content
-                                        #address_street_from.header Elliot Fu
-                                        #address_street_name.meta Friend
-                                        #address_street_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                        .field.required.address_city_card
-                            label(style='font-size: inherit') Town/Village
-                            input#address_city(type='text', name='address_city', placeholder='City/Town Name')
-                        .address_city_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #address_city_verify.content
-                                        #address_city_from.header Elliot Fu
-                                        #address_city_name.meta Friend
-                                        #address_city_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                        .field.required.address_pin_card
-                            label(style='font-size: inherit') Pin Code
-                            input#address_pin(type='text', name='address_pin', placeholder='500032')
-                        .address_pin_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #address_pin_verify.content
-                                        #address_pin_from.header Elliot Fu
-                                        #address_pin_name.meta Friend
-                                        #address_pin_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                        .field.required.address_state_card
-                            label(style='font-size: inherit') State
-                            input#address_state(type='text', name='address_state', placeholder='Karnataka')
-                        .address_state_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #address_state_verify.content
-                                        #address_state_from.header Elliot Fu
-                                        #address_state_name.meta Friend
-                                        #address_state_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                    hr
-                #IDFpob
-                    label
-                        b Place of Birth and Declaration
-                    #dob_form(style='margin: 5% 15% 5% 15%')
-                        .ui.ignored.info.message
-                            | Applicant's Birth event details
-                        span  I am a citizen of India and place of my birth is
-                        .field.required.pob_city_card
-                            label(style='font-size: inherit') Town/Village
-                            input#pob_city(type='text', name='pob_city', placeholder='City/Town Name')
-                        .pob_city_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #pob_city_verify.content
-                                        #pob_city_from.header Elliot Fu
-                                        #pob_city_name.meta Friend
-                                        #pob_city_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                        .field.required.pob_state_card
-                            label(style='font-size: inherit') State
-                            input#pob_state(type='text', name='pob_state', placeholder='Karnataka')
-                        .pob_state_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #pob_state_verify.content
-                                        #pob_state_from.header Elliot Fu
-                                        #pob_state_name.meta Friend
-                                        #pob_state_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                        .field.required
-                            label(style='font-size: inherit') District
-                            input#pob_district(type='text', name='pob_district', placeholder='Mandya')
-                    hr
-                #IDFempslip
-                    label
-                        b Employment and emp slip
-                    #emp_form(style='margin: 5% 15% 5% 15%')
-                        .ui.ignored.info.message
-                            | Applicant's Employment and Salary details
-                        .field.required.emp_company_card
-                            label(style='font-size: inherit') Company Name:
-                            input#emp_company(type='text', name='emp_company', placeholder='Cisco')
-                        .emp_company_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #emp_company_verify.content
-                                        #emp_company_from.header Elliot Fu
-                                        #emp_company_name.meta Friend
-                                        #emp_company_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                        .field.required.emp_eid_card
-                            label(style='font-size: inherit') Employee ID:
-                            input#emp_eid(type='text', name='emp_eid', placeholder='10040236')
-                        .emp_eid_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #emp_eid_verify.content
-                                        #emp_eid_from.header Elliot Fu
-                                        #emp_eid_name.meta Friend
-                                        #emp_eid_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                        .field.required.emp_join_card
-                            label(style='font-size: inherit') Join Date:
-                            input#emp_join(type='text', name='emp_join', placeholder='dd/mm/yyyy')
-                        .emp_join_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #emp_join_verify.content
-                                        #emp_join_from.header Elliot Fu
-                                        #emp_join_name.meta Friend
-                                        #emp_join_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                        .field.required.emp_city_card
-                            label(style='font-size: inherit') City of Employment:
-                            input#emp_city(type='text', name='emp_join', placeholder='Bangalore')
-                        .emp_city_card_flip
-                            .ui.cards.verify
-                                .card
-                                    #emp_city_verify.content
-                                        #emp_city_from.header Elliot Fu
-                                        #emp_city_name.meta Friend
-                                        #emp_city_txid.description(style='word-break: break-all')
-                                            | hello
-                                    .extra.content
-                                        | Verified
-                                        a
-                                            i.check.circle.icon.teal.users.icon.large(style='float: right')
-                    hr
-                // </div>
-                br
-                br
-            button#sumbit_idf.ui.button.blue(onclick='sendForm()', style='display: none') Submit
-            button#fill_form.ui.button.blue(onclick="fillAPI('038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')") Fill Form
-
-
-    .ui.inverted.vertical.footer.segment
-        .ui.center.aligned.container
-            .ui.inverted.section.divider
-            .ui.horizontal.inverted.small.divided.link.list
-                a.item(href='#') Site Map
-                a.item(href='#') Contact Us
-                a.item(href='#') Terms and Conditions
-                a.item(href='#') Privacy Policy
-
+                    #IDFname
+                        span
+                            b Name
+                        .name_form(style='margin: 5% 15% 5% 15%')
+                            .ui.ignored.info.message
+                                | Applicant's Name details
+                            .field.required.name_card
+                                label(style='font-size: inherit') Full Name of Applicant
+                                input#name(type='text', name='name', placeholder='Full Name')
+                            .name_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #name_verify.content
+                                            #name_from.header Elliot Fu
+                                            #name_name.meta Friend
+                                            #name_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                        hr
+                    #IDFaddress
+                        label(style='font-size: inherit')
+                            b Permanent Address
+                        #address_form(style='margin: 5% 15% 5% 15%')
+                            .ui.ignored.info.message
+                                | Applicant's permanent address details
+                            .field.required.address_hno_card
+                                label(style='font-size: inherit') House No
+                                input#address_hno(type='text', name='address_hno', placeholder='Apartment No/Block Name')
+                            .address_hno_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #address_hno_verify.content
+                                            #address_hno_from.header Elliot Fu
+                                            #address_hno_name.meta Friend
+                                            #address_hno_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.address_street_card
+                                label(style='font-size: inherit') Street/Area/Locality
+                                input#address_street(type='text', name='address_street', placeholder='Street Name')
+                            .address_street_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #address_street_verify.content
+                                            #address_street_from.header Elliot Fu
+                                            #address_street_name.meta Friend
+                                            #address_street_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.address_city_card
+                                label(style='font-size: inherit') Town/Village
+                                input#address_city(type='text', name='address_city', placeholder='City/Town Name')
+                            .address_city_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #address_city_verify.content
+                                            #address_city_from.header Elliot Fu
+                                            #address_city_name.meta Friend
+                                            #address_city_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.address_pin_card
+                                label(style='font-size: inherit') Pin Code
+                                input#address_pin(type='text', name='address_pin', placeholder='500032')
+                            .address_pin_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #address_pin_verify.content
+                                            #address_pin_from.header Elliot Fu
+                                            #address_pin_name.meta Friend
+                                            #address_pin_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.address_state_card
+                                label(style='font-size: inherit') State
+                                input#address_state(type='text', name='address_state', placeholder='Karnataka')
+                            .address_state_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #address_state_verify.content
+                                            #address_state_from.header Elliot Fu
+                                            #address_state_name.meta Friend
+                                            #address_state_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                        hr
+                    #IDFpob
+                        label
+                            b Place of Birth and Declaration
+                        #dob_form(style='margin: 5% 15% 5% 15%')
+                            .ui.ignored.info.message
+                                | Applicant's Birth event details
+                            span  I am a citizen of India and place of my birth is
+                            .field.required.pob_city_card
+                                label(style='font-size: inherit') Town/Village
+                                input#pob_city(type='text', name='pob_city', placeholder='City/Town Name')
+                            .pob_city_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #pob_city_verify.content
+                                            #pob_city_from.header Elliot Fu
+                                            #pob_city_name.meta Friend
+                                            #pob_city_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.pob_state_card
+                                label(style='font-size: inherit') State
+                                input#pob_state(type='text', name='pob_state', placeholder='Karnataka')
+                            .pob_state_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #pob_state_verify.content
+                                            #pob_state_from.header Elliot Fu
+                                            #pob_state_name.meta Friend
+                                            #pob_state_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required
+                                label(style='font-size: inherit') District
+                                input#pob_district(type='text', name='pob_district', placeholder='Mandya')
+                        hr
+                    #IDFempslip
+                        label
+                            b Employment and emp slip
+                        #emp_form(style='margin: 5% 15% 5% 15%')
+                            .ui.ignored.info.message
+                                | Applicant's Employment and Salary details
+                            .field.required.emp_company_card
+                                label(style='font-size: inherit') Company Name:
+                                input#emp_company(type='text', name='emp_company', placeholder='Cisco')
+                            .emp_company_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #emp_company_verify.content
+                                            #emp_company_from.header Elliot Fu
+                                            #emp_company_name.meta Friend
+                                            #emp_company_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.emp_eid_card
+                                label(style='font-size: inherit') Employee ID:
+                                input#emp_eid(type='text', name='emp_eid', placeholder='10040236')
+                            .emp_eid_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #emp_eid_verify.content
+                                            #emp_eid_from.header Elliot Fu
+                                            #emp_eid_name.meta Friend
+                                            #emp_eid_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.emp_join_card
+                                label(style='font-size: inherit') Join Date:
+                                input#emp_join(type='text', name='emp_join', placeholder='dd/mm/yyyy')
+                            .emp_join_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #emp_join_verify.content
+                                            #emp_join_from.header Elliot Fu
+                                            #emp_join_name.meta Friend
+                                            #emp_join_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.emp_city_card
+                                label(style='font-size: inherit') City of Employment:
+                                input#emp_city(type='text', name='emp_join', placeholder='Bangalore')
+                            .emp_city_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #emp_city_verify.content
+                                            #emp_city_from.header Elliot Fu
+                                            #emp_city_name.meta Friend
+                                            #emp_city_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                        hr
+                    #IDFmarriage
+                        label
+                            b Matrimonial Details
+                        #marriage_form(style='margin: 5% 15% 5% 15%')
+                            .ui.ignored.info.message
+                                | Applicant's self and spousal's Marriage Information
+                            .field.required.marriage_spouse_name_card
+                                label(style='font-size: inherit') Spouse's Name:
+                                input#marriage_spouse_name(type='text', name='marriage_spouse_name', placeholder='Anitha')
+                            .marriage_spouse_name_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #marriage_spouse_name_verify.content
+                                            #marriage_spouse_name_from.header Elliot Fu
+                                            #marriage_spouse_name_name.meta Friend
+                                            #marriage_spouse_name_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.marriage_pastor_card
+                                label(style='font-size: inherit') Officiated By:
+                                input#marriage_pastor(type='text', name='marriage_pastor', placeholder='Akhil')
+                            .marriage_pastor_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #marriage_pastor_verify.content
+                                            #marriage_pastor_from.header Elliot Fu
+                                            #marriage_pastor_name.meta Friend
+                                            #marriage_pastor_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.marriage_date_card
+                                label(style='font-size: inherit') Marriage Date:
+                                input#marriage_date(type='text', name='marriage_date', placeholder='dd/mm/yyyy')
+                            .marriage_date_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #marriage_date_verify.content
+                                            #marriage_date_from.header Elliot Fu
+                                            #marriage_date_name.meta Friend
+                                            #marriage_date_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                            .field.required.marriage_city_card
+                                label(style='font-size: inherit') City of marriage:
+                                input#marriage_city(type='text', name='marriage_city', placeholder='Bangalore')
+                            .marriage_city_card_flip
+                                .ui.cards.verify
+                                    .card
+                                        #marriage_city_verify.content
+                                            #marriage_city_from.header Elliot Fu
+                                            #marriage_city_name.meta Friend
+                                            #marriage_city_txid.description(style='word-break: break-all')
+                                                | hello
+                                        .extra.content
+                                            | Verified
+                                            a
+                                                i.check.circle.icon.teal.users.icon.large(style='float: right')
+                        hr
+                    // </div>
+                    br
+                    br
+                button#sumbit_idf.ui.button.blue(onclick='sendForm()', style='display: none') Submit
+                button#fill_form.ui.button.blue(onclick="fillAPI('038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')")
+                    | Fill Form

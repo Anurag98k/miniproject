@@ -25,9 +25,13 @@
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
 <script src="Semantic-UI-CSS-master/semantic.min.js"></script>
-<style type="text/css">
-.masthead.segment {
+  <style type="text/css">
+    /*.masthead.segment {
       min-height: 753px;
+      padding: 1em 0em;
+    }*/
+    .masthead.segment {
+      min-height: 100%;
       padding: 1em 0em;
     }
     .masthead .logo.item img {
@@ -46,7 +50,23 @@
       font-size: 1.7em;
       font-weight: normal;
     }
- @media only screen and (max-width: 700px) {
+    .card {
+      height: 250px;
+      width: 100px;
+    }
+    /*.ui .cards{
+      margin: 2.3em -26em;
+      width: 2000px;
+    }*/
+    .ui .cards{
+      margin: 5% -37%;
+      width: 200%;
+    }
+    .ui.cards>.card>.content>.header:not(.ui) {
+      margin-top: 3.78575em;
+    }
+
+    @media only screen and (max-width: 700px) {
       .ui.fixed.menu {
         display: none !important;
       }
