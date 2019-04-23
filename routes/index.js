@@ -2,7 +2,7 @@ let multichain = require("multichain-node")({
     port: 4768,
     host: '127.0.0.1',
     user: "multichainrpc",
-    pass: "Ft1Eme2L7qoHCKTdsBqLNMtnpfj271Xt1ZPGKCXDgMB8"
+    pass: "3JoVoQ4kJqbBYSDyjkVEsEYZa51rFdyUbKojy1z9VdNZ"
 });
 
 multichain.getInfo((err, info) => {
@@ -67,12 +67,12 @@ var blk_publisher = "1DkQGLaSibCC8jsryRGYGQmLg1S6S155dMfdaw";
                     "address_state" : "Telangana"
                 }}}];*/
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  res.render('homepage', { title: 'Express' });
 });
 
  router.get('/view', function(req, res, next) {
     //res.render("view", { title: 'Express' });
-    multichain.subscribe({stream: blk_stream},(erri, txi) => {	}); 
+    multichain.subscribe({stream: blk_stream},(erri, txi) => {	});
 	multichain.listStreamPublisherItems({stream: blk_stream, address: blk_publisher, count: 9999},(err, tx)=>{
 		if(tx){
 			var temp_txid=-1;
@@ -82,7 +82,7 @@ router.get('/', function(req, res, next) {
 					if(events_array.length==8){
 						break;
 					}
-					
+
 					if(temp_txid!=tx[i].txid){
 						//new event
 						if(obj!==undefined && i!==tx.length-1 && obj!=={}){
@@ -96,14 +96,14 @@ router.get('/', function(req, res, next) {
 
 					}
 					else{
-						let TXidentity=tx[i].data.json.meta.identity;						
+						let TXidentity=tx[i].data.json.meta.identity;
 						obj["data"][TXidentity]=tx[i].data.json[TXidentity];
 						if(i==0){
 							events_array.push(obj)
 						}
-						
+
 					}
-				
+
 			}
 		}
 		// res.render("view", { title: 'Express' , birth_event: birth_dict, id_event: id_dict});
@@ -113,6 +113,6 @@ router.get('/', function(req, res, next) {
 
 
 	});
-	
+
   });
 module.exports = router;
