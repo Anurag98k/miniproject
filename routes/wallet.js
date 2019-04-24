@@ -49,13 +49,19 @@ let multichain = require("multichain-node")({
 
 // Init the Multichain, with IP address call
 router.get('/multichain/init', (req,res,next) => {
-    var cmd = 'multichaind aish1@'+ipNear+' -daemon > multichain_init.txt';
+    var cmd = 'multichaind aish1@'+ipNear+' -daemon';
     exec(cmd, (err, stdout, stderr) => {
       if (err) {
         // node couldn't execute the command
         console.log("exec_error");
+        console.log(`stdout: ${stdout}`);
+        console.log(`stderr: ${stderr}`);
         console.log(err);
-        res.send({result:'failed'});
+        address_mul = stdout;
+        var regex  = /multichain-cli aish1 grant [a-zA-Z0-9]* connect/g;
+        var found = address_mul.match(regex);
+        address_mul_final = found[0].split("grant ")[1].split(" ")[0];
+        res.send({result:'failed',address:address_mul_final});
         res.end()
         return;
       }

@@ -5,12 +5,12 @@ let multichain = require("multichain-node")({
     pass: "3JoVoQ4kJqbBYSDyjkVEsEYZa51rFdyUbKojy1z9VdNZ"
 });
 
-multichain.getInfo((err, info) => {
-    if(err){
-        throw err;
-    }
-    //console.log(info);
-});
+// multichain.getInfo((err, info) => {
+//     if(err){
+//         throw err;
+//     }
+//     //console.log(info);
+// });
 
 var express = require('express');
 var router = express.Router();
@@ -70,7 +70,7 @@ router.get('/', function(req, res, next) {
   res.render('homepage', { title: 'Express' });
 });
 
- router.get('/view', function(req, res, next) {
+router.get('/view', function(req, res, next) {
     //res.render("view", { title: 'Express' });
     multichain.subscribe({stream: blk_stream},(erri, txi) => {	});
 	multichain.listStreamPublisherItems({stream: blk_stream, address: blk_publisher, count: 9999},(err, tx)=>{
@@ -115,4 +115,7 @@ router.get('/', function(req, res, next) {
 	});
 
   });
+
+
+
 module.exports = router;
