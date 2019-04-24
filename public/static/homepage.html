@@ -7,74 +7,67 @@
   src="https://code.jquery.com/jquery-3.1.1.min.js"
   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
   crossorigin="anonymous"></script>
-<script src="Semantic-UI-CSS-master/semantic.min.js"></script>
-  <style type="text/css">
-    /*.masthead.segment {
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
   <style type="text/css">
-.masthead.segment {
-      min-height: 753px;
-      padding: 1em 0em;
-    }*/
+  .masthead.segment {
+    min-height: 100%;
+    padding: 1em 0em;
+  }
+  .masthead .logo.item img {
+    margin-right: 1em;
+  }
+  .masthead .ui.menu .ui.button {
+    margin-left: 0.5em;
+  }
+  .masthead h1.ui.header {
+    margin-top: 3em;
+    margin-bottom: 0em;
+    font-size: 4em;
+    font-weight: normal;
+  }
+  .masthead h2 {
+    font-size: 1.7em;
+    font-weight: normal;
+  }
+  .card {
+    height: 250px;
+    width: 100px;
+  }
+  /*.ui .cards{
+    margin: 2.3em -26em;
+    width: 2000px;
+  }*/
+  .ui .cards{
+    margin: 5% -37%;
+    width: 200%;
+  }
+  .ui.cards>.card>.content>.header:not(.ui) {
+    margin-top: 3.78575em;
+  }
+
+  @media only screen and (max-width: 700px) {
+    .ui.fixed.menu {
+      display: none !important;
+    }
+    .secondary.pointing.menu .item,
+    .secondary.pointing.menu .menu {
+      display: none;
+    }
+    .secondary.pointing.menu .toc.item {
+      display: block;
+    }
     .masthead.segment {
-      min-height: 100%;
-      padding: 1em 0em;
-    }
-    .masthead .logo.item img {
-      margin-right: 1em;
-    }
-    .masthead .ui.menu .ui.button {
-      margin-left: 0.5em;
+      min-height: 350px;
     }
     .masthead h1.ui.header {
-      margin-top: 3em;
-      margin-bottom: 0em;
-      font-size: 4em;
-      font-weight: normal;
+      font-size: 2em;
+      margin-top: 1.5em;
     }
     .masthead h2 {
-      font-size: 1.7em;
-      font-weight: normal;
+      margin-top: 0.5em;
+      font-size: 1.5em;
     }
-    .card {
-      height: 250px;
-      width: 100px;
-    }
-    /*.ui .cards{
-      margin: 2.3em -26em;
-      width: 2000px;
-    }*/
-    .ui .cards{
-      margin: 5% -37%;
-      width: 200%;
-    }
-    .ui.cards>.card>.content>.header:not(.ui) {
-      margin-top: 3.78575em;
-    }
-
-    @media only screen and (max-width: 700px) {
-      .ui.fixed.menu {
-        display: none !important;
-      }
-      .secondary.pointing.menu .item,
-      .secondary.pointing.menu .menu {
-        display: none;
-      }
-      .secondary.pointing.menu .toc.item {
-        display: block;
-      }
-      .masthead.segment {
-        min-height: 350px;
-      }
-      .masthead h1.ui.header {
-        font-size: 2em;
-        margin-top: 1.5em;
-      }
-      .masthead h2 {
-        margin-top: 0.5em;
-        font-size: 1.5em;
-      }
-    }
+  }
   </style>
   <script>
   $(document).ready(function() {
@@ -104,6 +97,21 @@
         .modal('show');
       });
 
+      $('#signUp').on('click',function(){
+        $('.ui.modal#signup_modal')
+        .modal({
+            blurring: true
+          })
+        .modal({
+          onHidden:function() {
+            $('.ui.message#signup_message').addClass('hidden');
+            $('#signup_form').trigger('reset');
+            return false;
+          }
+        })
+        .modal('show');
+      });
+
       $('#signOut').on('click',function(){
         localStorage.clear();
         window.location.reload(true);
@@ -113,20 +121,20 @@
 
 
       //For Login modal
-      var username;
-      var password;
+      var username_login;
+      var password_login;
       $("#login_submit").click(function() {
         $('.ui.dimmer#login_dimmer').addClass('active');
         $('.ui.message#login_message').addClass('hidden');
         $('.ui.message#login_message_2').addClass('hidden');
         if( $('#login_form').form("is valid") ){
-          username = $("#username").val();
-          password = $("#password").val();
+          username = $("#username_login").val();
+          password = $("#password_login").val();
           //check if username exists first before sending password data.
-          $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username,password:password},function (data) {
+          $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_login,password:password_login},function (data) {
             if (data.status == 'done'){
               localStorage.token = data.token;
-              localStorage.username = username;
+              localStorage.username = username_login;
               //Call /wallet/multichain/exists
               //If false:
               //Call /wallet/multichain/init
@@ -139,11 +147,11 @@
               $.get("http://localhost:3001/wallet/multichain/exists", function(data){
                 if(data.status == 'done'){
                   if(data.exists == false ){
-                    $.get("http://localhost:3001/wallet/multichain/init",fucntion(data){
+                    $.get("http://localhost:3001/wallet/multichain/init", function(data){
                       if(data.result == 'failed' || data.result == 'done' ){
-                        $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},fucntion(data){
+                        $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},function(data){
                           if(data.status == 'done'){
-                            $.get("http://localhost:3001/wallet/multichain/start",fucntion(data){
+                            $.get("http://localhost:3001/wallet/multichain/start",function(data){
                               $('.ui.dimmer#login_dimmer').removeClass('active');
                               window.location.reload(true);
                             });
@@ -155,10 +163,10 @@
                   }
                   else{
                     //data.exists == false
-                    $.get("http:localhost:3001/wallet/multichain/stop", function(data){
+                    $.get("http://localhost:3001/wallet/multichain/stop", function(data){
                       $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')}, function(data){
                         if(data.status == 'done'){
-                          $.get("http://localhost:3001/wallet/multichain/start",fucntion(data){
+                          $.get("http://localhost:3001/wallet/multichain/start",function(data){
                             $('.ui.dimmer#login_dimmer').removeClass('active');
                             window.location.reload(true);
                           });
@@ -184,6 +192,68 @@
           $('.ui.message#login_message_2').removeClass('hidden');
         }
       });
+
+
+      //SignUp
+      //create Credentials
+      //Check if multichain folder exists
+      //YES - then delete it
+      //multichain INIT
+      //send to dns.js to get permissions
+      //multichain Backup
+      //LOGIn
+      var username_signup;
+      var password_signup;
+      var email_signup;
+      function submitFormSignup() {
+        $('.ui.dimmer#signup_dimmer').addClass('active');
+          if( $('form#signup_form').form('is valid') ){
+            username_signup = $("#username_signup").val();
+            password_signup = $("#password_signup").val();
+            email_signup = $("#email_signup").val();
+            //check if username exists first before sending password data.
+            $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/signup", {username:username_signup,password:password_signup,email:email_signup},function (data) {
+              if (data.status == 'done'){
+                //window.location.reload(true);
+                $.get("http:/localhost:3001/wallet/multichain/delete", function() {
+                  $.get("http://http://localhost:3001/wallet/multichain/init", function(data){
+                    address_signup = data.address;
+                    $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_signup,password:password_signup}, function() {
+                      token_signup = data.token;
+                      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3002/grant", {address:address_signup,token:token_signup}, function(data){
+                        $.get("http://localhost:3001/wallet/multichain/start",function(data){
+                          $.post("http://localhost:3001/wallet/multichain/backup", {token:token_signup}, function(data){
+                            $('.ui.dimmer#signup_dimmer').removeClass('active');
+                            window.location.reload(true);
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+
+              }
+              else{
+
+              }
+            })
+          }
+          else {
+            console.log("Invalid username/password/email");
+          }
+        }
+        $('.ui.form#signup_form')
+          .form({
+            fields: {
+              username : 'empty',
+              password : ['minLength[6]', 'empty'],
+              email: 'email'
+            },
+            onSuccess: function() {
+              submitFormSignup();
+              return false;
+            }
+          })
 
     });
   </script>
@@ -235,11 +305,11 @@
         <form class="ui form" id="login_form">
           <div class="field required">
             <label>Username</label>
-            <input type="text" name="username" id="username" value="" placeholder="Username" required>
+            <input type="text" name="username" id="username_login" value="" placeholder="Username" required>
           </div>
           <div class="field required">
             <label>Password</label>
-            <input type="password" name="password" id="password" value="" placeholder="Password" required>
+            <input type="password" name="password" id="password_login" value="" placeholder="Password" required>
           </div>
           <input class="ui submit button" type="button" id="login_submit" value="submit">
           <div class="ui error message">
@@ -247,6 +317,42 @@
           </div>
         </form>
       </div>
+    </div>
+
+    <div class="ui tiny modal" id="signup_modal">
+      <div class="ui dimmer" id="signup_dimmer">
+        <div class="ui indeterminate medium text loader">Validating</div>
+      </div>
+      <div class="ui warning message hidden" id="signup_message" style="margin-left:2%;margin-right:2%;margin-top:2%;">
+        <div class="header">
+          Please Enter ALL fields before submitting
+        </div>
+      </div>
+      <div class="ui segment" id="signup" style="margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;">
+        <h2 class="ui center aligned icon header">
+          <i class="circular paper plane icon"></i>
+          SignUp
+        </h2>
+        <form class="ui form" id="signup_form">
+          <div class="field">
+            <label>Username</label>
+            <input type="text" name="username" name="username" id="username_signup" value="" placeholder="Username" required>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="text" name="email" id="email_signup"  value="" placeholder="Email Address" required>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" id="password_signup" value="" placeholder="Password" required>
+          </div>
+          <input class="ui submit button" type="button" id="signup_submit" value="submit">
+          <div class="ui error message">
+
+          </div>
+        </form>
+      </div>
+
     </div>
 
 
