@@ -237,7 +237,17 @@ router.get('/multichain/exists', (req,res,next) => {
 
 
 
-
+router.get('/multichain/delete', (req,res,next) => {
+  var cmd_delete_node;
+  if(os.platform() == 'win32'){cmd_delete_node = 'RMDIR /Q/S "'+path.join(os.homedir(),'AppData','Roaming','Multichain','aish1')+'"';}
+  if(os.platform() == 'linux'){cmd_delete_node = 'rm -rf '+path.join(os.homedir(),'.multichain','aish1');}
+  exec(cmd_delete_node, (err,stdout,stderr) => {
+   if(err) console.log(err);
+   console.log('DONE');
+   res.send({status:'done',next:'wallet/multichain/start',type:'multichain/delete'});
+   res.end();
+  });
+});
 
 
 
