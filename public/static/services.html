@@ -71,7 +71,7 @@
   </style>
   <script>
   $(document).ready(function() {
-      //Side bar Log=In check
+       //Side bar Log=In check
       if (localStorage.getItem('username')){
         $('#right-menu').empty();
         $('#right-menu').append("<div class='ui inverted button'> Welcome, "+localStorage.getItem('username')+'</div>');
@@ -114,7 +114,10 @@
 
       $('#signOut').on('click',function(){
         localStorage.clear();
-        window.location.reload(true);
+        $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+          window.location.reload(true);
+        });
+        
       });
 
       //onHidden
@@ -128,8 +131,8 @@
         $('.ui.message#login_message').addClass('hidden');
         $('.ui.message#login_message_2').addClass('hidden');
         if( $('#login_form').form("is valid") ){
-          username = $("#username_login").val();
-          password = $("#password_login").val();
+          username_login = $("#username_login").val();
+          password_login = $("#password_login").val();
           //check if username exists first before sending password data.
           $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_login,password:password_login},function (data) {
             if (data.status == 'done'){
@@ -195,10 +198,18 @@
 
 
       //SignUp
+      //create Credentials
+      //Check if multichain folder exists
+      //YES - then delete it
+      //multichain INIT
+      //send to dns.js to get permissions
+      //multichain Backup
+      //LOGIn
       var username_signup;
       var password_signup;
       var email_signup;
       function submitFormSignup() {
+        $('.ui.dimmer#signup_dimmer').addClass('active');
           if( $('form#signup_form').form('is valid') ){
             username_signup = $("#username_signup").val();
             password_signup = $("#password_signup").val();
@@ -207,6 +218,29 @@
             $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/signup", {username:username_signup,password:password_signup,email:email_signup},function (data) {
               if (data.status == 'done'){
                 //window.location.reload(true);
+                $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+                  $.get("http://localhost:3001/wallet/multichain/delete", function(data) {
+                    console.log('Deleted');
+                    $.get("http://localhost:3001/wallet/multichain/init", function(data){
+                      console.log('Init');
+                      address_signup = data.address;
+                      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_signup,password:password_signup}, function(data) {
+                        token_signup = data.token;
+                        $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3002/grant", {address:address_signup,token:token_signup}, function(data){
+                          $.get("http://localhost:3001/wallet/multichain/start",function(data){
+                            $.post("http://localhost:3001/wallet/multichain/backup", {token:token_signup}, function(data){
+                              $('.ui.dimmer#signup_dimmer').removeClass('active');
+                              localStorage.token = token_signup;;
+                              localStorage.username = username_signup;
+                              window.location.reload(true);
+                            });
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+                
 
               }
               else{
@@ -230,6 +264,7 @@
               return false;
             }
           })
+
 
           $('#service_form')
             .form({
@@ -338,10 +373,10 @@
 
     <div class="ui container">
       <div class="ui large secondary inverted pointing menu">
-        <a class="active item">Home</a>
-        <a class="item">Get your services</a>
+        <a class="item" href="/">Home</a>
+        <a class="active item" href="#">Get your services</a>
         <a class="item">Log your events</a>
-        <a href = "#" class="item">View your details</a>
+        <a href = "/view" class="item">View your details</a>
         <div class="right item" id="right-menu">
           <a class="ui inverted button" id="logIn">Log In</a>
           <a class="ui inverted button" id="signUp">Sign Up</a>

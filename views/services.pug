@@ -1,0 +1,406 @@
+doctype html
+html
+  head
+    title Identity Site
+    link(href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css', rel='stylesheet', type='text/css')
+    script(src='https://code.jquery.com/jquery-3.1.1.min.js', crossorigin='anonymous', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=')
+    script(src='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js')
+    style(type='text/css').
+      .masthead.segment {
+      min-height: 100%;
+      padding: 1em 0em;
+      }
+      .masthead .logo.item img {
+      margin-right: 1em;
+      }
+      .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+      }
+      .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+      }
+      .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+      }
+      .card {
+      height: 250px;
+      width: 100px;
+      }
+      /*.ui .cards{
+      margin: 2.3em -26em;
+      width: 2000px;
+      }*/
+      .ui .cards{
+      margin: 5% -37%;
+      width: 200%;
+      }
+      .ui.cards>.card>.content>.header:not(.ui) {
+      margin-top: 3.78575em;
+      }
+      @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+      display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+      display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+      display: block;
+      }
+      .masthead.segment {
+      min-height: 350px;
+      }
+      .masthead h1.ui.header {
+      font-size: 2em;
+      margin-top: 1.5em;
+      }
+      .masthead h2 {
+      margin-top: 0.5em;
+      font-size: 1.5em;
+      }
+      }
+    script.
+      $(document).ready(function() {
+      //Side bar Log=In check
+      if (localStorage.getItem('username')){
+      $('#right-menu').empty();
+      $('#right-menu').append("<div class='ui inverted button'> Welcome, "+localStorage.getItem('username')+'</div>');
+      $('#right-menu').append("<div class='ui inverted button' id='signOut'>Sign Out</div>");
+      }
+      else{
+      console.log("not logged in");
+      }
+      $('#logIn').on('click',function(){
+      $('.ui.modal#login_modal')
+      .modal({
+      blurring: true
+      })
+      .modal({
+      onHidden:function() {
+      $('.ui.message#login_message').addClass('hidden');
+      $('.ui.message#login_message_2').addClass('hidden');
+      $('#login_form').trigger('reset');
+      return false;
+      }
+      })
+      .modal('show');
+      });
+      $('#signUp').on('click',function(){
+      $('.ui.modal#signup_modal')
+      .modal({
+      blurring: true
+      })
+      .modal({
+      onHidden:function() {
+      $('.ui.message#signup_message').addClass('hidden');
+      $('#signup_form').trigger('reset');
+      return false;
+      }
+      })
+      .modal('show');
+      });
+      $('#signOut').on('click',function(){
+      localStorage.clear();
+      window.location.reload(true);
+      });
+      //onHidden
+      //For Login modal
+      var username_login;
+      var password_login;
+      $("#login_submit").click(function() {
+      $('.ui.dimmer#login_dimmer').addClass('active');
+      $('.ui.message#login_message').addClass('hidden');
+      $('.ui.message#login_message_2').addClass('hidden');
+      if( $('#login_form').form("is valid") ){
+      username = $("#username_login").val();
+      password = $("#password_login").val();
+      //check if username exists first before sending password data.
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_login,password:password_login},function (data) {
+      if (data.status == 'done'){
+      localStorage.token = data.token;
+      localStorage.username = username_login;
+      //Call /wallet/multichain/exists
+      //If false:
+      //Call /wallet/multichain/init
+      //Call /wallet/multichain/restore
+      //Start
+      //If true
+      //Call /wallet/multichain/stop
+      //Call /wallet/multichain/restore
+      //Start
+      $.get("http://localhost:3001/wallet/multichain/exists", function(data){
+      if(data.status == 'done'){
+      if(data.exists == false ){
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
+      if(data.result == 'failed' || data.result == 'done' ){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},function(data){
+      if(data.status == 'done'){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      window.location.reload(true);
+      });
+      }
+      });
+      }
+      });
+      }
+      else{
+      //data.exists == false
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')}, function(data){
+      if(data.status == 'done'){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      window.location.reload(true);
+      });
+      }
+      });
+      });
+      }
+      }
+      });
+      }
+      else{
+      //FAILED
+      if(data.status == 'failed'){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      $('.ui.message#login_message').removeClass('hidden');
+      }
+      }
+      })
+      }
+      else {
+      $('.ui.message#login_message_2').removeClass('hidden');
+      }
+      });
+      //SignUp
+      var username_signup;
+      var password_signup;
+      var email_signup;
+      function submitFormSignup() {
+      if( $('form#signup_form').form('is valid') ){
+      username_signup = $("#username_signup").val();
+      password_signup = $("#password_signup").val();
+      email_signup = $("#email_signup").val();
+      //check if username exists first before sending password data.
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/signup", {username:username_signup,password:password_signup,email:email_signup},function (data) {
+      if (data.status == 'done'){
+      //window.location.reload(true);
+      }
+      else{
+      }
+      })
+      }
+      else {
+      console.log("Invalid username/password/email");
+      }
+      }
+      $('.ui.form#signup_form')
+      .form({
+      fields: {
+      username : 'empty',
+      password : ['minLength[6]', 'empty'],
+      email: 'email'
+      },
+      onSuccess: function() {
+      submitFormSignup();
+      return false;
+      }
+      })
+      $('#service_form')
+      .form({
+      onSuccess: function() {
+      return false;
+      }
+      })
+      $('#id_form')
+      .form({
+      onSuccess: function() {
+      return false;
+      }
+      })
+      $('#service_tab_first').on('click', function() {
+      $('#service_tab_second').removeClass('active');
+      $('#service_tab_first').addClass('active');
+      $.tab('change tab', 'first');
+      });
+      $('#service_tab_second').on('click', function() {
+      $('#service_tab_first').removeClass('active');
+      $('#service_tab_second').addClass('active');
+      $.tab('change tab', 'second');
+      });
+      $('.ui.dropdown')
+      .dropdown();
+      $('#service_dropdown').on('change', function(){
+      service_value = $('#service_dropdown').dropdown('get value');
+      if(service_value == ""){
+      $('#serviceA_dropdown_f').addClass('disabled')
+      $('#service_step_2').removeClass('active');
+      $('#service_step_2').addClass('disabled');
+      $('#service_step_1').addClass('active');
+      }
+      else{
+      $('#service_step_1').removeClass('active');
+      $('#service_step_2').removeClass('disabled');
+      $('#service_step_2').addClass('active');
+      $('#serviceA_dropdown_f').removeClass('disabled')
+      //Populate
+      $('#serviceA_dropdown').empty();
+      // for (var i in service_choice[service_value]) {
+      //   console.log(i['key']);
+      //   $('#serviceA_dropdown').append("<option value='"+i['value']+"' >"+i['key']+"</option>")
+      // }
+      $('#serviceA_dropdown').append('<option value="" ></option>')
+      $('#serviceA_dropdown').dropdown('set value',"");
+      setTimeout(function () {
+      $('#serviceA_dropdown').dropdown('set selected', "");
+      }, 1);
+      for (var i = 0; i < service_choice[service_value].length; i++) {
+      $('#serviceA_dropdown').append("<option value='"+service_choice[service_value][i]['value']+"' >"+service_choice[service_value][i]['key']+"</option>")
+      }
+      }
+      });
+      $('#serviceA_dropdown').on('change', function(){
+      serviceA_value = $('#serviceA_dropdown').dropdown('get value');
+      if(serviceA_value == ""){
+      $('#service_submit_dropdown').addClass('disabled')
+      }
+      else{
+      $('#service_submit_dropdown').removeClass('disabled')
+      }
+      });
+      $('#service_submit_dropdown').on('click', function(){
+      //console.log($('#service_dropdown').dropdown('get value'),":::",$('#serviceA_dropdown').dropdown('get value'));
+      send_json = {type:'service',service:$('#service_dropdown').dropdown('get value'),auth:$('#serviceA_dropdown').dropdown('get value'),address:'fakeID'}
+      });
+      $('#id_dropdown').on('change', function(){
+      id_value = $('#id_dropdown').dropdown('get value');
+      if(id_value == ""){
+      $('#id_submit_dropdown').addClass('disabled')
+      }
+      else{
+      $('#id_submit_dropdown').removeClass('disabled')
+      }
+      });
+      $('#id_submit_dropdown').on('click', function(){
+      console.log($('#id_dropdown').dropdown('get value'));
+      send_json = {type:'id',id:$('#id_dropdown').dropdown('get value'),address:'fakeID'}
+      });
+      const sim = [{key:'Airtel',value:'airtel'},{key:'Jio',value:'jio'},{key:'BSNL',value:'bsnl'}]
+      const bank = [{key:'SBI',value:'sbi'},{key:'Canara Bank',value:'canara'},{key:'ICICI',value:'icici'}]
+      const welfare = [{key:'Ration Card',value:'ration'}]
+      const license = [{key:'Driver\\'s License',value:'drivers'},{key:'Arms License', value: 'arms'}]
+      const service_choice = {sim:sim,bank:bank,welfare:welfare,license:license};
+      });
+  body
+    .ui.inverted.vertical.masthead.center.aligned.segment
+      .ui.container
+        .ui.large.secondary.inverted.pointing.menu
+          a.active.item Home
+          a.item Get your services
+          a.item Log your events
+          a.item(href='#') View your details
+          #right-menu.right.item
+            a#logIn.ui.inverted.button Log In
+            a#signUp.ui.inverted.button Sign Up
+      #service_tab.ui.pointing.inverted.secondary.menu(style='margin-top:6%;margin-left:40%;margin-right:40%;margin-bottom:2%')
+        a#service_tab_first.ui.inverted.button.active(data-tab='first') Request Service
+        a#service_tab_second.ui.button.inverted(data-tab='second') Get new ID
+      .ui.active.tab.segment(style='margin-top:4%;margin-left:20%;margin-right:20%;margin-bottom:3%', data-tab='first')
+        .ui.inverted.container(style='margin-top:2%;margin-left:7%;margin-right:7%;margin-bottom:7%')
+          .ui.three.steps
+            #service_step_1.active.step
+              i.green.fire.icon
+              .content
+                | Choose Service
+            #service_step_2.disabled.step
+              i.green.id.card.icon
+              .content
+                | Choose Vendor
+        .ui.inverted.container
+          form#service_form.ui.form
+            .three.fields(style='margin-left:25%;margin-right:1%')
+              #service_dropdown_f.field
+                select#service_dropdown.ui.search.dropdown
+                  option(value='')
+                  option(value='sim') Sim Card
+                  option(value='bank') Bank Account
+                  option(value='welfare') Welfare Scheme
+                  option(value='license') License
+              #serviceA_dropdown_f.field.disabled
+                select#serviceA_dropdown.ui.search.dropdown
+                  option(value='')
+                  option(value='sim') Sim Card
+                  option(value='bank') Bank Account
+                  option(value='welfare') Welfare Scheme
+                  option(value='license') License
+              .field
+                button#service_submit_dropdown.ui.disabled.inverted.green.button(value='submit')  Request 
+      .ui.tab.segment(style='margin-top:4%;margin-left:20%;margin-right:20%;margin-bottom:3%', data-tab='second')
+        .ui.two.steps
+          .active.step
+            i.green.address.card.icon
+            .content
+              .title Choose ID
+              .description Please select the ID
+        .ui.inverted.container
+          form#id_form.ui.form
+            .two.fields(style='margin-left:25%;margin-right:1%')
+              #id_dropdown_f.field
+                select#id_dropdown.ui.search.dropdown
+                  option(value='')
+                  option(value='aadhar') Aadhar
+                  option(value='pan') Pan Card
+                  option(value='voter') Voter ID
+                  option(value='passport') Passport
+              .field
+                button#id_submit_dropdown.ui.disabled.inverted.green.button(value='submit')  Request ID
+    #login_modal.ui.tiny.modal
+      #login_dimmer.ui.dimmer
+        .ui.indeterminate.medium.text.loader Validating
+      #login_message.ui.negative.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Incorrect Details! Please Try again..
+      #login_message_2.ui.warning.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Please Enter ALL fields before submitting
+      #login.ui.segment(style='margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;')
+        h2.ui.center.aligned.icon.header
+          i.circular.key.icon
+          |           LogIn
+        form#login_form.ui.form
+          .field.required
+            label Username
+            input#username_login(name='username', required='', type='text', placeholder='Username', value='')
+          .field.required
+            label Password
+            input#password_login(name='password', required='', type='password', placeholder='Password', value='')
+          input#login_submit.ui.submit.button(type='button', value='submit')
+          .ui.error.message
+    #signup_modal.ui.tiny.modal
+      #signup_dimmer.ui.dimmer
+        .ui.indeterminate.medium.text.loader Validating
+      #signup_message.ui.warning.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Please Enter ALL fields before submitting
+      #signup.ui.segment(style='margin-left:25%;margin-right:25%;margin-top:7%;')
+        h2.ui.center.aligned.icon.header
+          i.circular.paper.plane.icon
+          |           SignUp
+        form#signup_form.ui.form
+          .field
+            label Username
+            input#username_signup(name='username', required='', type='text', placeholder='Username', value='')
+          .field
+            label Email
+            input#email_signup(name='email', required='', type='text', placeholder='Email Address', value='')
+          .field
+            label Password
+            input#password_signup(name='password', required='', type='password', placeholder='Password', value='')
+          input#signup_submit.ui.submit.button(type='button', value='submit')
+          .ui.error.message
