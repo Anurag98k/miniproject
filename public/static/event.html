@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Identity Site</title>
+  <link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/semantic.min.css">
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+<script src="Semantic-UI-CSS-master/semantic.min.js"></script>
+<script>
+  $(document)
+    .ready(function(){ 
+
+
+    function generate_cards(){
+          var event_array = [{event_type:"Birth",verifier:"Department of Public Health",data:{name:"Rishav Patil",father_name:"Akhil Patil", mother_name:"Ananya Patil", dob: "15-02-1998", date_registration: "12-12-2019", gender: "Male", nationality: "Indian"}},{event_type:"ID",verifier:"passport",data:{name:"Rishav Patil",number:"M1320965", mother_name:"Ananya Patil", dob: "15-02-1998", gender: "Male", nationality: "Indian"}}, {event_type:"ID",verifier:"aadhar",data:{name:"Rishav Patil",number:"509127043618", father_name:"Akhil Patil", dob: "15-02-1998", gender: "Male"}}, {event_type:"Education",verifier:"PES University",data:{edu_name:"Rishav Patil", edu_degree:"B.Tech", edu_college:"PES University", edu_end: "15-02-1998", edu_gender: "Male", edu_sid:"01FB15ECS047", edu_city:"Bangalore", edu_join:"15-02-2012"}}, {event_type:"Employment",verifier:"Microsoft",data:{emp_name:"Rishav Patil", emp_role:"Manager", emp_company:"McAfee", emp_join: "15-02-1998", emp_gender: "Male", emp_eid:"20007635", emp_city:"Bangalore"}}, {event_type:"Marriage",verifier:"Municipal Corporation of Marriage",data:{marriage_partner1_name:"Rishav Patil", marriage_partner2_name:"Ameena Patil", marriage_pastor:"Alok Kumar", marriage_date: "15-02-1998", marriage_city:"Bangalore"}}, {event_type:"Migration",verifier:"Ministry of Petroleum and Natural Gas",data:{address_name:"Rishav Patil", address_change_date: "15-02-1998", address_old: {
+                    "address_hno" : "Marigold-125",
+                    "address_street" : "IAF main road",
+                    "address_city" : "Bangalore",
+                    "address_pin" : "560013",
+                    "address_state" : "Karnataka"
+                }, address_new: {
+                    "address_hno" : "Block C-125",
+                    "address_street" : "3rd main road",
+                    "address_city" : "Hyderabad",
+                    "address_pin" : "560123",
+                    "address_state" : "Telangana"
+                }}}];
+      // let event_array='${event_array}';
+      for (var i = 0; i < event_array.length; i++) {
+        if(event_array[i]["event_type"]=="Birth"){
+          var gen_card = document.getElementsByTagName("template")[0];
+          var clon = gen_card.content.cloneNode(true);
+        }
+        else if(event_array[i]["verifier"]=="passport"){
+          var gen_card = document.getElementsByTagName("template")[1];
+          var clon = gen_card.content.cloneNode(true);
+          let verifier_elem= clon.querySelector(".verifier");
+          verifier_elem.innerHTML = event_array[i]["verifier"];
+        }
+        else if(event_array[i]["verifier"]=="aadhar"){
+          var gen_card = document.getElementsByTagName("template")[2];
+          var clon = gen_card.content.cloneNode(true);
+          let verifier_elem= clon.querySelector(".verifier");
+          verifier_elem.innerHTML = event_array[i]["verifier"];
+        }
+        else if(event_array[i]["event_type"]=="Education"){
+          var gen_card = document.getElementsByTagName("template")[3];
+          var clon = gen_card.content.cloneNode(true);
+        }
+        else if(event_array[i]["event_type"]=="Employment"){
+          var gen_card = document.getElementsByTagName("template")[4];
+          var clon = gen_card.content.cloneNode(true);
+        }
+        else if(event_array[i]["event_type"]=="Marriage"){
+          var gen_card = document.getElementsByTagName("template")[5];
+          var clon = gen_card.content.cloneNode(true);
+        }
+        else if(event_array[i]["event_type"]=="Migration"){
+          var gen_card = document.getElementsByTagName("template")[6];
+          var clon = gen_card.content.cloneNode(true);
+          let event_type_elem= clon.querySelector(".event_type");
+          event_type_elem.innerHTML = event_array[i]["event_type"]+" "+"Event"
+          for (var key in event_array[i]["data"]) {
+              console.log(key);
+              if(key=="address_old"){
+                let elem=clon.querySelector(".address_old");
+                elem.innerHTML = event_array[i]["data"][key]["address_hno"] + ",<br>" + event_array[i]["data"][key]["address_street"] + ",<br>" + event_array[i]["data"][key]["address_city"] + ",<br>" + event_array[i]["data"][key]["address_state"] + ",<br>" + event_array[i]["data"][key]["address_pin"];
+              }
+              else if(key=="address_new"){
+                      let elem=clon.querySelector(".address_new");
+                      elem.innerHTML = event_array[i]["data"][key]["address_hno"] + ",<br>" + event_array[i]["data"][key]["address_street"] + ",<br>" + event_array[i]["data"][key]["address_city"] + ",<br>" + event_array[i]["data"][key]["address_state"] + ",<br>" + event_array[i]["data"][key]["address_pin"];
+                    }
+              else{
+                let elem=clon.querySelector("."+key);
+                elem.innerHTML= event_array[i]["data"][key] 
+              }     
+            }
+            if(i<4){
+              $('#special_card').append(clon);  
+             }
+             else{
+               $('#special_card1').append(clon);
+             }  
+             continue;
+        }
+        console.log(event_array[i]["event_type"])
+        
+        let event_type_elem= clon.querySelector(".event_type");
+        event_type_elem.innerHTML = event_array[i]["event_type"]+" "+"Event"
+        for (var key in event_array[i]["data"]) {
+            let elem=clon.querySelector("."+key);
+            if(elem!==null)
+              elem.innerHTML= event_array[i]["data"][key]      
+          }
+          if(i<4){
+            $('#special_card').append(clon);  
+           }
+           else{
+             $('#special_card1').append(clon);
+           }    
+        }
+    }
+    generate_cards();
+    $('.special.cards .con').dimmer({
+      on: 'hover'
+    });
+  });
+
+
+  </script>
+<style type="text/css">
+    /*.masthead.segment {
+      min-height: 753px;
+      padding: 1em 0em;
+    }*/
+    .masthead.segment {
+      min-height: 100%;
+      padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+    .card {
+      height: 250px;
+      width: 100px;
+    }
+    /*.ui .cards{
+      margin: 2.3em -26em;
+      width: 2000px;
+    }*/
+    .ui .cards{
+      margin: 5% -37%;
+      width: 200%;
+    }
+    .ui.cards>.card>.content>.header:not(.ui) {
+      margin-top: 3.78575em;
+    }
+
+ @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+  </style> 
+  
+</head>
+<body>
+  <div class="ui inverted vertical masthead center aligned segment">
+
+    <div class="ui container">
+      <div class="ui large secondary inverted pointing menu">
+        <a class="item">Home</a>
+        <a class="item">Get your services</a>
+        <a class="item">Log your events</a>
+        <a href = "view.html" class="active item">View your details</a>
+        <div class="right item">
+          <a class="ui inverted button">Log In</a>
+          <a class="ui inverted button">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui text container">
+      <div class="ui special cards" id="special_card">
+
+
+<template>
+  <div class="card">
+    <div class="content con">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui left aligned divided list">
+              <div class="item ">
+                  <div class="right floated content name">
+                    #{birth_event["name"]}
+                  </div>
+                  <i class="user icon"></i>    
+                  <div class="content">
+                    Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content dob">
+                    #{birth_event["dob"]}
+                  </div>
+                  <i class="calendar alternate icon"></i>    
+                  <div class="content">
+                    Date of Birth
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content mother_name">
+                    #{birth_event["mother_name"]}
+                  </div>
+                  <i class="female icon"></i>    
+                  <div class="content ">
+                    Mother's Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content father_name">
+                    #{birth_event["father_name"]}
+                  </div>
+                  <i class="male icon"></i>    
+                  <div class="content">
+                    Father's Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content nationality">
+                    #{birth_event["nationality"]}
+                  </div>
+                  <i class="globe icon"></i>    
+                  <div class="content">
+                    Nationality
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content gender">
+                    #{birth_event["gender"]}
+                  </div>
+                  <i class="venus mars icon"></i>    
+                  <div class="content">
+                    Gender
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content date_registration">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="calendar alternate icon"></i>    
+                  <div class="content">
+                    Date of Registration
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+      <a class="header event_type"></a>
+      <div class="meta">
+        <span class="date">Point here to know more</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template>
+  <div class="card">
+    <div class="content con">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui left aligned divided list">
+              <div class="item ">
+                  <div class="right floated content verifier">
+                    #{birth_event["name"]}
+                  </div>
+                  <i class="id card icon"></i>    
+                  <div class="content">
+                    ID
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content number">
+                    #{birth_event["dob"]}
+                  </div>
+                  <i class="pencil alternate icon"></i>    
+                  <div class="content">
+                    Number
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content name">
+                    #{birth_event["mother_name"]}
+                  </div>
+                  <i class="user icon"></i>    
+                  <div class="content ">
+                    Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content mother_name">
+                    #{birth_event["father_name"]}
+                  </div>
+                  <i class="female icon"></i>    
+                  <div class="content">
+                    Mother's Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content nationality">
+                    #{birth_event["nationality"]}
+                  </div>
+                  <i class="globe icon"></i>    
+                  <div class="content">
+                    Nationality
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content gender">
+                    #{birth_event["gender"]}
+                  </div>
+                  <i class="venus mars icon"></i>    
+                  <div class="content">
+                    Gender
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content dob">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="calendar alternate icon"></i>    
+                  <div class="content">
+                    Date of Birth
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+      <a class="header event_type"></a>
+      <div class="meta">
+        <span class="date">Point here to know more</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template>
+  <div class="card">
+    <div class="content con">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui left aligned divided list">
+              <div class="item ">
+                  <div class="right floated content verifier">
+                    #{birth_event["name"]}
+                  </div>
+                  <i class="id card icon"></i>    
+                  <div class="content">
+                    ID
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content number">
+                    #{birth_event["dob"]}
+                  </div>
+                  <i class="pencil alternate icon"></i>    
+                  <div class="content">
+                    Number
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content name">
+                    #{birth_event["mother_name"]}
+                  </div>
+                  <i class="user icon"></i>    
+                  <div class="content ">
+                    Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content father_name">
+                    #{birth_event["father_name"]}
+                  </div>
+                  <i class="male icon"></i>    
+                  <div class="content">
+                    Father's Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content gender">
+                    #{birth_event["gender"]}
+                  </div>
+                  <i class="venus mars icon"></i>    
+                  <div class="content">
+                    Gender
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content dob">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="calendar alternate icon"></i>    
+                  <div class="content">
+                    Date of Birth
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+      <a class="header event_type"></a>
+      <div class="meta">
+        <span class="date">Point here to know more</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template>
+  <div class="card">
+    <div class="content con">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui left aligned divided list">
+              <div class="item ">
+                  <div class="right floated content edu_name">
+                    #{birth_event["name"]}
+                  </div>
+                  <i class="user icon"></i>    
+                  <div class="content">
+                    Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content edu_sid">
+                    #{birth_event["dob"]}
+                  </div>
+                  <i class="pencil alternate icon"></i>    
+                  <div class="content">
+                    Registration Number
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content edu_degree">
+                    #{birth_event["mother_name"]}
+                  </div>
+                  <i class="graduation cap icon"></i>    
+                  <div class="content ">
+                    Degree
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content edu_college">
+                    #{birth_event["father_name"]}
+                  </div>
+                  <i class="university icon"></i>    
+                  <div class="content">
+                    Univerity
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content edu_gender">
+                    #{birth_event["gender"]}
+                  </div>
+                  <i class="venus mars icon"></i>    
+                  <div class="content">
+                    Gender
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content edu_end">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="calendar alternate icon"></i>    
+                  <div class="content">
+                    Date of Graduation
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content edu_city">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="map marker alternate icon"></i>    
+                  <div class="content">
+                    City
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+      <a class="header event_type"></a>
+      <div class="meta">
+        <span class="date">Point here to know more</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template>
+  <div class="card">
+    <div class="content con">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui left aligned divided list">
+              <div class="item ">
+                  <div class="right floated content emp_name">
+                    #{birth_event["name"]}
+                  </div>
+                  <i class="user icon"></i>    
+                  <div class="content">
+                    Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content emp_eid">
+                    #{birth_event["dob"]}
+                  </div>
+                  <i class="pencil alternate icon"></i>    
+                  <div class="content">
+                    Employee Number
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content emp_role">
+                    #{birth_event["mother_name"]}
+                  </div>
+                  <i class="briefcase icon"></i>    
+                  <div class="content ">
+                    Role
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content emp_company">
+                    #{birth_event["father_name"]}
+                  </div>
+                  <i class="building icon"></i>    
+                  <div class="content">
+                    Company
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content emp_gender">
+                    #{birth_event["gender"]}
+                  </div>
+                  <i class="venus mars icon"></i>    
+                  <div class="content">
+                    Gender
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content emp_join">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="calendar alternate icon"></i>    
+                  <div class="content">
+                    Date of Joining
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content emp_city">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="map marker alternate icon"></i>    
+                  <div class="content">
+                    City
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+      <a class="header event_type"></a>
+      <div class="meta">
+        <span class="date">Point here to know more</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template>
+  <div class="card">
+    <div class="content con">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui left aligned divided list">
+              <div class="item ">
+                  <div class="right floated content marriage_partner1_name">
+                    #{birth_event["name"]}
+                  </div>
+                  <i class="user icon"></i>    
+                  <div class="content">
+                    Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content marriage_partner2_name">
+                    #{birth_event["dob"]}
+                  </div>
+                  <i class="user icon"></i>    
+                  <div class="content">
+                    Spouse's Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content marriage_pastor">
+                    #{birth_event["mother_name"]}
+                  </div>
+                  <i class="users icon"></i>    
+                  <div class="content ">
+                    Witness
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content marriage_date">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="calendar alternate icon"></i>    
+                  <div class="content">
+                    Date of Marriage
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content marriage_city">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="map marker alternate icon"></i>    
+                  <div class="content">
+                    City
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+      <a class="header event_type"></a>
+      <div class="meta">
+        <span class="date">Point here to know more</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<template>
+  <div class="card">
+    <div class="content con">
+      <div class="ui dimmer">
+        <div class="content">
+          <div class="center">
+            <div class="ui left aligned divided list">
+              <div class="item ">
+                  <div class="right floated content address_name">
+                    #{birth_event["name"]}
+                  </div>
+                  <i class="user icon"></i>    
+                  <div class="content">
+                    Name
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content address_change_date">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="calendar alternate icon"></i>    
+                  <div class="content">
+                    Date of Marriage
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content address_old">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="address book icon"></i>    
+                  <div class="content">
+                    City
+                  </div>
+                </div>
+                <div class="item ">
+                  <div class="right floated content address_new">
+                    #{birth_event["date_registration"]}
+                  </div>
+                  <i class="address book icon"></i>    
+                  <div class="content">
+                    City
+                  </div>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+      <a class="header event_type"></a>
+      <div class="meta">
+        <span class="date">Point here to know more</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+</div>
+<div class="ui  special cards" id="special_card1">
+</div>
+</div>
+
+  </div>
+</body>
+</html>
+
+
