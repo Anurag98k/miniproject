@@ -2,7 +2,7 @@ let multichain = require("multichain-node")({
     port: 4768,
     host: '127.0.0.1',
     user: "multichainrpc",
-    pass: "3JoVoQ4kJqbBYSDyjkVEsEYZa51rFdyUbKojy1z9VdNZ"
+    pass: "Eje1NRp6ePmSoeMKaSL2BFzkGHxtSTYEm2rwzxUKnJYw"
 });
 
 // multichain.getInfo((err, info) => {
@@ -11,9 +11,35 @@ let multichain = require("multichain-node")({
 //     }
 //     //console.log(info);
 // });
-
+const path = require('path');
+const fs = require('fs');
+const os = require('os');
 var express = require('express');
 var router = express.Router();
+const rpcVar = {};
+
+function GetRPC() {
+  var rpcPath;
+
+  if(os.platform() == 'win32'){rpcPath = path.join(os.homedir(),'AppData','Roaming','Multichain','aish1','multichain.conf');}
+  if(os.platform() == 'linux'){rpcPath = path.join(os.homedir(),'.multichain','aish1','multichain.conf');}
+  
+  var fs = require('fs');
+  var array = fs.readFileSync(rpcPath).toString().split("\n");
+  console.log(array);
+  for(i in array) {
+      tp = array[i].split('=');
+      // console.log(tp[0]);
+      // console.log(tp[1]);
+      data_tp = ''
+      if(tp != ''){data_tp = tp[1].split('\r')[0];}
+    rpcVar[tp[0]] = data_tp;
+  }
+
+}
+
+
+
 
 /* GET home page. */
 /*router.get('/', function(req, res, next) {
@@ -72,8 +98,20 @@ router.get('/', function(req, res, next) {
 
 router.get('/view', function(req, res, next) {
     //res.render("view", { title: 'Express' });
+    GetRPC();
+    
+    let multichain = require("multichain-node")({
+      port: 4768,
+      host: '127.0.0.1',
+      user: rpcVar.rpcuser,
+      pass: rpcVar.rpcpassword
+    });
+    //console.log(rpcVar.rpcpassword.split('\r'));
     multichain.subscribe({stream: blk_stream},(erri, txi) => {	});
 	multichain.listStreamPublisherItems({stream: blk_stream, address: blk_publisher, count: 9999},(err, tx)=>{
+        if(err){
+            console.log(err);
+        }
 		if(tx){
 			var temp_txid=-1;
 			var events_array=[];
