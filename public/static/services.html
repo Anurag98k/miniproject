@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Identity Site</title>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+  <script
+  src="https://code.jquery.com/jquery-3.1.1.min.js"
+  integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+  crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+  <style type="text/css">
+    .masthead.segment {
+      min-height: 100%;
+      padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+      margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+    }
+    .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+    }
+    .card {
+      height: 250px;
+      width: 100px;
+    }
+    /*.ui .cards{
+      margin: 2.3em -26em;
+      width: 2000px;
+    }*/
+    .ui .cards{
+      margin: 5% -37%;
+      width: 200%;
+    }
+    .ui.cards>.card>.content>.header:not(.ui) {
+      margin-top: 3.78575em;
+    }
+
+  @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+        display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+        display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+        display: block;
+      }
+      .masthead.segment {
+        min-height: 350px;
+      }
+      .masthead h1.ui.header {
+        font-size: 2em;
+        margin-top: 1.5em;
+      }
+      .masthead h2 {
+        margin-top: 0.5em;
+        font-size: 1.5em;
+      }
+    }
+  </style>
+  <script>
+  $(document).ready(function() {
+      //Side bar Log=In check
+      if (localStorage.getItem('username')){
+        $('#right-menu').empty();
+        $('#right-menu').append("<div class='ui inverted button'> Welcome, "+localStorage.getItem('username')+'</div>');
+        $('#right-menu').append("<div class='ui inverted button' id='signOut'>Sign Out</div>");
+      }
+      else{
+        console.log("not logged in");
+      }
+
+      $('#logIn').on('click',function(){
+        $('.ui.modal#login_modal')
+        .modal({
+            blurring: true
+          })
+        .modal({
+          onHidden:function() {
+            $('.ui.message#login_message').addClass('hidden');
+            $('.ui.message#login_message_2').addClass('hidden');
+            $('#login_form').trigger('reset');
+            return false;
+          }
+        })
+        .modal('show');
+      });
+
+      $('#signUp').on('click',function(){
+        $('.ui.modal#signup_modal')
+        .modal({
+            blurring: true
+          })
+        .modal({
+          onHidden:function() {
+            $('.ui.message#signup_message').addClass('hidden');
+            $('#signup_form').trigger('reset');
+            return false;
+          }
+        })
+        .modal('show');
+      });
+
+      $('#signOut').on('click',function(){
+        localStorage.clear();
+        window.location.reload(true);
+      });
+
+      //onHidden
+
+
+      //For Login modal
+      var username_login;
+      var password_login;
+      $("#login_submit").click(function() {
+        $('.ui.dimmer#login_dimmer').addClass('active');
+        $('.ui.message#login_message').addClass('hidden');
+        $('.ui.message#login_message_2').addClass('hidden');
+        if( $('#login_form').form("is valid") ){
+          username = $("#username_login").val();
+          password = $("#password_login").val();
+          //check if username exists first before sending password data.
+          $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_login,password:password_login},function (data) {
+            if (data.status == 'done'){
+              localStorage.token = data.token;
+              localStorage.username = username_login;
+              //Call /wallet/multichain/exists
+              //If false:
+              //Call /wallet/multichain/init
+              //Call /wallet/multichain/restore
+              //Start
+              //If true
+              //Call /wallet/multichain/stop
+              //Call /wallet/multichain/restore
+              //Start
+              $.get("http://localhost:3001/wallet/multichain/exists", function(data){
+                if(data.status == 'done'){
+                  if(data.exists == false ){
+                    $.get("http://localhost:3001/wallet/multichain/init", function(data){
+                      if(data.result == 'failed' || data.result == 'done' ){
+                        $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},function(data){
+                          if(data.status == 'done'){
+                            $.get("http://localhost:3001/wallet/multichain/start",function(data){
+                              $('.ui.dimmer#login_dimmer').removeClass('active');
+                              window.location.reload(true);
+                            });
+                          }
+                        });
+                      }
+                    });
+
+                  }
+                  else{
+                    //data.exists == false
+                    $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+                      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')}, function(data){
+                        if(data.status == 'done'){
+                          $.get("http://localhost:3001/wallet/multichain/start",function(data){
+                            $('.ui.dimmer#login_dimmer').removeClass('active');
+                            window.location.reload(true);
+                          });
+                        }
+                      });
+                    });
+                  }
+                }
+              });
+            }
+            else{
+              //FAILED
+              if(data.status == 'failed'){
+                $('.ui.dimmer#login_dimmer').removeClass('active');
+                $('.ui.message#login_message').removeClass('hidden');
+              }
+
+            }
+          })
+
+        }
+        else {
+          $('.ui.message#login_message_2').removeClass('hidden');
+        }
+      });
+
+
+      //SignUp
+      var username_signup;
+      var password_signup;
+      var email_signup;
+      function submitFormSignup() {
+          if( $('form#signup_form').form('is valid') ){
+            username_signup = $("#username_signup").val();
+            password_signup = $("#password_signup").val();
+            email_signup = $("#email_signup").val();
+            //check if username exists first before sending password data.
+            $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/signup", {username:username_signup,password:password_signup,email:email_signup},function (data) {
+              if (data.status == 'done'){
+                //window.location.reload(true);
+
+              }
+              else{
+
+              }
+            })
+          }
+          else {
+            console.log("Invalid username/password/email");
+          }
+        }
+        $('.ui.form#signup_form')
+          .form({
+            fields: {
+              username : 'empty',
+              password : ['minLength[6]', 'empty'],
+              email: 'email'
+            },
+            onSuccess: function() {
+              submitFormSignup();
+              return false;
+            }
+          })
+
+          $('#service_form')
+            .form({
+              onSuccess: function() {
+                return false;
+              }
+          })
+
+          $('#id_form')
+            .form({
+              onSuccess: function() {
+                return false;
+              }
+          })
+
+        $('#service_tab_first').on('click', function() {
+          $('#service_tab_second').removeClass('active');
+          $('#service_tab_first').addClass('active');
+          $.tab('change tab', 'first');
+        });
+        $('#service_tab_second').on('click', function() {
+          $('#service_tab_first').removeClass('active');
+          $('#service_tab_second').addClass('active');
+          $.tab('change tab', 'second');
+        });
+
+        $('.ui.dropdown')
+        .dropdown();
+
+        $('#service_dropdown').on('change', function(){
+          service_value = $('#service_dropdown').dropdown('get value');
+          if(service_value == ""){
+            $('#serviceA_dropdown_f').addClass('disabled')
+            $('#service_step_2').removeClass('active');
+            $('#service_step_2').addClass('disabled');
+            $('#service_step_1').addClass('active');
+          }
+          else{
+            $('#service_step_1').removeClass('active');
+            $('#service_step_2').removeClass('disabled');
+            $('#service_step_2').addClass('active');
+            $('#serviceA_dropdown_f').removeClass('disabled')
+
+            //Populate
+            $('#serviceA_dropdown').empty();
+            // for (var i in service_choice[service_value]) {
+            //   console.log(i['key']);
+            //   $('#serviceA_dropdown').append("<option value='"+i['value']+"' >"+i['key']+"</option>")
+            // }
+
+            $('#serviceA_dropdown').append('<option value="" ></option>')
+            $('#serviceA_dropdown').dropdown('set value',"");
+            setTimeout(function () {
+                $('#serviceA_dropdown').dropdown('set selected', "");
+            }, 1);
+            for (var i = 0; i < service_choice[service_value].length; i++) {
+              $('#serviceA_dropdown').append("<option value='"+service_choice[service_value][i]['value']+"' >"+service_choice[service_value][i]['key']+"</option>")
+            }
+
+          }
+        });
+
+        $('#serviceA_dropdown').on('change', function(){
+          serviceA_value = $('#serviceA_dropdown').dropdown('get value');
+          if(serviceA_value == ""){
+            $('#service_submit_dropdown').addClass('disabled')
+          }
+          else{
+            $('#service_submit_dropdown').removeClass('disabled')
+
+          }
+        });
+
+        $('#service_submit_dropdown').on('click', function(){
+          //console.log($('#service_dropdown').dropdown('get value'),":::",$('#serviceA_dropdown').dropdown('get value'));
+          send_json = {type:'service',service:$('#service_dropdown').dropdown('get value'),auth:$('#serviceA_dropdown').dropdown('get value'),address:'fakeID'}
+        });
+
+        $('#id_dropdown').on('change', function(){
+          id_value = $('#id_dropdown').dropdown('get value');
+          if(id_value == ""){
+            $('#id_submit_dropdown').addClass('disabled')
+          }
+          else{
+            $('#id_submit_dropdown').removeClass('disabled')
+
+          }
+        });
+
+
+        $('#id_submit_dropdown').on('click', function(){
+          console.log($('#id_dropdown').dropdown('get value'));
+          send_json = {type:'id',id:$('#id_dropdown').dropdown('get value'),address:'fakeID'}
+        });
+
+        const sim = [{key:'Airtel',value:'airtel'},{key:'Jio',value:'jio'},{key:'BSNL',value:'bsnl'}]
+        const bank = [{key:'SBI',value:'sbi'},{key:'Canara Bank',value:'canara'},{key:'ICICI',value:'icici'}]
+        const welfare = [{key:'Ration Card',value:'ration'}]
+        const license = [{key:'Driver\'s License',value:'drivers'},{key:'Arms License', value: 'arms'}]
+        const service_choice = {sim:sim,bank:bank,welfare:welfare,license:license};
+    });
+  </script>
+</head>
+<body>
+  <div class="ui inverted vertical masthead center aligned segment">
+
+    <div class="ui container">
+      <div class="ui large secondary inverted pointing menu">
+        <a class="active item">Home</a>
+        <a class="item">Get your services</a>
+        <a class="item">Log your events</a>
+        <a href = "#" class="item">View your details</a>
+        <div class="right item" id="right-menu">
+          <a class="ui inverted button" id="logIn">Log In</a>
+          <a class="ui inverted button" id="signUp">Sign Up</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="ui pointing inverted secondary menu" id="service_tab" style="margin-top:6%;margin-left:40%;margin-right:40%;margin-bottom:2%">
+      <a class="ui inverted button active" id="service_tab_first" data-tab="first">Request Service</a>
+      <a class="ui button inverted" id="service_tab_second" data-tab="second">Get new ID</a>
+    </div>
+
+    <div class="ui active tab segment" data-tab="first" style="margin-top:4%;margin-left:20%;margin-right:20%;margin-bottom:3%">
+      <div class="ui inverted container" style="margin-top:2%;margin-left:7%;margin-right:7%;margin-bottom:7%">
+        <div class="ui three steps">
+          <div class="active step" id="service_step_1">
+            <i class="green fire icon"></i>
+            <div class="content">
+              Choose Service
+            </div>
+          </div>
+          <div class="disabled step" id="service_step_2">
+            <i class="green id card icon"></i>
+            <div class="content">
+              Choose Vendor
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="ui inverted container">
+        <form class="ui form" id="service_form">
+          <div class="three fields" style="margin-left:25%;margin-right:1%">
+            <div class="field" id="service_dropdown_f">
+              <select class="ui search dropdown" id="service_dropdown">
+                <option value=""></option>
+                <option value="sim">Sim Card</option>
+                <option value="bank">Bank Account</option>
+                <option value="welfare">Welfare Scheme</option>
+                <option value="license">License</option>
+              </select>
+            </div>
+            <div class="field disabled" id="serviceA_dropdown_f">
+              <select class="ui search dropdown" id="serviceA_dropdown">
+                <option value=""></option>
+                <option value="sim">Sim Card</option>
+                <option value="bank">Bank Account</option>
+                <option value="welfare">Welfare Scheme</option>
+                <option value="license">License</option>
+              </select>
+            </div>
+            <div class="field">
+              <button class="ui disabled inverted green button" id="service_submit_dropdown" value="submit"> Request </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="ui tab segment" data-tab="second" style="margin-top:4%;margin-left:20%;margin-right:20%;margin-bottom:3%">
+      <div class="ui two steps">
+        <div class="active step">
+          <i class="green address card icon"></i>
+          <div class="content">
+            <div class="title">Choose ID</div>
+            <div class="description">Please select the ID</div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="ui inverted container">
+        <form class="ui form" id="id_form">
+          <div class="two fields" style="margin-left:25%;margin-right:1%">
+            <div class="field" id="id_dropdown_f">
+              <select class="ui search dropdown" id="id_dropdown">
+                <option value=""></option>
+                <option value="aadhar">Aadhar</option>
+                <option value="pan">Pan Card</option>
+                <option value="voter">Voter ID</option>
+                <option value="passport">Passport</option>
+              </select>
+            </div>
+            <div class="field">
+              <button class="ui disabled inverted green button" id="id_submit_dropdown" value="submit"> Request ID</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+
+
+
+  </div>
+
+  <div class="ui tiny modal" id="login_modal">
+        <div class="ui dimmer" id="login_dimmer">
+          <div class="ui indeterminate medium text loader">Validating</div>
+        </div>
+      <div class="ui negative message hidden" id="login_message" style="margin-left:2%;margin-right:2%;margin-top:2%;">
+        <div class="header">
+          Incorrect Details! Please Try again..
+        </div>
+      </div>
+      <div class="ui warning message hidden" id="login_message_2" style="margin-left:2%;margin-right:2%;margin-top:2%;">
+        <div class="header">
+          Please Enter ALL fields before submitting
+        </div>
+      </div>
+      <div class="ui segment" id="login" style="margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;">
+        <h2 class="ui center aligned icon header">
+          <i class="circular key icon"></i>
+          LogIn
+        </h2>
+        <form class="ui form" id="login_form">
+          <div class="field required">
+            <label>Username</label>
+            <input type="text" name="username" id="username_login" value="" placeholder="Username" required>
+          </div>
+          <div class="field required">
+            <label>Password</label>
+            <input type="password" name="password" id="password_login" value="" placeholder="Password" required>
+          </div>
+          <input class="ui submit button" type="button" id="login_submit" value="submit">
+          <div class="ui error message">
+
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="ui tiny modal" id="signup_modal">
+      <div class="ui dimmer" id="signup_dimmer">
+        <div class="ui indeterminate medium text loader">Validating</div>
+      </div>
+      <div class="ui warning message hidden" id="signup_message" style="margin-left:2%;margin-right:2%;margin-top:2%;">
+        <div class="header">
+          Please Enter ALL fields before submitting
+        </div>
+      </div>
+      <div class="ui segment" id="signup" style="margin-left:25%;margin-right:25%;margin-top:7%;">
+        <h2 class="ui center aligned icon header">
+          <i class="circular paper plane icon"></i>
+          SignUp
+        </h2>
+        <form class="ui form" id="signup_form">
+          <div class="field">
+            <label>Username</label>
+            <input type="text" name="username" name="username" id="username_signup" value="" placeholder="Username" required>
+          </div>
+          <div class="field">
+            <label>Email</label>
+            <input type="text" name="email" id="email_signup"  value="" placeholder="Email Address" required>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <input type="password" name="password" id="password_signup" value="" placeholder="Password" required>
+          </div>
+          <input class="ui submit button" type="button" id="signup_submit" value="submit">
+          <div class="ui error message">
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+
+</body>
+</html>
