@@ -1,10 +1,5 @@
-Other nodes can connect to this node using:
-multichaind aish1@192.168.0.108:4769
-
-Listening for API requests on port 4768 (local only - see rpcallowip setting)
-
-Node ready.
-
 
 MultiChain 2.0 beta 2 Daemon (latest protocol 20007)
+
+IO error: C:\Users\BuusAkhil\AppData\Roaming\MultiChain\aish1\permissions.db\MANIFEST-000007: The handle is invalid.
 

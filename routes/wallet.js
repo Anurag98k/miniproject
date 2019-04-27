@@ -188,7 +188,7 @@ router.post('/multichain/backup', (req,res,next) => {
             console.log('Successful wallet backup');
             //Step 3 -start multichain server again.
 
-            let cmd_start = 'START /B multichaind aish1 -daemon > multichain_start.txt';
+            let cmd_start = 'START /B multichaind aish1 -daemon';
             console.log('HERE');
             exec(cmd_start, (err, stdout, stderr) => {
               if (err) {

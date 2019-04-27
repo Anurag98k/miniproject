@@ -2,8 +2,8 @@ doctype html
 html
   head
     title Identity Site
-    link(rel='stylesheet', type='text/css', href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css')
-    script(src='https://code.jquery.com/jquery-3.1.1.min.js', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=', crossorigin='anonymous')
+    link(href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css', rel='stylesheet', type='text/css')
+    script(src='https://code.jquery.com/jquery-3.1.1.min.js', crossorigin='anonymous', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=')
     script(src='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js')
     style(type='text/css').
       .masthead.segment {
@@ -106,7 +106,9 @@ html
       });
       $('#signOut').on('click',function(){
       localStorage.clear();
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
       window.location.reload(true);
+      });
       });
       //onHidden
       //For Login modal
@@ -117,8 +119,8 @@ html
       $('.ui.message#login_message').addClass('hidden');
       $('.ui.message#login_message_2').addClass('hidden');
       if( $('#login_form').form("is valid") ){
-      username = $("#username_login").val();
-      password = $("#password_login").val();
+      username_login = $("#username_login").val();
+      password_login = $("#password_login").val();
       //check if username exists first before sending password data.
       $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_login,password:password_login},function (data) {
       if (data.status == 'done'){
@@ -199,16 +201,22 @@ html
       $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/signup", {username:username_signup,password:password_signup,email:email_signup},function (data) {
       if (data.status == 'done'){
       //window.location.reload(true);
-      $.get("http:/localhost:3001/wallet/multichain/delete", function() {
-      $.get("http://http://localhost:3001/wallet/multichain/init", function(data){
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      $.get("http://localhost:3001/wallet/multichain/delete", function(data) {
+      console.log('Deleted');
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
+      console.log('Init');
       address_signup = data.address;
-      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_signup,password:password_signup}, function() {
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_signup,password:password_signup}, function(data) {
       token_signup = data.token;
       $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3002/grant", {address:address_signup,token:token_signup}, function(data){
       $.get("http://localhost:3001/wallet/multichain/start",function(data){
       $.post("http://localhost:3001/wallet/multichain/backup", {token:token_signup}, function(data){
       $('.ui.dimmer#signup_dimmer').removeClass('active');
+      localStorage.token = token_signup;;
+      localStorage.username = username_signup;
       window.location.reload(true);
+      });
       });
       });
       });
@@ -268,10 +276,10 @@ html
         form#login_form.ui.form
           .field.required
             label Username
-            input#username_login(type='text', name='username', value='', placeholder='Username', required='')
+            input#username_login(name='username', required='', type='text', placeholder='Username', value='')
           .field.required
             label Password
-            input#password_login(type='password', name='password', value='', placeholder='Password', required='')
+            input#password_login(name='password', required='', type='password', placeholder='Password', value='')
           input#login_submit.ui.submit.button(type='button', value='submit')
           .ui.error.message
     #signup_modal.ui.tiny.modal
@@ -287,12 +295,12 @@ html
         form#signup_form.ui.form
           .field
             label Username
-            input#username_signup(type='text', name='username', value='', placeholder='Username', required='')
+            input#username_signup(name='username', required='', type='text', placeholder='Username', value='')
           .field
             label Email
-            input#email_signup(type='text', name='email', value='', placeholder='Email Address', required='')
+            input#email_signup(name='email', required='', type='text', placeholder='Email Address', value='')
           .field
             label Password
-            input#password_signup(type='password', name='password', value='', placeholder='Password', required='')
+            input#password_signup(name='password', required='', type='password', placeholder='Password', value='')
           input#signup_submit.ui.submit.button(type='button', value='submit')
           .ui.error.message
