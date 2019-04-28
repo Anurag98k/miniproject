@@ -1,9 +1,9 @@
-let multichain = require("multichain-node")({
-    port: 4768,
-    host: '127.0.0.1',
-    user: "multichainrpc",
-    pass: "Eje1NRp6ePmSoeMKaSL2BFzkGHxtSTYEm2rwzxUKnJYw"
-});
+// let multichain = require("multichain-node")({
+//     port: 4768,
+//     host: '127.0.0.1',
+//     user: "multichainrpc",
+//     pass: "Eje1NRp6ePmSoeMKaSL2BFzkGHxtSTYEm2rwzxUKnJYw"
+// });
 
 // multichain.getInfo((err, info) => {
 //     if(err){
@@ -155,5 +155,8 @@ router.get('/view', function(req, res, next) {
   });
 
 
+router.get('/services', function(req, res, next) {
+  res.render('services', { title: 'Express' });
+});
 
 module.exports = router;

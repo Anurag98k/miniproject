@@ -106,7 +106,9 @@ html
       });
       $('#signOut').on('click',function(){
       localStorage.clear();
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
       window.location.reload(true);
+      });
       });
       //onHidden
       //For Login modal
@@ -117,8 +119,8 @@ html
       $('.ui.message#login_message').addClass('hidden');
       $('.ui.message#login_message_2').addClass('hidden');
       if( $('#login_form').form("is valid") ){
-      username = $("#username_login").val();
-      password = $("#password_login").val();
+      username_login = $("#username_login").val();
+      password_login = $("#password_login").val();
       //check if username exists first before sending password data.
       $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_login,password:password_login},function (data) {
       if (data.status == 'done'){
@@ -179,10 +181,18 @@ html
       }
       });
       //SignUp
+      //create Credentials
+      //Check if multichain folder exists
+      //YES - then delete it
+      //multichain INIT
+      //send to dns.js to get permissions
+      //multichain Backup
+      //LOGIn
       var username_signup;
       var password_signup;
       var email_signup;
       function submitFormSignup() {
+      $('.ui.dimmer#signup_dimmer').addClass('active');
       if( $('form#signup_form').form('is valid') ){
       username_signup = $("#username_signup").val();
       password_signup = $("#password_signup").val();
@@ -191,6 +201,28 @@ html
       $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/signup", {username:username_signup,password:password_signup,email:email_signup},function (data) {
       if (data.status == 'done'){
       //window.location.reload(true);
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      $.get("http://localhost:3001/wallet/multichain/delete", function(data) {
+      console.log('Deleted');
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
+      console.log('Init');
+      address_signup = data.address;
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_signup,password:password_signup}, function(data) {
+      token_signup = data.token;
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3002/grant", {address:address_signup,token:token_signup}, function(data){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $.post("http://localhost:3001/wallet/multichain/backup", {token:token_signup}, function(data){
+      $('.ui.dimmer#signup_dimmer').removeClass('active');
+      localStorage.token = token_signup;;
+      localStorage.username = username_signup;
+      window.location.reload(true);
+      });
+      });
+      });
+      });
+      });
+      });
+      });
       }
       else{
       }
@@ -294,17 +326,17 @@ html
       const sim = [{key:'Airtel',value:'airtel'},{key:'Jio',value:'jio'},{key:'BSNL',value:'bsnl'}]
       const bank = [{key:'SBI',value:'sbi'},{key:'Canara Bank',value:'canara'},{key:'ICICI',value:'icici'}]
       const welfare = [{key:'Ration Card',value:'ration'}]
-      const license = [{key:'Driver\\'s License',value:'drivers'},{key:'Arms License', value: 'arms'}]
+      const license = [{key:"Driver\'s License",value:'drivers'},{key:'Arms License', value: 'arms'}]
       const service_choice = {sim:sim,bank:bank,welfare:welfare,license:license};
       });
   body
     .ui.inverted.vertical.masthead.center.aligned.segment
       .ui.container
         .ui.large.secondary.inverted.pointing.menu
-          a.active.item Home
-          a.item Get your services
+          a.item(href='/') Home
+          a.active.item(href='#') Get your services
           a.item Log your events
-          a.item(href='#') View your details
+          a.item(href='/view') View your details
           #right-menu.right.item
             a#logIn.ui.inverted.button Log In
             a#signUp.ui.inverted.button Sign Up
@@ -388,7 +420,7 @@ html
       #signup_message.ui.warning.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
         .header
           | Please Enter ALL fields before submitting
-      #signup.ui.segment(style='margin-left:25%;margin-right:25%;margin-top:7%;')
+      #signup.ui.segment(style='margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;')
         h2.ui.center.aligned.icon.header
           i.circular.paper.plane.icon
           |           SignUp

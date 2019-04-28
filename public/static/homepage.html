@@ -103,7 +103,7 @@
             blurring: true
           })
         .modal({
-          onHidden:function() {
+          onHidden:function(){
             $('.ui.message#signup_message').addClass('hidden');
             $('#signup_form').trigger('reset');
             return false;
@@ -263,9 +263,7 @@
               submitFormSignup();
               return false;
             }
-          })
-
-    });
+          })});
   </script>
 </head>
 <body>
@@ -274,7 +272,7 @@
     <div class="ui container">
       <div class="ui large secondary inverted pointing menu">
         <a class="active item">Home</a>
-        <a class="item" href="/service">Get your services</a>
+        <a class="item" href="/services">Get your services</a>
         <a class="item">Log your events</a>
         <a href = "/view" class="item">View your details</a>
         <div class="right item" id="right-menu">

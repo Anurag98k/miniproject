@@ -1,481 +1,674 @@
-extends layout
-
-block content
-  script.
-    $(document)
-    .ready(function(){
-    function generate_cards(){
-    var event_array = JSON.parse('!{event_arrays}');
-    for (var i = event_array.length - 1; i >=0 ; i--) {
-    if(event_array[i]["event_type"]=="Birth"){
-    var gen_card = document.getElementsByTagName("template")[0];
-    var clon = gen_card.content.cloneNode(true);
-    }
-    else if(event_array[i]["verifier"]=="passport"){
-    var gen_card = document.getElementsByTagName("template")[1];
-    var clon = gen_card.content.cloneNode(true);
-    let verifier_elem= clon.querySelector(".verifier");
-    verifier_elem.innerHTML = event_array[i]["verifier"];
-    }
-    else if(event_array[i]["verifier"]=="aadhar"){
-    var gen_card = document.getElementsByTagName("template")[2];
-    var clon = gen_card.content.cloneNode(true);
-    let verifier_elem= clon.querySelector(".verifier");
-    verifier_elem.innerHTML = event_array[i]["verifier"];
-    }
-    else if(event_array[i]["event_type"]=="Education"){
-    var gen_card = document.getElementsByTagName("template")[3];
-    var clon = gen_card.content.cloneNode(true);
-    }
-    else if(event_array[i]["event_type"]=="Employment"){
-    var gen_card = document.getElementsByTagName("template")[4];
-    var clon = gen_card.content.cloneNode(true);
-    }
-    else if(event_array[i]["event_type"]=="Marriage"){
-    var gen_card = document.getElementsByTagName("template")[5];
-    var clon = gen_card.content.cloneNode(true);
-    }
-    else if(event_array[i]["event_type"]=="Migration"){
-    var gen_card = document.getElementsByTagName("template")[6];
-    var clon = gen_card.content.cloneNode(true);
-    let event_type_elem= clon.querySelector(".event_type");
-    event_type_elem.innerHTML = event_array[i]["event_type"]+" "+"Event"
-    for (var key in event_array[i]["data"]) {
-    console.log(key);
-    if(key=="address_old"){
-    let elem=clon.querySelector(".address_old");
-    elem.innerHTML = event_array[i]["data"][key]["address_hno"] + ",<br>" + event_array[i]["data"][key]["address_street"] + ",<br>" + event_array[i]["data"][key]["address_city"] + ",<br>" + event_array[i]["data"][key]["address_state"] + ",<br>" + event_array[i]["data"][key]["address_pin"];
-    }
-    else if(key=="address_new"){
-    let elem=clon.querySelector(".address_new");
-    elem.innerHTML = event_array[i]["data"][key]["address_hno"] + ",<br>" + event_array[i]["data"][key]["address_street"] + ",<br>" + event_array[i]["data"][key]["address_city"] + ",<br>" + event_array[i]["data"][key]["address_state"] + ",<br>" + event_array[i]["data"][key]["address_pin"];
-    }
-    else{
-    let elem=clon.querySelector("."+key);
-    elem.innerHTML= event_array[i]["data"][key]
-    }
-    }
-    if(i>3){
-    $('#special_card').append(clon);
-    }
-    else{
-    $('#special_card1').append(clon);
-    }
-    continue;
-    }
-    console.log(event_array[i]["event_type"])
-    let event_type_elem= clon.querySelector(".event_type");
-    event_type_elem.innerHTML = event_array[i]["event_type"]+" "+"Event"
-    for (var key in event_array[i]["data"]) {
-    let elem=clon.querySelector("."+key);
-    if(elem!==null)
-    elem.innerHTML= event_array[i]["data"][key]
-    }
-    if(i>3){
-    $('#special_card').append(clon);
-    }
-    else{
-    $('#special_card1').append(clon);
-    }
-    }
-    }
-    generate_cards();
-    $('.special.cards .con').dimmer({
-    on: 'hover'
-    });
-    });
-  style(type='text/css').
-    .masthead.segment {
-    min-height: 100%;
-    padding: 1em 0em;
-    }
-    .masthead .logo.item img {
-    margin-right: 1em;
-    }
-    .masthead .ui.menu .ui.button {
-    margin-left: 0.5em;
-    }
-    .masthead h1.ui.header {
-    margin-top: 3em;
-    margin-bottom: 0em;
-    font-size: 4em;
-    font-weight: normal;
-    }
-    .masthead h2 {
-    font-size: 1.7em;
-    font-weight: normal;
-    }
-    .card {
-    height: 250px;
-    width: 100px;
-    }
-    .ui .cards{
-    margin: 5% -37%;
-    width: 200%;
-    }
-    .ui.cards>.card>.content>.header:not(.ui) {
-    margin-top: 3.78575em;
-    }
-    @media only screen and (max-width: 700px) {
-    .ui.fixed.menu {
-    display: none !important;
-    }
-    .secondary.pointing.menu .item,
-    .secondary.pointing.menu .menu {
-    display: none;
-    }
-    .secondary.pointing.menu .toc.item {
-    display: block;
-    }
-    .masthead.segment {
-    min-height: 350px;
-    }
-    .masthead h1.ui.header {
-    font-size: 2em;
-    margin-top: 1.5em;
-    }
-    .masthead h2 {
-    margin-top: 0.5em;
-    font-size: 1.5em;
-    }
-    }
-  .ui.inverted.vertical.masthead.center.aligned.segment
-    .ui.container
-      .ui.large.secondary.inverted.pointing.menu
-        a.item(href='http://localhost:3000/') Home
-        a.item Get your services
-        a.item Log your events
-        a.active.item(href='http://localhost:3000/view') View your details
-        .right.item
-          a.ui.inverted.button Log In
-          a.ui.inverted.button Sign Up
-    .ui.text.container
-      #special_card.ui.special.cards
-        template
-          .card
-            .content.con
-              .ui.dimmer
-                .content
-                  .center
-                    .ui.left.aligned.divided.list
-                      .item
-                        .right.floated.content.name
-                        i.user.icon
-                        .content
-                          | Name
-                      .item
-                        .right.floated.content.dob
-                          
-                        i.calendar.alternate.icon
-                        .content
-                          | Date of Birth
-                      .item
-                        .right.floated.content.mother_name
-                          
-                        i.female.icon
-                        .content
-                          | Mother's Name
-                      .item
-                        .right.floated.content.father_name
-                          
-                        i.male.icon
-                        .content
-                          | Father's Name
-                      .item
-                        .right.floated.content.nationality
-                          
-                        i.globe.icon
-                        .content
-                          | Nationality
-                      .item
-                        .right.floated.content.gender
-                          
-                        i.venus.mars.icon
-                        .content
-                          | Gender
-                      .item
-                        .right.floated.content.date_registration
-                          
-                        i.calendar.alternate.icon
-                        .content
-                          | Date of Registration
-              a.header.event_type
-              .meta
-                span.date Point here to know more
-        template
-          .card
-            .content.con
-              .ui.dimmer
-                .content
-                  .center
-                    .ui.left.aligned.divided.list
-                      .item
-                        .right.floated.content.verifier
-                          
-                        i.id.card.icon
-                        .content
-                          | ID
-                      .item
-                        .right.floated.content.number
-                          
-                        i.pencil.alternate.icon
-                        .content
-                          | Number
-                      .item
-                        .right.floated.content.name
-                          
-                        i.user.icon
-                        .content
-                          | Name
-                      .item
-                        .right.floated.content.mother_name
-                          
-                        i.female.icon
-                        .content
-                          | Mother's Name
-                      .item
-                        .right.floated.content.nationality
-                          
-                        i.globe.icon
-                        .content
-                          | Nationality
-                      .item
-                        .right.floated.content.gender
-                          
-                        i.venus.mars.icon
-                        .content
-                          | Gender
-                      .item
-                        .right.floated.content.dob
-                          
-                        i.calendar.alternate.icon
-                        .content
-                          | Date of Birth
-              a.header.event_type
-              .meta
-                span.date Point here to know more
-        template
-          .card
-            .content.con
-              .ui.dimmer
-                .content
-                  .center
-                    .ui.left.aligned.divided.list
-                      .item
-                        .right.floated.content.verifier
-                          
-                        i.id.card.icon
-                        .content
-                          | ID
-                      .item
-                        .right.floated.content.number
-                          
-                        i.pencil.alternate.icon
-                        .content
-                          | Number
-                      .item
-                        .right.floated.content.name
-                          
-                        i.user.icon
-                        .content
-                          | Name
-                      .item
-                        .right.floated.content.father_name
-                          
-                        i.male.icon
-                        .content
-                          | Father's Name
-                      .item
-                        .right.floated.content.gender
-                          
-                        i.venus.mars.icon
-                        .content
-                          | Gender
-                      .item
-                        .right.floated.content.dob
-                          
-                        i.calendar.alternate.icon
-                        .content
-                          | Date of Birth
-              a.header.event_type
-              .meta
-                span.date Point here to know more
-        template
-          .card
-            .content.con
-              .ui.dimmer
-                .content
-                  .center
-                    .ui.left.aligned.divided.list
-                      .item
-                        .right.floated.content.edu_name
-                          
-                        i.user.icon
-                        .content
-                          | Name
-                      .item
-                        .right.floated.content.edu_sid
-                          
-                        i.pencil.alternate.icon
-                        .content
-                          | Registration Number
-                      .item
-                        .right.floated.content.edu_degree
-                          
-                        i.graduation.cap.icon
-                        .content
-                          | Degree
-                      .item
-                        .right.floated.content.edu_college
-                          
-                        i.university.icon
-                        .content
-                          | Univerity
-                      .item
-                        .right.floated.content.edu_gender
-                          
-                        i.venus.mars.icon
-                        .content
-                          | Gender
-                      .item
-                        .right.floated.content.edu_end
-                          
-                        i.calendar.alternate.icon
-                        .content
-                          | Date of Graduation
-                      .item
-                        .right.floated.content.edu_city
-                          
-                        i.map.marker.alternate.icon
-                        .content
-                          | City
-              a.header.event_type
-              .meta
-                span.date Point here to know more
-        template
-          .card
-            .content.con
-              .ui.dimmer
-                .content
-                  .center
-                    .ui.left.aligned.divided.list
-                      .item
-                        .right.floated.content.emp_name
-                          
-                        i.user.icon
-                        .content
-                          | Name
-                      .item
-                        .right.floated.content.emp_eid
-                          
-                        i.pencil.alternate.icon
-                        .content
-                          | Employee Number
-                      .item
-                        .right.floated.content.emp_role
-                          
-                        i.briefcase.icon
-                        .content
-                          | Role
-                      .item
-                        .right.floated.content.emp_company
-                          
-                        i.building.icon
-                        .content
-                          | Company
-                      .item
-                        .right.floated.content.emp_gender
-                          
-                        i.venus.mars.icon
-                        .content
-                          | Gender
-                      .item
-                        .right.floated.content.emp_join
-                          
-                        i.calendar.alternate.icon
-                        .content
-                          | Date of Joining
-                      .item
-                        .right.floated.content.emp_city
-                          
-                        i.map.marker.alternate.icon
-                        .content
-                          | City
-              a.header.event_type
-              .meta
-                span.date Point here to know more
-        template
-          .card
-            .content.con
-              .ui.dimmer
-                .content
-                  .center
-                    .ui.left.aligned.divided.list
-                      .item
-                        .right.floated.content.marriage_partner1_name
-                          
-                        i.user.icon
-                        .content
-                          | Name
-                      .item
-                        .right.floated.content.marriage_partner2_name
-                          
-                        i.user.icon
-                        .content
-                          | Spouse's Name
-                      .item
-                        .right.floated.content.marriage_pastor
-                          
-                        i.users.icon
-                        .content
-                          | Witness
-                      .item
-                        .right.floated.content.marriage_date
-                          
-                        i.calendar.alternate.icon
-                        .content
-                          | Date of Marriage
-                      .item
-                        .right.floated.content.marriage_city
-                          
-                        i.map.marker.alternate.icon
-                        .content
-                          | City
-              a.header.event_type
-              .meta
-                span.date Point here to know more
-        template
-          .card
-            .content.con
-              .ui.dimmer
-                .content
-                  .center
-                    .ui.left.aligned.divided.list
-                      .item
-                        .right.floated.content.address_name
-                          
-                        i.user.icon
-                        .content
-                          | Name
-                      .item
-                        .right.floated.content.address_change_date
-                          
-                        i.calendar.alternate.icon
-                        .content
-                          | Date of Marriage
-                      .item
-                        .right.floated.content.address_old
-                          
-                        i.address.book.icon
-                        .content
-                          | Old Address
-                      .item
-                        .right.floated.content.address_new
-                          
-                        i.address.book.icon
-                        .content
-                          | New Address
-              a.header.event_type
-              .meta
-                span.date Point here to know more
-      #special_card1.ui.special.cards
+doctype html
+html
+  head
+    title Identity Site
+    link(href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css', rel='stylesheet', type='text/css')
+    script(src='https://code.jquery.com/jquery-3.1.1.min.js', crossorigin='anonymous', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=')
+    script(src='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js')
+    script.
+      $(document).ready(function(){
+      //Side bar Log=In check
+      if (localStorage.getItem('username')){
+      $('#right-menu').empty();
+      $('#right-menu').append("<div class='ui inverted button'> Welcome, "+localStorage.getItem('username')+'</div>');
+      $('#right-menu').append("<div class='ui inverted button' id='signOut'>Sign Out</div>");
+      }
+      else{
+      console.log("not logged in");
+      }
+      $('#logIn').on('click',function(){
+      $('.ui.modal#login_modal')
+      .modal({
+      blurring: true
+      })
+      .modal({
+      onHidden:function() {
+      $('.ui.message#login_message').addClass('hidden');
+      $('.ui.message#login_message_2').addClass('hidden');
+      $('#login_form').trigger('reset');
+      return false;
+      }
+      })
+      .modal('show');
+      });
+      $('#signUp').on('click',function(){
+      $('.ui.modal#signup_modal')
+      .modal({
+      blurring: true
+      })
+      .modal({
+      onHidden:function() {
+      $('.ui.message#signup_message').addClass('hidden');
+      $('#signup_form').trigger('reset');
+      return false;
+      }
+      })
+      .modal('show');
+      });
+      $('#signOut').on('click',function(){
+      localStorage.clear();
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      window.location.reload(true);
+      });
+      });
+      //onHidden
+      //For Login modal
+      var username_login;
+      var password_login;
+      $("#login_submit").click(function() {
+      $('.ui.dimmer#login_dimmer').addClass('active');
+      $('.ui.message#login_message').addClass('hidden');
+      $('.ui.message#login_message_2').addClass('hidden');
+      if( $('#login_form').form("is valid") ){
+      username_login = $("#username_login").val();
+      password_login = $("#password_login").val();
+      //check if username exists first before sending password data.
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_login,password:password_login},function (data) {
+      if (data.status == 'done'){
+      localStorage.token = data.token;
+      localStorage.username = username_login;
+      //Call /wallet/multichain/exists
+      //If false:
+      //Call /wallet/multichain/init
+      //Call /wallet/multichain/restore
+      //Start
+      //If true
+      //Call /wallet/multichain/stop
+      //Call /wallet/multichain/restore
+      //Start
+      $.get("http://localhost:3001/wallet/multichain/exists", function(data){
+      if(data.status == 'done'){
+      if(data.exists == false ){
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
+      if(data.result == 'failed' || data.result == 'done' ){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},function(data){
+      if(data.status == 'done'){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      window.location.reload(true);
+      });
+      }
+      });
+      }
+      });
+      }
+      else{
+      //data.exists == false
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')}, function(data){
+      if(data.status == 'done'){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      window.location.reload(true);
+      });
+      }
+      });
+      });
+      }
+      }
+      });
+      }
+      else{
+      //FAILED
+      if(data.status == 'failed'){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      $('.ui.message#login_message').removeClass('hidden');
+      }
+      }
+      })
+      }
+      else {
+      $('.ui.message#login_message_2').removeClass('hidden');
+      }
+      });
+      //SignUp
+      //create Credentials
+      //Check if multichain folder exists
+      //YES - then delete it
+      //multichain INIT
+      //send to dns.js to get permissions
+      //multichain Backup
+      //LOGIn
+      var username_signup;
+      var password_signup;
+      var email_signup;
+      function submitFormSignup() {
+      $('.ui.dimmer#signup_dimmer').addClass('active');
+      if( $('form#signup_form').form('is valid') ){
+      username_signup = $("#username_signup").val();
+      password_signup = $("#password_signup").val();
+      email_signup = $("#email_signup").val();
+      //check if username exists first before sending password data.
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/signup", {username:username_signup,password:password_signup,email:email_signup},function (data) {
+      if (data.status == 'done'){
+      //window.location.reload(true);
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      $.get("http://localhost:3001/wallet/multichain/delete", function(data) {
+      console.log('Deleted');
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
+      console.log('Init');
+      address_signup = data.address;
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_signup,password:password_signup}, function(data) {
+      token_signup = data.token;
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3002/grant", {address:address_signup,token:token_signup}, function(data){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $.post("http://localhost:3001/wallet/multichain/backup", {token:token_signup}, function(data){
+      $('.ui.dimmer#signup_dimmer').removeClass('active');
+      localStorage.token = token_signup;;
+      localStorage.username = username_signup;
+      window.location.reload(true);
+      });
+      });
+      });
+      });
+      });
+      });
+      });
+      }
+      else{
+      }
+      })
+      }
+      else {
+      console.log("Invalid username/password/email");
+      }
+      }
+      $('.ui.form#signup_form')
+      .form({
+      fields: {
+      username : 'empty',
+      password : ['minLength[6]', 'empty'],
+      email: 'email'
+      },
+      onSuccess: function() {
+      submitFormSignup();
+      return false;
+      }
+      })
+      function generate_cards(){
+      // let event_array='${event_array}';
+      var event_array = JSON.parse('!{event_arrays}');
+      for (var i = event_array.length-1; i>=0; i--) {
+      if(event_array[i]["event_type"]=="Birth"){
+      var gen_card = document.getElementsByTagName("template")[0];
+      var clon = gen_card.content.cloneNode(true);
+      }
+      else if(event_array[i]["verifier"]=="passport"){
+      var gen_card = document.getElementsByTagName("template")[1];
+      var clon = gen_card.content.cloneNode(true);
+      let verifier_elem= clon.querySelector(".verifier");
+      verifier_elem.innerHTML = event_array[i]["verifier"];
+      }
+      else if(event_array[i]["verifier"]=="aadhar"){
+      var gen_card = document.getElementsByTagName("template")[2];
+      var clon = gen_card.content.cloneNode(true);
+      let verifier_elem= clon.querySelector(".verifier");
+      verifier_elem.innerHTML = event_array[i]["verifier"];
+      }
+      else if(event_array[i]["event_type"]=="Education"){
+      var gen_card = document.getElementsByTagName("template")[3];
+      var clon = gen_card.content.cloneNode(true);
+      }
+      else if(event_array[i]["event_type"]=="Employment"){
+      var gen_card = document.getElementsByTagName("template")[4];
+      var clon = gen_card.content.cloneNode(true);
+      }
+      else if(event_array[i]["event_type"]=="Marriage"){
+      var gen_card = document.getElementsByTagName("template")[5];
+      var clon = gen_card.content.cloneNode(true);
+      }
+      else if(event_array[i]["event_type"]=="Migration"){
+      var gen_card = document.getElementsByTagName("template")[6];
+      var clon = gen_card.content.cloneNode(true);
+      let event_type_elem= clon.querySelector(".event_type");
+      event_type_elem.innerHTML = event_array[i]["event_type"]+" "+"Event"
+      for (var key in event_array[i]["data"]) {
+      console.log(key);
+      if(key=="address_old"){
+      let elem=clon.querySelector(".address_old");
+      elem.innerHTML = event_array[i]["data"][key]["address_hno"] + ",<br>" + event_array[i]["data"][key]["address_street"] + ",<br>" + event_array[i]["data"][key]["address_city"] + ",<br>" + event_array[i]["data"][key]["address_state"] + ",<br>" + event_array[i]["data"][key]["address_pin"];
+      }
+      else if(key=="address_new"){
+      let elem=clon.querySelector(".address_new");
+      elem.innerHTML = event_array[i]["data"][key]["address_hno"] + ",<br>" + event_array[i]["data"][key]["address_street"] + ",<br>" + event_array[i]["data"][key]["address_city"] + ",<br>" + event_array[i]["data"][key]["address_state"] + ",<br>" + event_array[i]["data"][key]["address_pin"];
+      }
+      else{
+      let elem=clon.querySelector("."+key);
+      elem.innerHTML= event_array[i]["data"][key]
+      }
+      }
+      if(i>3){
+      $('#special_card').append(clon);
+      }
+      else{
+      $('#special_card1').append(clon);
+      }
+      continue;
+      }
+      console.log(event_array[i]["event_type"])
+      let event_type_elem= clon.querySelector(".event_type");
+      event_type_elem.innerHTML = event_array[i]["event_type"]+" "+"Event"
+      for (var key in event_array[i]["data"]) {
+      let elem=clon.querySelector("."+key);
+      if(elem!==null)
+      elem.innerHTML= event_array[i]["data"][key]
+      }
+      if(i>3){
+      $('#special_card').append(clon);
+      }
+      else{
+      $('#special_card1').append(clon);
+      }
+      }
+      }
+      generate_cards();
+      $('.special.cards .con').dimmer({
+      on: 'hover'
+      });
+      });
+    style(type='text/css').
+      /*.masthead.segment {
+      min-height: 753px;
+      padding: 1em 0em;
+      }*/
+      .masthead.segment {
+      min-height: 100%;
+      padding: 1em 0em;
+      }
+      .masthead .logo.item img {
+      margin-right: 1em;
+      }
+      .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+      }
+      .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+      }
+      .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+      }
+      .card {
+      height: 250px;
+      width: 100px;
+      }
+      /*.ui .cards{
+      margin: 2.3em -26em;
+      width: 2000px;
+      }*/
+      .ui .cards{
+      margin: 5% -37%;
+      width: 200%;
+      }
+      .ui.cards>.card>.content>.header:not(.ui) {
+      margin-top: 3.78575em;
+      }
+      @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+      display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+      display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+      display: block;
+      }
+      .masthead.segment {
+      min-height: 350px;
+      }
+      .masthead h1.ui.header {
+      font-size: 2em;
+      margin-top: 1.5em;
+      }
+      .masthead h2 {
+      margin-top: 0.5em;
+      font-size: 1.5em;
+      }
+      }
+  body
+    .ui.inverted.vertical.masthead.center.aligned.segment
+      .ui.container
+        .ui.large.secondary.inverted.pointing.menu
+          a.item(href='/') Home
+          a.item(href='/services') Get your services
+          a.item(href='#') Log your events
+          a.active.item(href='#') View your details
+          #right-menu.right.item
+            a#logIn.ui.inverted.button Log In
+            a#signUp.ui.inverted.button Sign Up
+      .ui.text.container
+        #special_card.ui.special.cards
+          template
+            .card
+              .content.con
+                .ui.dimmer
+                  .content
+                    .center
+                      .ui.left.aligned.divided.list
+                        .item
+                          .right.floated.content.name
+                          i.user.icon
+                          .content
+                            | Name
+                        .item
+                          .right.floated.content.dob
+                          i.calendar.alternate.icon
+                          .content
+                            | Date of Birth
+                        .item
+                          .right.floated.content.mother_name
+                          i.female.icon
+                          .content
+                            | Mother's Name
+                        .item
+                          .right.floated.content.father_name
+                          i.male.icon
+                          .content
+                            | Father's Name
+                        .item
+                          .right.floated.content.nationality
+                          i.globe.icon
+                          .content
+                            | Nationality
+                        .item
+                          .right.floated.content.gender
+                          i.venus.mars.icon
+                          .content
+                            | Gender
+                        .item
+                          .right.floated.content.date_registration
+                          i.calendar.alternate.icon
+                          .content
+                            | Date of Registration
+                a.header.event_type
+                .meta
+                  span.date Point here to know more
+          template
+            .card
+              .content.con
+                .ui.dimmer
+                  .content
+                    .center
+                      .ui.left.aligned.divided.list
+                        .item
+                          .right.floated.content.verifier
+                          i.id.card.icon
+                          .content
+                            | ID
+                        .item
+                          .right.floated.content.number
+                          i.pencil.alternate.icon
+                          .content
+                            | Number
+                        .item
+                          .right.floated.content.name
+                          i.user.icon
+                          .content
+                            | Name
+                        .item
+                          .right.floated.content.mother_name
+                          i.female.icon
+                          .content
+                            | Mother's Name
+                        .item
+                          .right.floated.content.nationality
+                          i.globe.icon
+                          .content
+                            | Nationality
+                        .item
+                          .right.floated.content.gender
+                          i.venus.mars.icon
+                          .content
+                            | Gender
+                        .item
+                          .right.floated.content.dob
+                          i.calendar.alternate.icon
+                          .content
+                            | Date of Birth
+                a.header.event_type
+                .meta
+                  span.date Point here to know more
+          template
+            .card
+              .content.con
+                .ui.dimmer
+                  .content
+                    .center
+                      .ui.left.aligned.divided.list
+                        .item
+                          .right.floated.content.verifier
+                          i.id.card.icon
+                          .content
+                            | ID
+                        .item
+                          .right.floated.content.number
+                          i.pencil.alternate.icon
+                          .content
+                            | Number
+                        .item
+                          .right.floated.content.name
+                          i.user.icon
+                          .content
+                            | Name
+                        .item
+                          .right.floated.content.father_name
+                          i.male.icon
+                          .content
+                            | Father's Name
+                        .item
+                          .right.floated.content.gender
+                          i.venus.mars.icon
+                          .content
+                            | Gender
+                        .item
+                          .right.floated.content.dob
+                          i.calendar.alternate.icon
+                          .content
+                            | Date of Birth
+                a.header.event_type
+                .meta
+                  span.date Point here to know more
+          template
+            .card
+              .content.con
+                .ui.dimmer
+                  .content
+                    .center
+                      .ui.left.aligned.divided.list
+                        .item
+                          .right.floated.content.edu_name
+                          i.user.icon
+                          .content
+                            | Name
+                        .item
+                          .right.floated.content.edu_sid
+                          i.pencil.alternate.icon
+                          .content
+                            | Registration Number
+                        .item
+                          .right.floated.content.edu_degree
+                          i.graduation.cap.icon
+                          .content
+                            | Degree
+                        .item
+                          .right.floated.content.edu_college
+                          i.university.icon
+                          .content
+                            | Univerity
+                        .item
+                          .right.floated.content.edu_gender
+                          i.venus.mars.icon
+                          .content
+                            | Gender
+                        .item
+                          .right.floated.content.edu_end
+                          i.calendar.alternate.icon
+                          .content
+                            | Date of Graduation
+                        .item
+                          .right.floated.content.edu_city
+                          i.map.marker.alternate.icon
+                          .content
+                            | City
+                a.header.event_type
+                .meta
+                  span.date Point here to know more
+          template
+            .card
+              .content.con
+                .ui.dimmer
+                  .content
+                    .center
+                      .ui.left.aligned.divided.list
+                        .item
+                          .right.floated.content.emp_name
+                          i.user.icon
+                          .content
+                            | Name
+                        .item
+                          .right.floated.content.emp_eid
+                          i.pencil.alternate.icon
+                          .content
+                            | Employee Number
+                        .item
+                          .right.floated.content.emp_role
+                          i.briefcase.icon
+                          .content
+                            | Role
+                        .item
+                          .right.floated.content.emp_company
+                          i.building.icon
+                          .content
+                            | Company
+                        .item
+                          .right.floated.content.emp_gender
+                          i.venus.mars.icon
+                          .content
+                            | Gender
+                        .item
+                          .right.floated.content.emp_join
+                          i.calendar.alternate.icon
+                          .content
+                            | Date of Joining
+                        .item
+                          .right.floated.content.emp_city
+                          i.map.marker.alternate.icon
+                          .content
+                            | City
+                a.header.event_type
+                .meta
+                  span.date Point here to know more
+          template
+            .card
+              .content.con
+                .ui.dimmer
+                  .content
+                    .center
+                      .ui.left.aligned.divided.list
+                        .item
+                          .right.floated.content.marriage_partner1_name
+                          i.user.icon
+                          .content
+                            | Name
+                        .item
+                          .right.floated.content.marriage_partner2_name
+                          i.user.icon
+                          .content
+                            | Spouse's Name
+                        .item
+                          .right.floated.content.marriage_pastor
+                          i.users.icon
+                          .content
+                            | Witness
+                        .item
+                          .right.floated.content.marriage_date
+                          i.calendar.alternate.icon
+                          .content
+                            | Date of Marriage
+                        .item
+                          .right.floated.content.marriage_city
+                          i.map.marker.alternate.icon
+                          .content
+                            | City
+                a.header.event_type
+                .meta
+                  span.date Point here to know more
+          template
+            .card
+              .content.con
+                .ui.dimmer
+                  .content
+                    .center
+                      .ui.left.aligned.divided.list
+                        .item
+                          .right.floated.content.address_name
+                          i.user.icon
+                          .content
+                            | Name
+                        .item
+                          .right.floated.content.address_change_date
+                          i.calendar.alternate.icon
+                          .content
+                            | Date of Marriage
+                        .item
+                          .right.floated.content.address_old
+                          i.address.book.icon
+                          .content
+                            | Old Address
+                        .item
+                          .right.floated.content.address_new
+                          i.address.book.icon
+                          .content
+                            | New Address
+                a.header.event_type
+                .meta
+                  span.date Point here to know more
+        #special_card1.ui.special.cards
+    #login_modal.ui.tiny.modal
+      #login_dimmer.ui.dimmer
+        .ui.indeterminate.medium.text.loader Validating
+      #login_message.ui.negative.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Incorrect Details! Please Try again..
+      #login_message_2.ui.warning.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Please Enter ALL fields before submitting
+      #login.ui.segment(style='margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;')
+        h2.ui.center.aligned.icon.header
+          i.circular.key.icon
+          |           LogIn
+        form#login_form.ui.form
+          .field.required
+            label Username
+            input#username_login(name='username', required='', type='text', placeholder='Username', value='')
+          .field.required
+            label Password
+            input#password_login(name='password', required='', type='password', placeholder='Password', value='')
+          input#login_submit.ui.submit.button(type='button', value='submit')
+          .ui.error.message
+    #signup_modal.ui.tiny.modal
+      #signup_dimmer.ui.dimmer
+        .ui.indeterminate.medium.text.loader Validating
+      #signup_message.ui.warning.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Please Enter ALL fields before submitting
+      #signup.ui.segment(style='margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;')
+        h2.ui.center.aligned.icon.header
+          i.circular.paper.plane.icon
+          |           SignUp
+        form#signup_form.ui.form
+          .field
+            label Username
+            input#username_signup(name='username', required='', type='text', placeholder='Username', value='')
+          .field
+            label Email
+            input#email_signup(name='email', required='', type='text', placeholder='Email Address', value='')
+          .field
+            label Password
+            input#password_signup(name='password', required='', type='password', placeholder='Password', value='')
+          input#signup_submit.ui.submit.button(type='button', value='submit')
+          .ui.error.message

@@ -96,7 +96,7 @@ html
       blurring: true
       })
       .modal({
-      onHidden:function() {
+      onHidden:function(){
       $('.ui.message#signup_message').addClass('hidden');
       $('#signup_form').trigger('reset');
       return false;
@@ -243,16 +243,15 @@ html
       submitFormSignup();
       return false;
       }
-      })
-      });
+      })});
   body
     .ui.inverted.vertical.masthead.center.aligned.segment
       .ui.container
         .ui.large.secondary.inverted.pointing.menu
           a.active.item Home
-          a.item Get your services
+          a.item(href='/services') Get your services
           a.item Log your events
-          a.item(href='#') View your details
+          a.item(href='/view') View your details
           #right-menu.right.item
             a#logIn.ui.inverted.button Log In
             a#signUp.ui.inverted.button Sign Up
