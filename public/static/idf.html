@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href="Semantic-UI-CSS-master/semantic.min.css">
+<script
+        src="https://code.jquery.com/jquery-3.1.1.min.js"
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+        crossorigin="anonymous"></script>
+<!--<script src="jquery-3.1.1.min.js"></script>-->
+<script src="Semantic-UI-CSS-master/semantic.min.js"></script>
+<style>
+    .name_card_flip {
+        display: none;
+    }
+
+    .address_city_card_flip, .address_hno_card_flip, .address_street_card_flip, .address_state_card_flip, .address_pin_card_flip, .pob_city_card_flip, .pob_state_card_flip, .emp_city_card_flip, .emp_company_card_flip, .emp_join_card_flip, .emp_eid_card_flip, .marriage_city_card_flip, .marriage_date_card_flip, .marriage_pastor_card_flip, .marriage_partner2_name_card_flip {
+        display: none;
+    }
+
+    .age_card_flip {
+        display: none;
+    }
+
+    #IDFaddress,#IDFname,#IDFpob,#IDFempslip,#IDFmarriage{
+    display: none;
+    }
+    #fill_form{
+        display: none;
+    }
+</style>
+<script>
+    let response_arrived = false;
+    $(document).ready(function () {
+        var vendorPath="vendor";
+        var fields = '#{title}';
+        if(fields!='') {
+            $("#fill_form").css('display','block');
+            fields = fields.split(',');
+            for (let i in fields) {
+                if(fields[i]!=="vendorbirth") {
+                    $("#" + fields[i]).css('display', 'block');
+                }
+                else{
+                    vendorPath=vendorPath+"birth";
+                }
+            }
+        };
+        $('.ui.checkbox').checkbox();
+        $('.ui.radio.checkbox').checkbox();
+        $('select.dropdown').dropdown();
+
+        let card_array = ["name_card", "address_city_card", "address_hno_card", "address_street_card", "address_state_card", "address_pin_card", "pob_city_card", "pob_state_card", "emp_city_card", "emp_company_card", "emp_join_card", "emp_eid_card", "marriage_city_card", "marriage_date_card", "marriage_pastor_card", "marriage_partner2_name_card"];
+        for (let i in card_array) {
+            $("." + card_array[i]).hover(function () {
+                if (response_arrived) {
+                    $("." + card_array[i] + "_flip").css("display", "block");
+                }
+            }, function () {
+                $("." + card_array[i] + "_flip").css("display", "none");
+            });
+        }
+        sendForm = function () {
+            var formData = JSON.stringify($("#myForm").serializeArray());
+            formData = JSON.parse(formData);
+            if (response_arrived) {
+                console.log(response_temp);
+                let response_keys = Object.keys(response_temp);
+                for (let i = 0; i < response_keys.length; i++) {
+                    // $("#"+address_details[i])[0].value=response.address[address_details[i]];
+                    console.log(response_keys[i]);
+                    let temp = response_temp[response_keys[i]];
+                    if (typeof (temp[response_keys[i]]) === "object") {
+                        let response_inner_keys = Object.keys(temp[response_keys[i]]);
+                        for (let j = 0; j < response_inner_keys.length; j++) {
+                            for (let k = 0; k < formData.length; k++) {
+                                if (formData[k]["name"] === response_inner_keys[j]) {
+                                    formData[k]["txid"] = temp.txid
+                                }
+                            }
+                        }
+                    } else {
+                        for (let k = 0; k < formData.length; k++) {
+                            console.log(formData[k]["name"], response_keys[i]);
+                            if (formData[k]["name"] === response_keys[i]) {
+                                formData[k]["txid"] = temp.txid
+                            }
+                        }
+                    }
+
+                }
+            }
+            console.log(formData);
+            $.ajax({
+                url: "http://52.203.187.112:3000/users/" + vendorPath,
+                type: "POST",
+                // dataType: "json",
+                crossDomain: true,
+                data: JSON.stringify(formData),
+                success: function (response) {
+                    console.log(response)
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // alert(errorThrown);
+                }
+
+            })
+        };
+        fillAPI = function (pubkey) {
+            var path="pubkey="+pubkey;
+            for (let i in ["Birth","Migration","Marriage","Employment"]){
+
+            }
+            $.ajax({
+                // url:"http://127.0.0.1:3001/idf/getDetails1?pubkey="+pubkey+"&address=req&ageproof=req&name=req",
+                url: "http://localhost:3001/idf/getDetails1?pubkey=" + pubkey + "&address_new=req&birth_name=req&pob=req&marriage_city=req&marriage_date=req&marriage_pastor=req&marriage_partner2_name=req&emp_company=req&emp_eid=req&emp_join=req&emp_city=req",
+                type: "GET",
+                // dataType:"json",
+                // data:JSON.stringify({pubkey:pubkey,address:"req",ageproof:"req",name:"req"}),
+                // contentType: 'application/json',
+                crossDomain: true,
+                success: function (response, textStatus, jqXHR) {
+                    response_arrived = true;
+                    response_temp = response;
+                    $("#fill_form").css("display", "none");
+                    $("#sumbit_idf").css("display", "block");
+                    let response_keys = Object.keys(response);
+                    // console.log(response_keys)
+                    for (let i = 0; i < response_keys.length; i++) {
+                        // $("#"+address_details[i])[0].value=response.address[address_details[i]];
+                        // console.log(response_keys[i]);
+                        let temp = response[response_keys[i]];
+                        if (typeof (temp[response_keys[i]]) === "object") {
+                            let response_inner_keys = Object.keys(temp[response_keys[i]]);
+                            for (let j = 0; j < response_inner_keys.length; j++) {
+                                // console.log(response_inner_keys);
+                                $("#" + response_inner_keys[j])[0].value = temp[response_keys[i]][response_inner_keys[j]];
+                                let verify_card = $('#' + response_inner_keys[j] + '_verify').children();
+                                if (temp.hasOwnProperty("verified_by")) {
+                                    verify_card[0].innerHTML = "Verified By- " + temp.meta["verified_by"] + ' <i class="right chevron icon circle"></i>' + temp.meta["verifier"]
+                                } else {
+                                    verify_card[0].innerHTML = "Verified By- " + temp.meta["verifier"];
+                                }
+                                verify_card[1].innerHTML = temp[response_keys[i]][response_inner_keys[j]];
+                                verify_card[2].innerHTML = "<b>Txid:<br></b>" + temp.txid;
+                            }
+                        } else {
+                            console.log(response_keys[i]);
+                            $("#" + response_keys[i])[0].value = temp[response_keys[i]];
+                            let verify_card = $('#' + response_keys[i] + '_verify').children();
+                            verify_card[0].innerHTML = "Verified By- " + temp.meta.verifier;
+                            verify_card[1].innerHTML = temp[response_keys[i]];
+                            verify_card[2].innerHTML = "<b>Txid:<br></b>" + temp.txid;
+                        }
+                    }
+
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        };
+
+    });
+</script>
+<head>
+    <meta charset="UTF-8">
+    <title>IdentityForm</title>
+</head>
+<style type="text/css">
+    /*.masthead.segment {
+      min-height: 753px;
+      padding: 1em 0em;
+    }*/
+    .masthead.segment {
+        min-height: 100%;
+        padding: 1em 0em;
+    }
+    .masthead .logo.item img {
+        margin-right: 1em;
+    }
+    .masthead .ui.menu .ui.button {
+        margin-left: 0.5em;
+    }
+    .masthead h1.ui.header {
+        margin-top: 3em;
+        margin-bottom: 0em;
+        font-size: 4em;
+        font-weight: normal;
+    }
+    .masthead h2 {
+        font-size: 1.7em;
+        font-weight: normal;
+    }
+    /*.card {*/
+        /*height: 250px;*/
+        /*width: 100px;*/
+    /*}*/
+    /*.ui .cards{
+      margin: 2.3em -26em;
+      width: 2000px;
+    }*/
+    /*.ui .cards{*/
+        /*margin: 5% -37%;*/
+        /*width: 200%;*/
+    /*}*/
+    /*.ui.cards>.card>.content>.header:not(.ui) {*/
+        /*margin-top: 3.78575em;*/
+    /*}*/
+
+    @media only screen and (max-width: 700px) {
+        .ui.fixed.menu {
+            display: none !important;
+        }
+        .secondary.pointing.menu .item,
+        .secondary.pointing.menu .menu {
+            display: none;
+        }
+        .secondary.pointing.menu .toc.item {
+            display: block;
+        }
+        .masthead.segment {
+            min-height: 350px;
+        }
+        .masthead h1.ui.header {
+            font-size: 2em;
+            margin-top: 1.5em;
+        }
+        .masthead h2 {
+            margin-top: 0.5em;
+            font-size: 1.5em;
+        }
+    }
+</style>
+
+<body>
+    <div class="ui inverted vertical masthead center aligned segment">
+        <div class="ui container">
+            <div class="ui large secondary inverted pointing menu">
+                <a class="active item">Home</a>
+                <a href="identityForm.html" class="item">Get your services</a>
+                <a href="main.html" class="item">Log your events</a>
+                <a href="view.html" class="item">View your details</a>
+                <div class="right item">
+                    <a class="ui inverted button">Log In</a>
+                    <a class="ui inverted button">Sign Up</a>
+                </div>
+            </div>
+        </div>
+        <div class="ui text container" style="margin-top: 3%">
+            <div class="ui segment" >
+                <!--<div class="ui blue right ribbon label large">Voter ID Application</div>-->
+                <form class="ui form" method="post" action="http://localhost:3001/multisig/idf" id="myForm">
+                    <!--<form class="ui form">-->
+                    <div class="disabled field">
+                        <label style="opacity: 1">Public Key</label>
+                        <input type="text" tabindex="-1" name="pubkey"
+                               value="038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39">
+                    </div>
+                    <hr>
+                    <div id="IDFname">
+                        <span><b>Name </b></span>
+                        <div class="name_form" style="margin: 5% 15% 5% 15%">
+                            <div class="ui ignored info message">
+                                Applicant's Name details
+                            </div>
+
+                            <div class="field required name_card">
+                                <label style="font-size: inherit">Full Name of Applicant</label>
+                                <input type="text" name="birth_name" placeholder="Full Name" id="birth_name">
+                            </div>
+
+                            <div class="name_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="birth_name_verify">
+                                            <div class="header" id="birth_name_from">Elliot Fu</div>
+                                            <div class="meta" id="birth_name_name">Friend</div>
+                                            <div class="description" id="birth_name_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div id="IDFaddress">
+                        <label style="font-size: inherit"> <b>Permanent Address</b></label>
+                        <div id="address_form" style="margin: 5% 15% 5% 15%">
+                            <div class="ui ignored info message">
+                                Applicant's permanent address details
+                            </div>
+                            <div class="field required address_hno_card">
+                                <label style="font-size: inherit">House No</label>
+                                <input type="text" name="address_hno" placeholder="Apartment No/Block Name"
+                                       id="address_hno">
+                            </div>
+
+                            <div class="address_hno_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="address_hno_verify">
+                                            <div class="header" id="address_hno_from">Elliot Fu</div>
+                                            <div class="meta" id="address_hno_name">Friend</div>
+                                            <div class="description" id="address_hno_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required address_street_card">
+                                <label style="font-size: inherit">Street/Area/Locality</label>
+                                <input type="text" name="address_street" placeholder="Street Name" id="address_street">
+                            </div>
+
+                            <div class="address_street_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="address_street_verify">
+                                            <div class="header" id="address_street_from">Elliot Fu</div>
+                                            <div class="meta" id="address_street_name">Friend</div>
+                                            <div class="description" id="address_street_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="field required address_city_card">
+                                <label style="font-size: inherit">Town/Village</label>
+                                <input type="text" name="address_city" placeholder="City/Town Name" id="address_city">
+                            </div>
+
+                            <div class="address_city_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="address_city_verify">
+                                            <div class="header" id="address_city_from">Elliot Fu</div>
+                                            <div class="meta" id="address_city_name">Friend</div>
+                                            <div class="description" id="address_city_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required address_pin_card">
+                                <label style="font-size: inherit">Pin Code</label>
+                                <input type="text" name="address_pin" placeholder="500032" id="address_pin">
+                            </div>
+
+                            <div class="address_pin_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="address_pin_verify">
+                                            <div class="header" id="address_pin_from">Elliot Fu</div>
+                                            <div class="meta" id="address_pin_name">Friend</div>
+                                            <div class="description" id="address_pin_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required address_state_card">
+                                <label style="font-size: inherit">State</label>
+                                <input type="text" name="address_state" placeholder="500032" id="address_state">
+                            </div>
+
+                            <div class="address_state_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="address_state_verify">
+                                            <div class="header" id="address_state_from">Elliot Fu</div>
+                                            <div class="meta" id="address_state_name">Friend</div>
+                                            <div class="description" id="address_state_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                    </div>
+
+                    <div id="IDFpob">
+
+                        <label> <b>Place of Birth and Declaration</b></label>
+                        <div id="dob_form" style="margin: 5% 15% 5% 15%">
+                            <div class="ui ignored info message">
+                                Applicant's Birth event details
+                            </div>
+                            <span> I am a citizen of India and place of my birth is</span>
+                            <div class="field required pob_city_card">
+                                <label style="font-size: inherit">Town/Village</label>
+                                <input type="text" name="pob_city" placeholder="City/Town Name" id="pob_city">
+                            </div>
+                            <div class="pob_city_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="pob_city_verify">
+                                            <div class="header" id="pob_city_from">Elliot Fu</div>
+                                            <div class="meta" id="pob_city_name">Friend</div>
+                                            <div class="description" id="pob_city_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required pob_state_card">
+                                <label style="font-size: inherit">State</label>
+                                <input type="text" name="pob_state" placeholder="Karnataka" id="pob_state">
+                            </div>
+                            <div class="pob_state_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="pob_state_verify">
+                                            <div class="header" id="pob_state_from">Elliot Fu</div>
+                                            <div class="meta" id="pob_state_name">Friend</div>
+                                            <div class="description" id="pob_state_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required">
+                                <label style="font-size: inherit">District</label>
+                                <input type="text" name="pob_district" placeholder="Mandya" id="pob_district">
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+
+
+                    <div id="IDFempslip">
+
+                        <label> <b>Employment and emp slip</b></label>
+                        <div id="emp_form" style="margin: 5% 15% 5% 15%">
+                            <div class="ui ignored info message">
+                                Applicant's Employment and Salary details
+                            </div>
+                            <div class="field required emp_company_card">
+                                <label style="font-size: inherit">Company Name:</label>
+                                <input type="text" name="emp_company" placeholder="Cisco" id="emp_company">
+                            </div>
+                            <div class="emp_company_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="emp_company_verify">
+                                            <div class="header" id="emp_company_from">Elliot Fu</div>
+                                            <div class="meta" id="emp_company_name">Friend</div>
+                                            <div class="description" id="emp_company_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required emp_eid_card">
+                                <label style="font-size: inherit">Employee ID:</label>
+                                <input type="text" name="emp_eid" placeholder="10040236" id="emp_eid">
+                            </div>
+                            <div class="emp_eid_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="emp_eid_verify">
+                                            <div class="header" id="emp_eid_from">Elliot Fu</div>
+                                            <div class="meta" id="emp_eid_name">Friend</div>
+                                            <div class="description" id="emp_eid_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required emp_join_card">
+                                <label style="font-size: inherit">Join Date:</label>
+                                <input type="text" name="emp_join" placeholder="dd/mm/yyyy" id="emp_join">
+                            </div>
+                            <div class="emp_join_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="emp_join_verify">
+                                            <div class="header" id="emp_join_from">Elliot Fu</div>
+                                            <div class="meta" id="emp_join_name">Friend</div>
+                                            <div class="description" id="emp_join_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field required emp_city_card">
+                                <label style="font-size: inherit">City of Employment:</label>
+                                <input type="text" name=emp_city placeholder="Bangalore" id="emp_city">
+                            </div>
+                            <div class="emp_city_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="emp_city_verify">
+                                            <div class="header" id="emp_city_from">Elliot Fu</div>
+                                            <div class="meta" id="emp_city_name">Friend</div>
+                                            <div class="description" id="emp_city_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                    </div>
+
+
+                    <div id="IDFmarriage">
+
+                        <label> <b>Matrimonial Details</b></label>
+                        <div id="marriage_form" style="margin: 5% 15% 5% 15%">
+                            <div class="ui ignored info message">
+                                Applicant's self and spousal's Marriage Information
+                            </div>
+                            <div class="field required marriage_partner2_name_card">
+                                <label style="font-size: inherit">Spouse's Name:</label>
+                                <input type="text" name="marriage_partner2_name" placeholder="Anitha"
+                                       id="marriage_partner2_name">
+                            </div>
+                            <div class="marriage_partner2_name_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="marriage_partner2_name_verify">
+                                            <div class="header" id="marriage_partner2_name_from">Elliot Fu</div>
+                                            <div class="meta" id="marriage_partner2_name_name">Friend</div>
+                                            <div class="description" id="marriage_partner2_name_txid"
+                                                 style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required marriage_pastor_card">
+                                <label style="font-size: inherit">Officiated By:</label>
+                                <input type="text" name="marriage_pastor" placeholder="Akhil" id="marriage_pastor">
+                            </div>
+                            <div class="marriage_pastor_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="marriage_pastor_verify">
+                                            <div class="header" id="marriage_pastor_from">Elliot Fu</div>
+                                            <div class="meta" id="marriage_pastor_name">Friend</div>
+                                            <div class="description" id="marriage_pastor_txid"
+                                                 style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="field required marriage_date_card">
+                                <label style="font-size: inherit">Marriage Date:</label>
+                                <input type="text" name="marriage_date" placeholder="dd/mm/yyyy" id="marriage_date">
+                            </div>
+                            <div class="marriage_date_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="marriage_date_verify">
+                                            <div class="header" id="marriage_date_from">Elliot Fu</div>
+                                            <div class="meta" id="marriage_date_name">Friend</div>
+                                            <div class="description" id="marriage_date_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field required marriage_city_card">
+                                <label style="font-size: inherit">City of marriage:</label>
+                                <input type="text" name="marriage_city" placeholder="Bangalore" id="marriage_city">
+                            </div>
+                            <div class="marriage_city_card_flip">
+                                <div class="ui cards verify">
+                                    <div class="card">
+                                        <div class="content" id="marriage_city_verify">
+                                            <div class="header" id="marriage_city_from">Elliot Fu</div>
+                                            <div class="meta" id="marriage_city_name">Friend</div>
+                                            <div class="description" id="marriage_city_txid" style="word-break: break-all">
+                                                hello
+                                            </div>
+                                        </div>
+                                        <div class="extra content">
+                                            Verified
+                                            <a>
+                                                <i class="check circle icon teal users icon large" style="float: right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr>
+                    </div>
+
+
+                    <!--</div>-->
+
+                    <br>
+                    <br>
+                </form>
+                <button class="ui button blue" id="sumbit_idf" onclick="sendForm()" style="display: none" >Submit</button>
+                <button class="ui button blue" id="fill_form"
+                        onclick="fillAPI('038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')">Fill Form
+                </button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+
