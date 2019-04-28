@@ -6,7 +6,7 @@ let multichain = require("multichain-node")({
     port: 4768,
     host: '127.0.0.1',
     user: "multichainrpc",
-    pass: "DXDSfzDgkFdwLud6XNy8i7sDwtMZErJNzFPSSFYH5HM2"
+    pass: "3JoVoQ4kJqbBYSDyjkVEsEYZa51rFdyUbKojy1z9VdNZ"
 });
 
 var formFields;
@@ -14,24 +14,27 @@ router.get ('/test', function (req,res,next) {
     // if(req.url==='/test'){
     //     console.log("11")
     // }
-    // console.log(req.url)
+    console.log("11");
     if(formFields===undefined && req.url==='/test'){
-        res.render('test', {title: ''});
+        console.log("Ss");
+        res.render('test', {title: ""});
     }
     else {
         if(formFields!==undefined) {
             let url_parts = url.parse(formFields, true);
             let query = url_parts.query;
             // formFields=query.key
+            console.log(query);
             res.render('test',{title:query.key});
         }
         else {
             formFields = req.url;
-            console.log("123");
+            console.log("12333");
             // res.render('index',{title:formFields});
             res.send(200);
         }
     }
+    // res.send("Ddd")
 });
 
 
@@ -49,7 +52,7 @@ router.get('/getDetails', function(req, res, next) {
     // var req_obj = url_parts.query;
     let response_data=new Object();
     req_fields=Object.keys(queryData);
-    multichain.listStreamKeyItems({stream:"test",key: "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" },(err,rep)=>{
+    multichain.listStreamKeyItems({stream:"test23",key: "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39" },(err,rep)=>{
         console.log(rep);
         for(i=0; i<rep.length;i++){
             for(j=0; j<req_fields.length;j++) {
@@ -79,18 +82,20 @@ router.get('/getDetails1', function(req, res, next){
     let response_data={};
     let req_fields=Object.keys(queryData);
     console.log(req_fields);
-    multichain.listStreamKeyItems({stream:"test15",key: "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39", "verbose": false, "count": 20 },(err,rep)=>{
+    multichain.listStreamKeyItems({stream:"test23",key: "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39", "verbose": false, "count": 9999 },(err,rep)=>{
 
         // console.log(rep[0].data.json);
         // console.log(JSON.stringify(response_data));
         // res.status(200).send(rep[0].data.json);
+        if(err){
+            console.log(err);
+        }
         let count=0;
-        console.log(rep.length);
-
+        // console.log(rep)
         for (let i=0; i<rep.length;i++){
             let key=rep[i].data.json.meta.identity;
+            console.log(key);
             if(req_fields.includes(key)){
-                console.log(key);
                 response_data[key]=rep[i].data.json;
                 response_data[key]["txid"]=rep[i].txid;
                 if(rep[i].data.json.meta.hasOwnProperty("verified_by")){
