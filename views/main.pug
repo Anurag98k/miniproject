@@ -1,0 +1,481 @@
+doctype html
+html(lang='en')
+  head
+    link(href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css', rel='stylesheet', type='text/css')
+    script(src='https://code.jquery.com/jquery-3.1.1.min.js', crossorigin='anonymous', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=')
+    // <script src="jquery-3.1.1.min.js"></script>
+    script(src='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js')
+    meta(charset='UTF-8')
+    title Title
+    script.
+      $(document).ready(function () {
+      $('.ui.sidebar')
+      .sidebar('toggle')
+      ;
+      $('select.dropdown').dropdown();
+      $('.ui.dropdown')
+      .dropdown()
+      ;
+      var selected_value;
+      $('#event_type')
+      .dropdown({
+      onChange: function (value, text, $selectedItem) {
+      // custom action
+      selected_value=value;
+      console.log(selected_value);
+      let event_views = [ "id_", "emp_", "matrimonial_"];
+      for (let i = 0; i < event_views.length; i++) {
+      if (event_views[i] === value) {
+      $("#" + value).css("display", "block")
+      } else {
+      $("#" + event_views[i]).css("display", "none")
+      }
+      }
+      }
+      });
+      $('input[type=file]').change(function (e) {
+      let fileName = e.target.files[0].name;
+      console.log(e.target.id);
+      document.getElementById("attach_" + e.target.id).innerHTML = "<h5 class='ui header'>" + fileName + " <br> size: " + event.target.files[0].size / 1000 + " kb" + "</h5>";
+      });
+      sendForm = function () {
+      // alert($('#id_type').dropdown('get value'));
+      var formData = JSON.stringify($("#myForm").serializeArray());
+      var formData_rel= [];
+      formData = JSON.parse(formData);
+      for (let i in formData){
+      // console.log(formData_keys);
+      if(formData[i].name.includes(selected_value)){
+      formData_rel.push(formData[i]);
+      }
+      }
+      console.log(formData);
+      $.ajax({
+      url: "http://54.81.226.205:3000/users/addcredentials",
+      type: "POST",
+      // dataType: "json",
+      crossDomain: true,
+      data: JSON.stringify(formData),
+      success: function (response) {
+      console.log(response)
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+      // alert(errorThrown);
+      }
+      })
+      };
+      //Side bar Log=In check
+      if (localStorage.getItem('username')){
+      $('#right-menu').empty();
+      $('#right-menu').append("<div class='ui inverted button'> Welcome, "+localStorage.getItem('username')+'</div>');
+      $('#right-menu').append("<div class='ui inverted button' id='signOut'>Sign Out</div>");
+      }
+      else{
+      console.log("not logged in");
+      }
+      $('#logIn').on('click',function(){
+      $('.ui.modal#login_modal')
+      .modal({
+      blurring: true
+      })
+      .modal({
+      onHidden:function() {
+      $('.ui.message#login_message').addClass('hidden');
+      $('.ui.message#login_message_2').addClass('hidden');
+      $('#login_form').trigger('reset');
+      return false;
+      }
+      })
+      .modal('show');
+      });
+      $('#signUp').on('click',function(){
+      $('.ui.modal#signup_modal')
+      .modal({
+      blurring: true
+      })
+      .modal({
+      onHidden:function(){
+      $('.ui.message#signup_message').addClass('hidden');
+      $('#signup_form').trigger('reset');
+      return false;
+      }
+      })
+      .modal('show');
+      });
+      $('#signOut').on('click',function(){
+      localStorage.clear();
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      window.location.reload(true);
+      });
+      });
+      //onHidden
+      //For Login modal
+      var username_login;
+      var password_login;
+      $("#login_submit").click(function() {
+      $('.ui.dimmer#login_dimmer').addClass('active');
+      $('.ui.message#login_message').addClass('hidden');
+      $('.ui.message#login_message_2').addClass('hidden');
+      if( $('#login_form').form("is valid") ){
+      username_login = $("#username_login").val();
+      password_login = $("#password_login").val();
+      //check if username exists first before sending password data.
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_login,password:password_login},function (data) {
+      if (data.status == 'done'){
+      localStorage.token = data.token;
+      localStorage.username = username_login;
+      //Call /wallet/multichain/exists
+      //If false:
+      //Call /wallet/multichain/init
+      //Call /wallet/multichain/restore
+      //Start
+      //If true
+      //Call /wallet/multichain/stop
+      //Call /wallet/multichain/restore
+      //Start
+      $.get("http://localhost:3001/wallet/multichain/exists", function(data){
+      if(data.status == 'done'){
+      if(data.exists == false ){
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
+      if(data.result == 'failed' || data.result == 'done' ){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},function(data){
+      if(data.status == 'done'){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      window.location.reload(true);
+      });
+      }
+      });
+      }
+      });
+      }
+      else{
+      //data.exists == false
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')}, function(data){
+      if(data.status == 'done'){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      window.location.reload(true);
+      });
+      }
+      });
+      });
+      }
+      }
+      });
+      }
+      else{
+      //FAILED
+      if(data.status == 'failed'){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      $('.ui.message#login_message').removeClass('hidden');
+      }
+      }
+      })
+      }
+      else {
+      $('.ui.message#login_message_2').removeClass('hidden');
+      }
+      });
+      //SignUp
+      //create Credentials
+      //Check if multichain folder exists
+      //YES - then delete it
+      //multichain INIT
+      //send to dns.js to get permissions
+      //multichain Backup
+      //LOGIn
+      var username_signup;
+      var password_signup;
+      var email_signup;
+      function submitFormSignup() {
+      $('.ui.dimmer#signup_dimmer').addClass('active');
+      if( $('form#signup_form').form('is valid') ){
+      username_signup = $("#username_signup").val();
+      password_signup = $("#password_signup").val();
+      email_signup = $("#email_signup").val();
+      //check if username exists first before sending password data.
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/signup", {username:username_signup,password:password_signup,email:email_signup},function (data) {
+      if (data.status == 'done'){
+      //window.location.reload(true);
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      $.get("http://localhost:3001/wallet/multichain/delete", function(data) {
+      console.log('Deleted');
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
+      console.log('Init');
+      address_signup = data.address;
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_signup,password:password_signup}, function(data) {
+      token_signup = data.token;
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3002/grant", {address:address_signup,token:token_signup}, function(data){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $.post("http://localhost:3001/wallet/multichain/backup", {token:token_signup}, function(data){
+      $('.ui.dimmer#signup_dimmer').removeClass('active');
+      localStorage.token = token_signup;;
+      localStorage.username = username_signup;
+      window.location.reload(true);
+      });
+      });
+      });
+      });
+      });
+      });
+      });
+      }
+      else{
+      }
+      })
+      }
+      else {
+      console.log("Invalid username/password/email");
+      }
+      }
+      $('.ui.form#signup_form')
+      .form({
+      fields: {
+      username : 'empty',
+      password : ['minLength[6]', 'empty'],
+      email: 'email'
+      },
+      onSuccess: function() {
+      submitFormSignup();
+      return false;
+      }
+      })
+      });
+    style(type='text/css').
+      /*.masthead.segment {
+      min-height: 753px;
+      padding: 1em 0em;
+      }*/
+      .masthead.segment {
+      min-height: 100%;
+      padding: 1em 0em;
+      }
+      .masthead .logo.item img {
+      margin-right: 1em;
+      }
+      .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+      }
+      .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+      }
+      .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+      }
+      .card {
+      height: 250px;
+      width: 100px;
+      }
+      /*.ui .cards{
+      margin: 2.3em -26em;
+      width: 2000px;
+      }*/
+      .ui .cards {
+      margin: 5% -37%;
+      width: 200%;
+      }
+      .ui.cards > .card > .content > .header:not(.ui) {
+      margin-top: 3.78575em;
+      }
+      @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+      display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+      display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+      display: block;
+      }
+      .masthead.segment {
+      min-height: 350px;
+      }
+      .masthead h1.ui.header {
+      font-size: 2em;
+      margin-top: 1.5em;
+      }
+      .masthead h2 {
+      margin-top: 0.5em;
+      font-size: 1.5em;
+      }
+      }
+  body(style='background-color: ghostwhite;')
+    .ui.inverted.vertical.masthead.center.aligned.segment
+      .ui.container
+        .ui.large.secondary.inverted.pointing.menu
+          a.item(href='/') Home
+          a.item(href='/services') Get your services
+          a.active.item(href='#') Log your events
+          a.item(href='/view') View your details
+          a.item(href='/idf') IDF Requests
+          #right-menu.right.item
+            a#logIn.ui.inverted.button Log In
+            a#signUp.ui.inverted.button Sign Up
+      .ui.text.container(style='margin-top: 5%;')
+        .ui.segment
+          h3.ui.header Register Life Events Portal
+          form#myForm.ui.form(action='http://localhost:3001/multisig/idf', method='post')
+            .disabled.field
+              label(style='opacity: 1') Public Key
+              input(name='pubkey', tabindex='-1', type='text', value='038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')
+            .ui.ignored.info.message
+              | Enter the relevant details of the event and submit for verification. Your entry will be added after
+              | verification is completed.
+            span
+              b Event Type
+            #event_type.ui.fluid.search.selection.dropdown
+              input(name='event_type', type='hidden')
+              i.dropdown.icon
+              .default.text Select Event
+              .menu
+                .item(data-value='birth_') Birth
+                .item(data-value='id_') ID Attainment
+                .item(data-value='a2') Education
+                .item(data-value='emp_') Employment
+                .item(data-value='matrimonial_') Marriage
+                .item(data-value='a5') Death
+            br
+            hr
+            br
+            #birth_.field(style='display: none')
+              h4.ui.header Enter Birth Event Details:
+              .field.required.dob_card
+                label(style='font-size: inherit') Name
+                input#birth_name(name='birth_name', type='text', placeholder='Anurag K')
+              .two.fields
+                .field.required.dob_card
+                  label(style='font-size: inherit') Registration no
+                  input#birth_reg_no(name='birth_reg_no', type='text', placeholder='129762')
+                .field.required.dob_card
+                  label(style='font-size: inherit') Date of birth
+                  input#birth_dob(name='birth_dob', type='text', placeholder='dd-mm-yyyy')
+              .two.fields
+                .field.required.dob_card
+                  label(style='font-size: inherit') Father's Name
+                  input#birth_fn(name='birth_fn', type='text', placeholder='Ajay')
+                .field.required.dob_card
+                  label(style='font-size: inherit') Mother's Name
+                  input#birth_mn(name='birth_mn', type='text', placeholder='Sunita')
+              .field.required.address_street_card
+                label(style='font-size: inherit') Place of birth(With Hospital Name)
+                textarea(name='birth_area', rows='2')
+              div
+                label.ui.icon.button(for='birth_file')
+                  | Attach File
+                  input#birth_file(name='attachmentName', style='display: none', type='file')
+                span#attach_birth_file
+            #id_.field(style='display: none')
+              h4.ui.header Enter Government ID Details:
+              label
+                b Event Type
+              #id_type.ui.search.selection.dropdown(style='margin-right: 25%;margin-left: 25%;max-width: 50%')
+                input(name='id_name', type='hidden')
+                i.dropdown.icon
+                .default.text Select Event
+                .menu
+                  .item(data-value='Aadhar') Aadhar
+                  .item(data-value='Passport') Passport
+                  .item(data-value='Pan') Pan
+                  .item(data-value='Voter ID') Voter ID
+                  .item(data-value='Dl') Driver's License
+              br
+              .field.required.dob_card(style='margin-left: 25%;margin-right: 25%')
+                label(style='font-size: inherit') Registration no
+                input#id_no(name='id_no', type='text', placeholder='Aadhar/Passport number')
+            #emp_.field(style='display: none')
+              h4.ui.header Enter Birth Event Details:
+              .two.fields
+                .field.required.emp_company_card
+                  label(style='font-size: inherit') Company Name:
+                  input#emp_company(name='emp_company', type='text', placeholder='Cisco')
+                .field.required.emp_eid_card
+                  label(style='font-size: inherit') Employee ID:
+                  input#emp_eid(name='emp_eid', type='text', placeholder='10040236')
+              .two.fields
+                .field.required.emp_join_card
+                  label(style='font-size: inherit') Join Date:
+                  input#emp_join(name='emp_join', type='text', placeholder='dd/mm/yyyy')
+                .field.required.emp_city_card
+                  label(style='font-size: inherit') City of Employment:
+                  input#emp_city(name='emp_join', type='text', placeholder='Bangalore')
+              div
+                label.ui.icon.button(for='emp_file')
+                  | Attach File
+                  input#emp_file(name='attachmentName', style='display: none', type='file')
+                span#attach_emp_file
+            #matrimonial_.field(style='display: none')
+              h4.ui.header Enter Marriage Event Details:
+              .two.fields
+                .field.required.matrimonial_spouse_name_card
+                  label(style='font-size: inherit') Name:
+                  input#matrimonial_spouse_nam1e(name='matrimonial_spouse_name', type='text', placeholder='Anish')
+                .field.required.matrimonial_spouse_name_card
+                  label(style='font-size: inherit') Spouse's Name:
+                  input#matrimonial_spouse_name(name='matrimonial_spouse_name', type='text', placeholder='Anitha')
+              .two.fields
+                .field.required.matrimonial_date_card
+                  label(style='font-size: inherit') Marriage Date:
+                  input#matrimonial_date(name='matrimonial_date', type='text', placeholder='dd/mm/yyyy')
+                .field.required.matrimonial_city_card
+                  label(style='font-size: inherit') City of matrimonial:
+                  input#matrimonial_city(name='matrimonial_city', type='text', placeholder='Bangalore')
+              .field.required.matrimonial_pastor_card
+                label(style='font-size: inherit') Officiated By:
+                input#matrimonial_pastor(name='matrimonial_pastor', type='text', placeholder='Akhil')
+              div
+                label.ui.icon.button(for='matrimonial_file')
+                  | Attach File
+                  input#matrimonial_file(name='attachmentName', style='display: none', type='file')
+                span#attach_matrimonial_file
+          button#sumbit_idf.ui.button.blue(style='margin-top: 3%', onclick='sendForm()') Submit
+    #login_modal.ui.tiny.modal
+      #login_dimmer.ui.dimmer
+        .ui.indeterminate.medium.text.loader Validating
+      #login_message.ui.negative.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Incorrect Details! Please Try again..
+      #login_message_2.ui.warning.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Please Enter ALL fields before submitting
+      #login.ui.segment(style='margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;')
+        h2.ui.center.aligned.icon.header
+          i.circular.key.icon
+          |           LogIn
+        form#login_form.ui.form
+          .field.required
+            label Username
+            input#username_login(name='username', required='', type='text', placeholder='Username', value='')
+          .field.required
+            label Password
+            input#password_login(name='password', required='', type='password', placeholder='Password', value='')
+          input#login_submit.ui.submit.button(type='button', value='submit')
+          .ui.error.message
+    #signup_modal.ui.tiny.modal
+      #signup_dimmer.ui.dimmer
+        .ui.indeterminate.medium.text.loader Validating
+      #signup_message.ui.warning.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Please Enter ALL fields before submitting
+      #signup.ui.segment(style='margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;')
+        h2.ui.center.aligned.icon.header
+          i.circular.paper.plane.icon
+          |           SignUp
+        form#signup_form.ui.form
+          .field
+            label Username
+            input#username_signup(name='username', required='', type='text', placeholder='Username', value='')
+          .field
+            label Email
+            input#email_signup(name='email', required='', type='text', placeholder='Email Address', value='')
+          .field
+            label Password
+            input#password_signup(name='password', required='', type='password', placeholder='Password', value='')
+          input#signup_submit.ui.submit.button(type='button', value='submit')
+          .ui.error.message

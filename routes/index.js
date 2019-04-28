@@ -196,4 +196,9 @@ router.get ('/idf', function (req,res,next) {
     // res.send("Ddd")
 });
 
+
+router.get('/main', function(req, res, next) {
+  res.render('main', { title: 'Express' });
+});
+
 module.exports = router;
