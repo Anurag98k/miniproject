@@ -77,7 +77,9 @@ function GetRPC() {
 });*/
 
 var blk_stream = "test21";
-var blk_publisher = "1DkQGLaSibCC8jsryRGYGQmLg1S6S155dMfdaw";
+//var blk_publisher = "1DkQGLaSibCC8jsryRGYGQmLg1S6S155dMfdaw";
+ var blk_publisher = "1RMqjEp4SRBZ3gZjz1ss9E1jpNibpupVuoP3Po";
+
 //var blk_txid = "e7d50db8d5cdfa8491e894c0907c5ea07265cd6e4c3fdab9d150b27bd6543259";
 /*var al = [{event_type:"Birth",verifier:"Department of Public Health",data:{name:"Rishav Patil",father_name:"Akhil Patil", mother_name:"Ananya Patil", dob: "15-02-1998", date_registration: "12-12-2019", gender: "Male", nationality: "Indian"}},{event_type:"ID",verifier:"passport",data:{name:"Rishav Patil",number:"M1320965", mother_name:"Ananya Patil", dob: "15-02-1998", gender: "Male", nationality: "Indian"}}, {event_type:"ID",verifier:"aadhar",data:{name:"Rishav Patil",number:"509127043618", father_name:"Akhil Patil", dob: "15-02-1998", gender: "Male"}}, {event_type:"Education",verifier:"PES University",data:{edu_name:"Rishav Patil", edu_degree:"B.Tech", edu_college:"PES University", edu_end: "15-02-1998", edu_gender: "Male", edu_sid:"01FB15ECS047", edu_city:"Bangalore", edu_join:"15-02-2012"}}, {event_type:"Employment",verifier:"Microsoft",data:{emp_name:"Rishav Patil", emp_role:"Manager", emp_company:"McAfee", emp_join: "15-02-1998", emp_gender: "Male", emp_eid:"20007635", emp_city:"Bangalore"}}, {event_type:"Marriage",verifier:"Municipal Corporation of Marriage",data:{marriage_partner1_name:"Rishav Patil", marriage_partner2_name:"Ameena Patil", marriage_pastor:"Alok Kumar", marriage_date: "15-02-1998", marriage_city:"Bangalore"}}, {event_type:"Migration",verifier:"Ministry of Petroleum and Natural Gas",data:{address_name:"Rishav Patil", address_change_date: "15-02-1998", address_old: {
                     "address_hno" : "Marigold-125",

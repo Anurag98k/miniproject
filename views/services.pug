@@ -307,8 +307,20 @@ html
       }
       });
       $('#service_submit_dropdown').on('click', function(){
-      //console.log($('#service_dropdown').dropdown('get value'),":::",$('#serviceA_dropdown').dropdown('get value'));
-      send_json = {type:'service',service:$('#service_dropdown').dropdown('get value'),auth:$('#serviceA_dropdown').dropdown('get value'),address:'fakeID'}
+      console.log($('#service_dropdown').dropdown('get value'),":::",$('#serviceA_dropdown').dropdown('get value'));
+      send_json = {type:'service',service:$('#service_dropdown').dropdown('get value'),auth:$('#serviceA_dropdown').dropdown('get value'),address:'1RMqjEp4SRBZ3gZjz1ss9E1jpNibpupVuoP3Po'};
+      var send_service_url = "http://"+"740a72a9.ngrok.io/srequest"
+      $.post(send_service_url,send_json,function(data){
+      console.log('service true')
+      if(data.status == 'done'){
+      console.log('service received data true')
+      $('.ui.modal#alert_modal')
+      .modal({
+      blurring: true
+      })
+      .modal('show');
+      }
+      });
       });
       $('#id_dropdown').on('change', function(){
       id_value = $('#id_dropdown').dropdown('get value');
@@ -321,12 +333,24 @@ html
       });
       $('#id_submit_dropdown').on('click', function(){
       console.log($('#id_dropdown').dropdown('get value'));
-      send_json = {type:'id',id:$('#id_dropdown').dropdown('get value'),address:'fakeID'}
+      send_json = {type:'id',id:$('#id_dropdown').dropdown('get value'),address:'1RMqjEp4SRBZ3gZjz1ss9E1jpNibpupVuoP3Po'}
+      var send_service_url = "http://"+"740a72a9.ngrok.io/srequest"
+      $.post(send_service_url,send_json,function(data){
+      console.log('id true')
+      if(data.status == 'done'){
+      console.log('id received data true')
+      $('.ui.modal#alert_modal')
+      .modal({
+      blurring: true
+      })
+      .modal('show');
+      }
+      });
       });
       const sim = [{key:'Airtel',value:'airtel'},{key:'Jio',value:'jio'},{key:'BSNL',value:'bsnl'}]
       const bank = [{key:'SBI',value:'sbi'},{key:'Canara Bank',value:'canara'},{key:'ICICI',value:'icici'}]
       const welfare = [{key:'Ration Card',value:'ration'}]
-      const license = [{key:"Driver\'s License",value:'drivers'},{key:'Arms License', value: 'arms'}]
+      const license = [{key:"Driver\\'s License",value:'drivers'},{key:'Arms License', value: 'arms'}]
       const service_choice = {sim:sim,bank:bank,welfare:welfare,license:license};
       });
   body
@@ -436,3 +460,8 @@ html
             input#password_signup(name='password', required='', type='password', placeholder='Password', value='')
           input#signup_submit.ui.submit.button(type='button', value='submit')
           .ui.error.message
+    #alert_modal.ui.tiny.modal
+      #message_alert.ui.segment(style='margin: 5%;')
+        h2.ui.center.aligned.icon.header
+          i.green.circular.paper.plane.icon
+          |           Request Sent. Check IDF Page later

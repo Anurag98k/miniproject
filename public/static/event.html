@@ -209,6 +209,9 @@
           
       // let event_array='${event_array}';
       var event_array = JSON.parse('!{event_arrays}');
+      if(event_array.length == 0){
+        $('#no_exists').removeClass("hidden");
+      }
       for (var i = event_array.length-1; i>=0; i--) {
         if(event_array[i]["event_type"]=="Birth"){
           var gen_card = document.getElementsByTagName("template")[0];
@@ -854,6 +857,16 @@
     </div>
   </div>
 </template>
+
+<div class="ui center aligned transition hidden segment raised" id="no_exists" style="margin-top:10%;margin-left:20%">
+      <h2 class="ui icon header" style="margin: 3%;">
+        <i class="tiny green bell icon"></i>
+        <div class="content">
+          No Events
+          <div class="sub header">Log IDs into Idempotent. No User data</div>
+        </div>
+      </h2>
+</div>
 
 </div>
 <div class="ui  special cards" id="special_card1">

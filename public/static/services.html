@@ -339,8 +339,22 @@
         });
 
         $('#service_submit_dropdown').on('click', function(){
-          //console.log($('#service_dropdown').dropdown('get value'),":::",$('#serviceA_dropdown').dropdown('get value'));
-          send_json = {type:'service',service:$('#service_dropdown').dropdown('get value'),auth:$('#serviceA_dropdown').dropdown('get value'),address:'fakeID'}
+          console.log($('#service_dropdown').dropdown('get value'),":::",$('#serviceA_dropdown').dropdown('get value'));
+          send_json = {type:'service',service:$('#service_dropdown').dropdown('get value'),auth:$('#serviceA_dropdown').dropdown('get value'),address:'1RMqjEp4SRBZ3gZjz1ss9E1jpNibpupVuoP3Po'};
+          var send_service_url = "http://"+"740a72a9.ngrok.io/srequest"
+          $.post(send_service_url,send_json,function(data){
+            console.log(data.status)
+            console.log('service true')
+            if(data.status == 'done'){
+               console.log('service received data true')
+               $('.ui.modal#alert_modal')
+              .modal({
+                  blurring: true
+                })
+              .modal('show');
+            }
+           
+          });
         });
 
         $('#id_dropdown').on('change', function(){
@@ -357,7 +371,20 @@
 
         $('#id_submit_dropdown').on('click', function(){
           console.log($('#id_dropdown').dropdown('get value'));
-          send_json = {type:'id',id:$('#id_dropdown').dropdown('get value'),address:'fakeID'}
+          send_json = {type:'id',id:$('#id_dropdown').dropdown('get value'),address:'1RMqjEp4SRBZ3gZjz1ss9E1jpNibpupVuoP3Po'}
+          var send_service_url = "http://"+"740a72a9.ngrok.io/srequest"
+          $.post(send_service_url,send_json,function(data){
+            console.log('id true')
+            if(data.status == 'done'){
+              console.log('id received data true')
+               $('.ui.modal#alert_modal')
+              .modal({
+                  blurring: true
+                })
+              .modal('show');
+            }
+           
+          });
         });
 
         const sim = [{key:'Airtel',value:'airtel'},{key:'Jio',value:'jio'},{key:'BSNL',value:'bsnl'}]
@@ -545,6 +572,14 @@
         </form>
       </div>
 
+    </div>
+    <div class="ui tiny modal" id="alert_modal">
+      <div class="ui segment" id="message_alert" style="margin: 5%;">
+        <h2 class="ui center aligned icon header">
+          <i class="green circular paper plane icon"></i>
+          Request Sent. Check IDF Page later
+        </h2>
+      </div>
     </div>
 
 
