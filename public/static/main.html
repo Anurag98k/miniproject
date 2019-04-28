@@ -27,7 +27,7 @@
                     // custom action
                     selected_value=value;
                     console.log(selected_value);
-                    let event_views = ["birth_", "id_", "emp_", "matrimonial_"];
+                    let event_views = [ "id_", "emp_", "matrimonial_"];
                     for (let i = 0; i < event_views.length; i++) {
                         if (event_views[i] === value) {
                             $("#" + value).css("display", "block")
@@ -54,9 +54,9 @@
                 }
 
             }
-            console.log(formData_rel);
+            console.log(formData);
             $.ajax({
-                url: "http://3.86.46.74:3000/users/addcredentials",
+                url: "http://54.81.226.205:3000/users/addcredentials",
                 type: "POST",
                 // dataType: "json",
                 crossDomain: true,
@@ -65,7 +65,7 @@
                     console.log(response)
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
+                    // alert(errorThrown);
                 }
 
             })
@@ -157,7 +157,7 @@
     <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
             <a class="active item">Home</a>
-            <a href="test.html" class="item">Get your services</a>
+            <a href="idf.html" class="item">Get your services</a>
             <a href="main.html" class="item">Log your events</a>
             <a href="view.html" class="item">View your details</a>
             <div class="right item">
@@ -199,6 +199,10 @@
 
                 <div id="birth_" class="field" style="display: none">
                     <h4 class="ui header">Enter Birth Event Details:</h4>
+                    <div class="field required dob_card">
+                        <label style="font-size: inherit">Name</label>
+                        <input type="text" name="birth_name" placeholder="Anurag K" id="birth_name">
+                    </div>
                     <div class="two fields">
                         <div class="field required dob_card">
                             <label style="font-size: inherit">Registration no</label>
@@ -231,7 +235,6 @@
                         <span id="attach_birth_file"></span>
                     </div>
                 </div>
-
                 <div id="id_" class="field" style="display: none">
                     <h4 class="ui header">Enter Government ID Details:</h4>
                     <label><b>Event Type</b></label>
