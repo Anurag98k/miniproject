@@ -32,7 +32,7 @@
         var vendorPath="vendor";
         var fields = '#{title}';
         if(fields!='') {
-            $("#fill_form").css('display','none');
+            $("#fill_form").css('display','block');
             fields = fields.split(',');
             for (let i in fields) {
                 if(fields[i]!=="vendorbirth") {
@@ -910,7 +910,7 @@
                     <br>
                 </form>
                 <button class="ui button blue" id="sumbit_idf" onclick="sendForm()" style="display: none" >Submit</button>
-                <button class="ui button blue" id="fill_form"
+                <button class="ui button blue" id="fill_form" style="display: none;" 
                         onclick="fillAPI('038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')">Fill Form
                 </button>
             </div>

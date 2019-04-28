@@ -27,7 +27,7 @@ html
       var vendorPath="vendor";
       var fields = '#{title}';
       if(fields!='') {
-      $("#fill_form").css('display','none');
+      $("#fill_form").css('display','block');
       fields = fields.split(',');
       for (let i in fields) {
       if(fields[i]!=="vendorbirth") {
@@ -696,7 +696,7 @@ html
             br
             br
           button#sumbit_idf.ui.button.blue(style='display: none', onclick='sendForm()') Submit
-          button#fill_form.ui.button.blue(onclick="fillAPI('038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')")
+          button#fill_form.ui.button.blue(style='display: none;', onclick="fillAPI('038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')")
             | Fill Form
     #login_modal.ui.tiny.modal
       #login_dimmer.ui.dimmer

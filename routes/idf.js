@@ -1,13 +1,39 @@
 var express = require('express');
 var router = express.Router();
 var url = require('url');
+const path = require('path');
+const fs = require('fs');
+const os = require('os');
 
-let multichain = require("multichain-node")({
-    port: 4768,
-    host: '127.0.0.1',
-    user: "multichainrpc",
-    pass: "3JoVoQ4kJqbBYSDyjkVEsEYZa51rFdyUbKojy1z9VdNZ"
-});
+// let multichain = require("multichain-node")({
+//     port: 4768,
+//     host: '127.0.0.1',
+//     user: "multichainrpc",
+//     pass: "3JoVoQ4kJqbBYSDyjkVEsEYZa51rFdyUbKojy1z9VdNZ"
+// });
+
+
+const rpcVar = {};
+
+function GetRPC() {
+  var rpcPath;
+
+  if(os.platform() == 'win32'){rpcPath = path.join(os.homedir(),'AppData','Roaming','Multichain','aish1','multichain.conf');}
+  if(os.platform() == 'linux'){rpcPath = path.join(os.homedir(),'.multichain','aish1','multichain.conf');}
+  
+  var fs = require('fs');
+  var array = fs.readFileSync(rpcPath).toString().split("\n");
+  console.log(array);
+  for(i in array) {
+      tp = array[i].split('=');
+      // console.log(tp[0]);
+      // console.log(tp[1]);
+      data_tp = ''
+      if(tp != ''){data_tp = tp[1].split('\r')[0];}
+    rpcVar[tp[0]] = data_tp;
+  }
+
+}
 
 var formFields;
 router.get ('/test', function (req,res,next) {
@@ -40,6 +66,14 @@ router.get ('/test', function (req,res,next) {
 
 /* GET home page. */
 router.get('/getDetails', function(req, res, next) {
+    GetRPC();
+    
+    let multichain = require("multichain-node")({
+      port: 4768,
+      host: '127.0.0.1',
+      user: rpcVar.rpcuser,
+      pass: rpcVar.rpcpassword
+    });
     console.log("messagw");
     multichain.getAddresses((err, add) => {
         // res.status(200).send(add);
@@ -76,13 +110,21 @@ router.get('/getDetails', function(req, res, next) {
 });
 
 router.get('/getDetails1', function(req, res, next){
+    GetRPC();
+    
+    let multichain = require("multichain-node")({
+      port: 4768,
+      host: '127.0.0.1',
+      user: rpcVar.rpcuser,
+      pass: rpcVar.rpcpassword
+    });
     var queryData = url.parse(req.url, true).query;
     // var url_parts = url.parse(req.url, true);
     // var req_obj = url_parts.query;
     let response_data={};
     let req_fields=Object.keys(queryData);
     console.log(req_fields);
-    multichain.listStreamKeyItems({stream:"test23",key: "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39", "verbose": false, "count": 9999 },(err,rep)=>{
+    multichain.listStreamKeyItems({stream:"test21",key: "038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39", "verbose": false, "count": 9999 },(err,rep)=>{
 
         // console.log(rep[0].data.json);
         // console.log(JSON.stringify(response_data));

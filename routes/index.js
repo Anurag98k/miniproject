@@ -16,6 +16,7 @@ const fs = require('fs');
 const os = require('os');
 var express = require('express');
 var router = express.Router();
+var url = require("url");
 const rpcVar = {};
 
 function GetRPC() {
@@ -110,7 +111,8 @@ router.get('/view', function(req, res, next) {
     });
     //console.log(rpcVar.rpcpassword.split('\r'));
     multichain.subscribe({stream: blk_stream},(erri, txi) => {	});
-	multichain.listStreamPublisherItems({stream: blk_stream, address: blk_publisher, count: 9999},(err, tx)=>{
+    multichain.listStreamItems({stream: blk_stream, count: 9999},(err, tx)=>{
+	// multichain.listStreamPublisherItems({stream: blk_stream, address: blk_publisher, count: 9999},(err, tx)=>{
         if(err){
             console.log(err);
         }
@@ -119,6 +121,10 @@ router.get('/view', function(req, res, next) {
 			var events_array=[];
 			var obj={};
 			for (var i = tx.length - 1; i >= 0; i--) {
+          if(i==tx.length-1){
+            console.log(tx[i])
+          }
+
 					if(events_array.length==8){
 						break;
 					}
@@ -161,8 +167,33 @@ router.get('/services', function(req, res, next) {
   res.render('services', { title: 'Express' });
 });
 
-router.get('/idf', function(req, res, next) {
-  res.render('idf', { title: 'Express' });
+
+var formFields;
+router.get ('/idf', function (req,res,next) {
+    // if(req.url==='/test'){
+    //     console.log("11")
+    // }
+    console.log("11");
+    if(formFields===undefined && req.url==='/idf'){
+        console.log("Ss");
+        res.render('idf', {title: ""});
+    }
+    else {
+        if(formFields!==undefined) {
+            let url_parts = url.parse(formFields, true);
+            let query = url_parts.query;
+            // formFields=query.key
+            console.log(query);
+            res.render('idf',{title:query.key});
+        }
+        else {
+            formFields = req.url;
+            console.log("12333");
+            // res.render('index',{title:formFields});
+            res.send(200);
+        }
+    }
+    // res.send("Ddd")
 });
 
 module.exports = router;
