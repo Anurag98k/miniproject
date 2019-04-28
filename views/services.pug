@@ -311,6 +311,7 @@ html
       send_json = {type:'service',service:$('#service_dropdown').dropdown('get value'),auth:$('#serviceA_dropdown').dropdown('get value'),address:'1RMqjEp4SRBZ3gZjz1ss9E1jpNibpupVuoP3Po'};
       var send_service_url = "http://"+"740a72a9.ngrok.io/srequest"
       $.post(send_service_url,send_json,function(data){
+      console.log(data.status)
       console.log('service true')
       if(data.status == 'done'){
       console.log('service received data true')
@@ -361,6 +362,7 @@ html
           a.active.item(href='#') Get your services
           a.item Log your events
           a.item(href='/view') View your details
+          a.item(href='/idf') IDF Requests
           #right-menu.right.item
             a#logIn.ui.inverted.button Log In
             a#signUp.ui.inverted.button Sign Up

@@ -1,0 +1,744 @@
+doctype html
+html
+  head
+    link(href='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css', rel='stylesheet', type='text/css')
+    script(src='https://code.jquery.com/jquery-3.1.1.min.js', crossorigin='anonymous', integrity='sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=')
+    // <script src="jquery-3.1.1.min.js"></script>
+    script(src='https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js')
+    style.
+      .name_card_flip {
+      display: none;
+      }
+      .address_city_card_flip, .address_hno_card_flip, .address_street_card_flip, .address_state_card_flip, .address_pin_card_flip, .pob_city_card_flip, .pob_state_card_flip, .emp_city_card_flip, .emp_company_card_flip, .emp_join_card_flip, .emp_eid_card_flip, .marriage_city_card_flip, .marriage_date_card_flip, .marriage_pastor_card_flip, .marriage_partner2_name_card_flip {
+      display: none;
+      }
+      .age_card_flip {
+      display: none;
+      }
+      #IDFaddress,#IDFname,#IDFpob,#IDFempslip,#IDFmarriage{
+      display: none;
+      }
+      #fill_form{
+      display: none;
+      }
+    script.
+      let response_arrived = false;
+      $(document).ready(function () {
+      var vendorPath="vendor";
+      var fields = '#{title}';
+      if(fields!='') {
+      $("#fill_form").css('display','none');
+      fields = fields.split(',');
+      for (let i in fields) {
+      if(fields[i]!=="vendorbirth") {
+      $("#" + fields[i]).css('display', 'block');
+      }
+      else{
+      vendorPath=vendorPath+"birth";
+      }
+      }
+      };
+      $('.ui.checkbox').checkbox();
+      $('.ui.radio.checkbox').checkbox();
+      $('select.dropdown').dropdown();
+      let card_array = ["name_card", "address_city_card", "address_hno_card", "address_street_card", "address_state_card", "address_pin_card", "pob_city_card", "pob_state_card", "emp_city_card", "emp_company_card", "emp_join_card", "emp_eid_card", "marriage_city_card", "marriage_date_card", "marriage_pastor_card", "marriage_partner2_name_card"];
+      for (let i in card_array) {
+      $("." + card_array[i]).hover(function () {
+      if (response_arrived) {
+      $("." + card_array[i] + "_flip").css("display", "block");
+      }
+      }, function () {
+      $("." + card_array[i] + "_flip").css("display", "none");
+      });
+      }
+      sendForm = function () {
+      var formData = JSON.stringify($("#myForm").serializeArray());
+      formData = JSON.parse(formData);
+      if (response_arrived) {
+      console.log(response_temp);
+      let response_keys = Object.keys(response_temp);
+      for (let i = 0; i < response_keys.length; i++) {
+      // $("#"+address_details[i])[0].value=response.address[address_details[i]];
+      console.log(response_keys[i]);
+      let temp = response_temp[response_keys[i]];
+      if (typeof (temp[response_keys[i]]) === "object") {
+      let response_inner_keys = Object.keys(temp[response_keys[i]]);
+      for (let j = 0; j < response_inner_keys.length; j++) {
+      for (let k = 0; k < formData.length; k++) {
+      if (formData[k]["name"] === response_inner_keys[j]) {
+      formData[k]["txid"] = temp.txid
+      }
+      }
+      }
+      } else {
+      for (let k = 0; k < formData.length; k++) {
+      console.log(formData[k]["name"], response_keys[i]);
+      if (formData[k]["name"] === response_keys[i]) {
+      formData[k]["txid"] = temp.txid
+      }
+      }
+      }
+      }
+      }
+      console.log(formData);
+      $.ajax({
+      url: "http://52.203.187.112:3000/users/" + vendorPath,
+      type: "POST",
+      // dataType: "json",
+      crossDomain: true,
+      data: JSON.stringify(formData),
+      success: function (response) {
+      console.log(response)
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+      // alert(errorThrown);
+      }
+      })
+      };
+      fillAPI = function (pubkey) {
+      var path="pubkey="+pubkey;
+      for (let i in ["Birth","Migration","Marriage","Employment"]){
+      }
+      $.ajax({
+      // url:"http://127.0.0.1:3001/idf/getDetails1?pubkey="+pubkey+"&address=req&ageproof=req&name=req",
+      url: "http://localhost:3001/idf/getDetails1?pubkey=" + pubkey + "&address_new=req&birth_name=req&pob=req&marriage_city=req&marriage_date=req&marriage_pastor=req&marriage_partner2_name=req&emp_company=req&emp_eid=req&emp_join=req&emp_city=req",
+      type: "GET",
+      // dataType:"json",
+      // data:JSON.stringify({pubkey:pubkey,address:"req",ageproof:"req",name:"req"}),
+      // contentType: 'application/json',
+      crossDomain: true,
+      success: function (response, textStatus, jqXHR) {
+      response_arrived = true;
+      response_temp = response;
+      $("#fill_form").css("display", "none");
+      $("#sumbit_idf").css("display", "block");
+      let response_keys = Object.keys(response);
+      // console.log(response_keys)
+      for (let i = 0; i < response_keys.length; i++) {
+      // $("#"+address_details[i])[0].value=response.address[address_details[i]];
+      // console.log(response_keys[i]);
+      let temp = response[response_keys[i]];
+      if (typeof (temp[response_keys[i]]) === "object") {
+      let response_inner_keys = Object.keys(temp[response_keys[i]]);
+      for (let j = 0; j < response_inner_keys.length; j++) {
+      // console.log(response_inner_keys);
+      $("#" + response_inner_keys[j])[0].value = temp[response_keys[i]][response_inner_keys[j]];
+      let verify_card = $('#' + response_inner_keys[j] + '_verify').children();
+      if (temp.hasOwnProperty("verified_by")) {
+      verify_card[0].innerHTML = "Verified By- " + temp.meta["verified_by"] + ' <i class="right chevron icon circle"></i>' + temp.meta["verifier"]
+      } else {
+      verify_card[0].innerHTML = "Verified By- " + temp.meta["verifier"];
+      }
+      verify_card[1].innerHTML = temp[response_keys[i]][response_inner_keys[j]];
+      verify_card[2].innerHTML = "<b>Txid:<br></b>" + temp.txid;
+      }
+      } else {
+      console.log(response_keys[i]);
+      $("#" + response_keys[i])[0].value = temp[response_keys[i]];
+      let verify_card = $('#' + response_keys[i] + '_verify').children();
+      verify_card[0].innerHTML = "Verified By- " + temp.meta.verifier;
+      verify_card[1].innerHTML = temp[response_keys[i]];
+      verify_card[2].innerHTML = "<b>Txid:<br></b>" + temp.txid;
+      }
+      }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+      alert(errorThrown);
+      }
+      });
+      };
+      //Side bar Log=In check
+      if (localStorage.getItem('username')){
+      $('#right-menu').empty();
+      $('#right-menu').append("<div class='ui inverted button'> Welcome, "+localStorage.getItem('username')+'</div>');
+      $('#right-menu').append("<div class='ui inverted button' id='signOut'>Sign Out</div>");
+      }
+      else{
+      console.log("not logged in");
+      }
+      $('#logIn').on('click',function(){
+      $('.ui.modal#login_modal')
+      .modal({
+      blurring: true
+      })
+      .modal({
+      onHidden:function() {
+      $('.ui.message#login_message').addClass('hidden');
+      $('.ui.message#login_message_2').addClass('hidden');
+      $('#login_form').trigger('reset');
+      return false;
+      }
+      })
+      .modal('show');
+      });
+      $('#signUp').on('click',function(){
+      $('.ui.modal#signup_modal')
+      .modal({
+      blurring: true
+      })
+      .modal({
+      onHidden:function(){
+      $('.ui.message#signup_message').addClass('hidden');
+      $('#signup_form').trigger('reset');
+      return false;
+      }
+      })
+      .modal('show');
+      });
+      $('#signOut').on('click',function(){
+      localStorage.clear();
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      window.location.reload(true);
+      });
+      });
+      //onHidden
+      //For Login modal
+      var username_login;
+      var password_login;
+      $("#login_submit").click(function() {
+      $('.ui.dimmer#login_dimmer').addClass('active');
+      $('.ui.message#login_message').addClass('hidden');
+      $('.ui.message#login_message_2').addClass('hidden');
+      if( $('#login_form').form("is valid") ){
+      username_login = $("#username_login").val();
+      password_login = $("#password_login").val();
+      //check if username exists first before sending password data.
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_login,password:password_login},function (data) {
+      if (data.status == 'done'){
+      localStorage.token = data.token;
+      localStorage.username = username_login;
+      //Call /wallet/multichain/exists
+      //If false:
+      //Call /wallet/multichain/init
+      //Call /wallet/multichain/restore
+      //Start
+      //If true
+      //Call /wallet/multichain/stop
+      //Call /wallet/multichain/restore
+      //Start
+      $.get("http://localhost:3001/wallet/multichain/exists", function(data){
+      if(data.status == 'done'){
+      if(data.exists == false ){
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
+      if(data.result == 'failed' || data.result == 'done' ){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')},function(data){
+      if(data.status == 'done'){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      window.location.reload(true);
+      });
+      }
+      });
+      }
+      });
+      }
+      else{
+      //data.exists == false
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      $.post("http://localhost:3001/wallet/multichain/restore",{token:localStorage.getItem('token')}, function(data){
+      if(data.status == 'done'){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      window.location.reload(true);
+      });
+      }
+      });
+      });
+      }
+      }
+      });
+      }
+      else{
+      //FAILED
+      if(data.status == 'failed'){
+      $('.ui.dimmer#login_dimmer').removeClass('active');
+      $('.ui.message#login_message').removeClass('hidden');
+      }
+      }
+      })
+      }
+      else {
+      $('.ui.message#login_message_2').removeClass('hidden');
+      }
+      });
+      //SignUp
+      //create Credentials
+      //Check if multichain folder exists
+      //YES - then delete it
+      //multichain INIT
+      //send to dns.js to get permissions
+      //multichain Backup
+      //LOGIn
+      var username_signup;
+      var password_signup;
+      var email_signup;
+      function submitFormSignup() {
+      $('.ui.dimmer#signup_dimmer').addClass('active');
+      if( $('form#signup_form').form('is valid') ){
+      username_signup = $("#username_signup").val();
+      password_signup = $("#password_signup").val();
+      email_signup = $("#email_signup").val();
+      //check if username exists first before sending password data.
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/signup", {username:username_signup,password:password_signup,email:email_signup},function (data) {
+      if (data.status == 'done'){
+      //window.location.reload(true);
+      $.get("http://localhost:3001/wallet/multichain/stop", function(data){
+      $.get("http://localhost:3001/wallet/multichain/delete", function(data) {
+      console.log('Deleted');
+      $.get("http://localhost:3001/wallet/multichain/init", function(data){
+      console.log('Init');
+      address_signup = data.address;
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3000/login", {username:username_signup,password:password_signup}, function(data) {
+      token_signup = data.token;
+      $.post("http://ec2-3-83-141-28.compute-1.amazonaws.com:3002/grant", {address:address_signup,token:token_signup}, function(data){
+      $.get("http://localhost:3001/wallet/multichain/start",function(data){
+      $.post("http://localhost:3001/wallet/multichain/backup", {token:token_signup}, function(data){
+      $('.ui.dimmer#signup_dimmer').removeClass('active');
+      localStorage.token = token_signup;;
+      localStorage.username = username_signup;
+      window.location.reload(true);
+      });
+      });
+      });
+      });
+      });
+      });
+      });
+      }
+      else{
+      }
+      })
+      }
+      else {
+      console.log("Invalid username/password/email");
+      }
+      }
+      $('.ui.form#signup_form')
+      .form({
+      fields: {
+      username : 'empty',
+      password : ['minLength[6]', 'empty'],
+      email: 'email'
+      },
+      onSuccess: function() {
+      submitFormSignup();
+      return false;
+      }
+      })
+      });
+    meta(charset='UTF-8')
+    title IdentityForm
+    style(type='text/css').
+      /*.masthead.segment {
+      min-height: 753px;
+      padding: 1em 0em;
+      }*/
+      .masthead.segment {
+      min-height: 100%;
+      padding: 1em 0em;
+      }
+      .masthead .logo.item img {
+      margin-right: 1em;
+      }
+      .masthead .ui.menu .ui.button {
+      margin-left: 0.5em;
+      }
+      .masthead h1.ui.header {
+      margin-top: 3em;
+      margin-bottom: 0em;
+      font-size: 4em;
+      font-weight: normal;
+      }
+      .masthead h2 {
+      font-size: 1.7em;
+      font-weight: normal;
+      }
+      /*.card {*/
+      /*height: 250px;*/
+      /*width: 100px;*/
+      /*}*/
+      /*.ui .cards{
+      margin: 2.3em -26em;
+      width: 2000px;
+      }*/
+      /*.ui .cards{*/
+      /*margin: 5% -37%;*/
+      /*width: 200%;*/
+      /*}*/
+      /*.ui.cards>.card>.content>.header:not(.ui) {*/
+      /*margin-top: 3.78575em;*/
+      /*}*/
+      @media only screen and (max-width: 700px) {
+      .ui.fixed.menu {
+      display: none !important;
+      }
+      .secondary.pointing.menu .item,
+      .secondary.pointing.menu .menu {
+      display: none;
+      }
+      .secondary.pointing.menu .toc.item {
+      display: block;
+      }
+      .masthead.segment {
+      min-height: 350px;
+      }
+      .masthead h1.ui.header {
+      font-size: 2em;
+      margin-top: 1.5em;
+      }
+      .masthead h2 {
+      margin-top: 0.5em;
+      font-size: 1.5em;
+      }
+      }
+  body
+    .ui.inverted.vertical.masthead.center.aligned.segment
+      .ui.container
+        .ui.large.secondary.inverted.pointing.menu
+          a.item Home
+          a.item(href='/services') Get your services
+          a.item(href='#') Log your events
+          a.item(href='/view') View your details
+          a.item.active(href='#') IDF Requests
+          #right-menu.right.item
+            a#logIn.ui.inverted.button Log In
+            a#signUp.ui.inverted.button Sign Up
+      .ui.text.container(style='margin-top: 3%')
+        .ui.segment
+          // <div class="ui blue right ribbon label large">Voter ID Application</div>
+          form#myForm.ui.form(action='http://localhost:3001/multisig/idf', method='post')
+            // <form class="ui form">
+            .disabled.field
+              label(style='opacity: 1') Public Key
+              input(name='pubkey', tabindex='-1', type='text', value='038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')
+            hr
+            #IDFname
+              span
+                b Name 
+              .name_form(style='margin: 5% 15% 5% 15%')
+                .ui.ignored.info.message
+                  | Applicant's Name details
+                .field.required.name_card
+                  label(style='font-size: inherit') Full Name of Applicant
+                  input#birth_name(name='birth_name', type='text', placeholder='Full Name')
+                .name_card_flip
+                  .ui.cards.verify
+                    .card
+                      #birth_name_verify.content
+                        #birth_name_from.header Elliot Fu
+                        #birth_name_name.meta Friend
+                        #birth_name_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+              hr
+            #IDFaddress
+              label(style='font-size: inherit')
+                b Permanent Address
+              #address_form(style='margin: 5% 15% 5% 15%')
+                .ui.ignored.info.message
+                  | Applicant's permanent address details
+                .field.required.address_hno_card
+                  label(style='font-size: inherit') House No
+                  input#address_hno(name='address_hno', type='text', placeholder='Apartment No/Block Name')
+                .address_hno_card_flip
+                  .ui.cards.verify
+                    .card
+                      #address_hno_verify.content
+                        #address_hno_from.header Elliot Fu
+                        #address_hno_name.meta Friend
+                        #address_hno_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.address_street_card
+                  label(style='font-size: inherit') Street/Area/Locality
+                  input#address_street(name='address_street', type='text', placeholder='Street Name')
+                .address_street_card_flip
+                  .ui.cards.verify
+                    .card
+                      #address_street_verify.content
+                        #address_street_from.header Elliot Fu
+                        #address_street_name.meta Friend
+                        #address_street_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.address_city_card
+                  label(style='font-size: inherit') Town/Village
+                  input#address_city(name='address_city', type='text', placeholder='City/Town Name')
+                .address_city_card_flip
+                  .ui.cards.verify
+                    .card
+                      #address_city_verify.content
+                        #address_city_from.header Elliot Fu
+                        #address_city_name.meta Friend
+                        #address_city_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.address_pin_card
+                  label(style='font-size: inherit') Pin Code
+                  input#address_pin(name='address_pin', type='text', placeholder='500032')
+                .address_pin_card_flip
+                  .ui.cards.verify
+                    .card
+                      #address_pin_verify.content
+                        #address_pin_from.header Elliot Fu
+                        #address_pin_name.meta Friend
+                        #address_pin_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.address_state_card
+                  label(style='font-size: inherit') State
+                  input#address_state(name='address_state', type='text', placeholder='500032')
+                .address_state_card_flip
+                  .ui.cards.verify
+                    .card
+                      #address_state_verify.content
+                        #address_state_from.header Elliot Fu
+                        #address_state_name.meta Friend
+                        #address_state_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+              hr
+            #IDFpob
+              label
+                b Place of Birth and Declaration
+              #dob_form(style='margin: 5% 15% 5% 15%')
+                .ui.ignored.info.message
+                  | Applicant's Birth event details
+                span  I am a citizen of India and place of my birth is
+                .field.required.pob_city_card
+                  label(style='font-size: inherit') Town/Village
+                  input#pob_city(name='pob_city', type='text', placeholder='City/Town Name')
+                .pob_city_card_flip
+                  .ui.cards.verify
+                    .card
+                      #pob_city_verify.content
+                        #pob_city_from.header Elliot Fu
+                        #pob_city_name.meta Friend
+                        #pob_city_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.pob_state_card
+                  label(style='font-size: inherit') State
+                  input#pob_state(name='pob_state', type='text', placeholder='Karnataka')
+                .pob_state_card_flip
+                  .ui.cards.verify
+                    .card
+                      #pob_state_verify.content
+                        #pob_state_from.header Elliot Fu
+                        #pob_state_name.meta Friend
+                        #pob_state_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required
+                  label(style='font-size: inherit') District
+                  input#pob_district(name='pob_district', type='text', placeholder='Mandya')
+              hr
+            #IDFempslip
+              label
+                b Employment and emp slip
+              #emp_form(style='margin: 5% 15% 5% 15%')
+                .ui.ignored.info.message
+                  | Applicant's Employment and Salary details
+                .field.required.emp_company_card
+                  label(style='font-size: inherit') Company Name:
+                  input#emp_company(name='emp_company', type='text', placeholder='Cisco')
+                .emp_company_card_flip
+                  .ui.cards.verify
+                    .card
+                      #emp_company_verify.content
+                        #emp_company_from.header Elliot Fu
+                        #emp_company_name.meta Friend
+                        #emp_company_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.emp_eid_card
+                  label(style='font-size: inherit') Employee ID:
+                  input#emp_eid(name='emp_eid', type='text', placeholder='10040236')
+                .emp_eid_card_flip
+                  .ui.cards.verify
+                    .card
+                      #emp_eid_verify.content
+                        #emp_eid_from.header Elliot Fu
+                        #emp_eid_name.meta Friend
+                        #emp_eid_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.emp_join_card
+                  label(style='font-size: inherit') Join Date:
+                  input#emp_join(name='emp_join', type='text', placeholder='dd/mm/yyyy')
+                .emp_join_card_flip
+                  .ui.cards.verify
+                    .card
+                      #emp_join_verify.content
+                        #emp_join_from.header Elliot Fu
+                        #emp_join_name.meta Friend
+                        #emp_join_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.emp_city_card
+                  label(style='font-size: inherit') City of Employment:
+                  input#emp_city(name='emp_city', type='text', placeholder='Bangalore')
+                .emp_city_card_flip
+                  .ui.cards.verify
+                    .card
+                      #emp_city_verify.content
+                        #emp_city_from.header Elliot Fu
+                        #emp_city_name.meta Friend
+                        #emp_city_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+              hr
+            #IDFmarriage
+              label
+                b Matrimonial Details
+              #marriage_form(style='margin: 5% 15% 5% 15%')
+                .ui.ignored.info.message
+                  | Applicant's self and spousal's Marriage Information
+                .field.required.marriage_partner2_name_card
+                  label(style='font-size: inherit') Spouse's Name:
+                  input#marriage_partner2_name(name='marriage_partner2_name', type='text', placeholder='Anitha')
+                .marriage_partner2_name_card_flip
+                  .ui.cards.verify
+                    .card
+                      #marriage_partner2_name_verify.content
+                        #marriage_partner2_name_from.header Elliot Fu
+                        #marriage_partner2_name_name.meta Friend
+                        #marriage_partner2_name_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.marriage_pastor_card
+                  label(style='font-size: inherit') Officiated By:
+                  input#marriage_pastor(name='marriage_pastor', type='text', placeholder='Akhil')
+                .marriage_pastor_card_flip
+                  .ui.cards.verify
+                    .card
+                      #marriage_pastor_verify.content
+                        #marriage_pastor_from.header Elliot Fu
+                        #marriage_pastor_name.meta Friend
+                        #marriage_pastor_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.marriage_date_card
+                  label(style='font-size: inherit') Marriage Date:
+                  input#marriage_date(name='marriage_date', type='text', placeholder='dd/mm/yyyy')
+                .marriage_date_card_flip
+                  .ui.cards.verify
+                    .card
+                      #marriage_date_verify.content
+                        #marriage_date_from.header Elliot Fu
+                        #marriage_date_name.meta Friend
+                        #marriage_date_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+                .field.required.marriage_city_card
+                  label(style='font-size: inherit') City of marriage:
+                  input#marriage_city(name='marriage_city', type='text', placeholder='Bangalore')
+                .marriage_city_card_flip
+                  .ui.cards.verify
+                    .card
+                      #marriage_city_verify.content
+                        #marriage_city_from.header Elliot Fu
+                        #marriage_city_name.meta Friend
+                        #marriage_city_txid.description(style='word-break: break-all')
+                          | hello
+                      .extra.content
+                        | Verified
+                        a
+                          i.check.circle.icon.teal.users.icon.large(style='float: right')
+              hr
+            // </div>
+            br
+            br
+          button#sumbit_idf.ui.button.blue(style='display: none', onclick='sendForm()') Submit
+          button#fill_form.ui.button.blue(onclick="fillAPI('038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39')")
+            | Fill Form
+    #login_modal.ui.tiny.modal
+      #login_dimmer.ui.dimmer
+        .ui.indeterminate.medium.text.loader Validating
+      #login_message.ui.negative.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Incorrect Details! Please Try again..
+      #login_message_2.ui.warning.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Please Enter ALL fields before submitting
+      #login.ui.segment(style='margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;')
+        h2.ui.center.aligned.icon.header
+          i.circular.key.icon
+          |           LogIn
+        form#login_form.ui.form
+          .field.required
+            label Username
+            input#username_login(name='username', required='', type='text', placeholder='Username', value='')
+          .field.required
+            label Password
+            input#password_login(name='password', required='', type='password', placeholder='Password', value='')
+          input#login_submit.ui.submit.button(type='button', value='submit')
+          .ui.error.message
+    #signup_modal.ui.tiny.modal
+      #signup_dimmer.ui.dimmer
+        .ui.indeterminate.medium.text.loader Validating
+      #signup_message.ui.warning.message.hidden(style='margin-left:2%;margin-right:2%;margin-top:2%;')
+        .header
+          | Please Enter ALL fields before submitting
+      #signup.ui.segment(style='margin-left:13%;margin-right:13%;margin-top:7%;margin-bottom:7%;')
+        h2.ui.center.aligned.icon.header
+          i.circular.paper.plane.icon
+          |           SignUp
+        form#signup_form.ui.form
+          .field
+            label Username
+            input#username_signup(name='username', required='', type='text', placeholder='Username', value='')
+          .field
+            label Email
+            input#email_signup(name='email', required='', type='text', placeholder='Email Address', value='')
+          .field
+            label Password
+            input#password_signup(name='password', required='', type='password', placeholder='Password', value='')
+          input#signup_submit.ui.submit.button(type='button', value='submit')
+          .ui.error.message
