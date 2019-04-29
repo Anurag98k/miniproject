@@ -77,7 +77,7 @@ function GetRPC() {
     reqi.end();
 });*/
 
-var blk_stream = "test21";
+var blk_stream = "test23";
 var blk_publisher = "1DkQGLaSibCC8jsryRGYGQmLg1S6S155dMfdaw";
 // var blk_publisher = "1RMqjEp4SRBZ3gZjz1ss9E1jpNibpupVuoP3Po";
 
