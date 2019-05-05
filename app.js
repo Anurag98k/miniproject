@@ -8,6 +8,10 @@ var http = require('http');
 var cors = require('cors');
 const open = require('open');
 
+var app = express();
+app.use(cors({origin:"http://localhost:3001"}))
+app.options('*', cors());
+
 
 var indexRouter = require('./routes/index');
 var multisigRouter = require('./routes/multisig');
@@ -15,8 +19,7 @@ var idfRouter = require('./routes/idf');
 var walletRouter = require('./routes/wallet');
 
 
-var app = express();
-app.options('*', cors());
+
 
 
 //

@@ -309,7 +309,7 @@ html
       $('#service_submit_dropdown').on('click', function(){
       console.log($('#service_dropdown').dropdown('get value'),":::",$('#serviceA_dropdown').dropdown('get value'));
       send_json = {type:'service',service:$('#service_dropdown').dropdown('get value'),auth:$('#serviceA_dropdown').dropdown('get value'),address:'1RMqjEp4SRBZ3gZjz1ss9E1jpNibpupVuoP3Po'};
-      var send_service_url = "http://"+"740a72a9.ngrok.io/srequest"
+      var send_service_url = "http://"+"57abe04a.ngrok.io/srequest"
       $.post(send_service_url,send_json,function(data){
       console.log(data.status)
       console.log('service true')
@@ -335,7 +335,7 @@ html
       $('#id_submit_dropdown').on('click', function(){
       console.log($('#id_dropdown').dropdown('get value'));
       send_json = {type:'id',id:$('#id_dropdown').dropdown('get value'),address:'1RMqjEp4SRBZ3gZjz1ss9E1jpNibpupVuoP3Po'}
-      var send_service_url = "http://"+"740a72a9.ngrok.io/srequest"
+      var send_service_url = "http://"+"57abe04a.ngrok.io/srequest"
       $.post(send_service_url,send_json,function(data){
       console.log('id true')
       if(data.status == 'done'){
