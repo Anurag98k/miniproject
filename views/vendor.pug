@@ -1,0 +1,98 @@
+extends layout
+
+block content
+    script.
+        $(document).ready(function () {
+            $('.ui.dropdown').dropdown();
+            var request_view=JSON.parse('!{title}');
+            //var request_view = {type: "service", service: "Sim Card", auth: 'airtel', address: "0193748293748923748392"}
+            // var request_view={type:"id", id:"aadhaar",address:"0193748293748923748392"}
+            if (request_view == '') {
+                //HIDE REQUEST
+                $('#req').css('display', 'none')
+            } else {
+                $('#req').css('display', 'block');
+                if (request_view.type === 'service') {//show request
+                    $('#req_meta').html("Service Request");
+                    $('#req_add').html(request_view.address);
+                    $('#req_des').html('The above user has requested for ' + request_view.service + ' from ' + request_view.auth);
+                    $('#req_type').html(request_view.service);
+                } else if (request_view.type === 'id') {
+                    $('#req_meta').html("ID Attainment");
+                    $('#req_add').html(request_view.address);
+                    $('#req_des').html('The above user has applied for ' + request_view.id + " " + request_view.type);
+                    $('#req_type').html(request_view.id);
+                }
+            }
+        });
+        function processReq(bool) {
+            if (bool) {
+                $('#IDFdetails').css("display", "block");
+            } else {
+                $('#serviceReq').remove();
+                $('#IDFdetails').remove();
+                $('#request_card').remove();
+            }
+        }
+        function sendIDF() {
+            let IDFfields = $('#IDFfields').dropdown('get value');
+            $('#IDFsendbutton').html("Sent");
+            $('#IDFsendbutton').addClass("disabled");
+            $.ajax({
+                url: "http://5468c812.ngrok.io/idf?key=" + IDFfields,
+                type: "GET",
+                // dataType: "json",
+                crossDomain: true,
+                success: function (response) {
+                    console.log(response);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            })
+        }
+
+    .ui.inverted.vertical.masthead.center.aligned.segment
+        .ui.container
+            .ui.large.secondary.inverted.pointing.menu
+                a.active.item Home
+                a.item(href='test.html') Get your services
+                a.item(href='main.html') Log your events
+                a.item(href='view.html') View your details
+                .right.item
+                    a.ui.inverted.button Log In
+                    a.ui.inverted.button Sign Up
+        #req.ui.text.container(style='display: none')
+            #special_card.ui.special.cards(style='margin:0% 0%')
+                #request_card.ui.segment(style='background-color: white; margin-top: 5%')
+                    #serviceReq.ui.fluid.raised.card(style='height: 180px')
+                        .content
+                            #req_type.header New Sim Card
+                            #req_meta.meta Service Request
+                            .description
+                                p
+                                    b Address:
+                                    span#req_add 038c6839a164a8cd4d61e3de5177b1f52ef8f13d76325f9844fe701fb5daff5b39
+                                    br
+                                p#req_des The above user has requested for a new sim card
+                        .extra.content
+                            .ui.two.buttons
+                                .ui.basic.green.button(onclick='processReq(1)') Approve
+                                .ui.basic.red.button(onclick='processReq(0)') Decline
+                    #IDFdetails(style='display: none; margin-top: 5%')
+                        hr
+                        h3.ui.header(align='center')  Create IDF
+                        .ui.info.message(align='centre')
+                            | Select the necessary authenticating fields for the user in Identity Form
+                        select#IDFfields.ui.fluid.search.dropdown(multiple='')
+                            option(value='') IDF fields
+                            option(value='IDFname') Name
+                            option(value='IDFaddress') Address
+                            option(value='age') Age Proof
+                            option(value='IDFpob') Birth Proof
+                            option(value='IDFempslip') Employment Statement
+                            option(value='IDFmarriage') Marriage certificate
+                            option(value='Education') Highest Education
+                            option(value='death') Death Details
+                        button#IDFsendbutton.ui.button(onclick='sendIDF()', style='float: right; margin-top: 2%') Send Form
+
